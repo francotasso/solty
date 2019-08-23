@@ -139,9 +139,116 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 360px) {
   #card {
-    height: 12.6rem;
+    height: 12rem;
+    font-size: 15px;
+  }
+  #card-name {
+    position: absolute;
+    bottom: 0;
+  }
+
+  #card-number {
+    position: absolute;
+    top: 80px;
+    left: 10px;
+  }
+
+  #card-expiration-month {
+    position: absolute;
+    top: 104px;
+    left: 130px;
+  }
+
+  #card-expiration-year {
+    position: absolute;
+    top: 104px;
+    left: 155px;
+  }
+
+  #card-security-code {
+    position: absolute;
+    top: 40px;
+    right: 70px;
+  }
+}
+@media screen and (min-width: 361px) and (max-width: 410px) {
+  #card {
+    height: 12.5rem;
+  }
+  #card-name {
+    position: absolute;
+    bottom: 0;
+  }
+
+  #card-number {
+    position: absolute;
+    top: 90px;
+    left: 12px;
+  }
+
+  #card-expiration-month {
+    position: absolute;
+    top: 110px;
+    left: 135px;
+  }
+
+  #card-expiration-year {
+    position: absolute;
+    top: 110px;
+    left: 160px;
+  }
+
+  #card-security-code {
+    position: absolute;
+    top: 40px;
+    right: 70px;
+  }
+}
+
+#card {
+  background-image: url("https://www.viabcp.com/wcm/connect/8e9f2e16-1235-47ff-8e14-bb3a760f90e6/BCP_tarjeta+Credima%CC%81s+De%CC%81bito+Visa+%28tira%29-XL.png?MOD=AJPERES&CONVERT_TO=url&CACHEID=ROOTWORKSPACE-8e9f2e16-1235-47ff-8e14-bb3a760f90e6-muFlKv7");
+  background-size: cover;
+  position: relative;
+}
+@media screen and (min-width: 411px) and (max-width: 767px) {
+  #card {
+    height: 14rem;
+    font-size: 15px;
+  }
+  #card-name {
+    position: absolute;
+    bottom: 0;
+  }
+
+  #card-number {
+    position: absolute;
+    top: 100px;
+    left: 12px;
+  }
+
+  #card-expiration-month {
+    position: absolute;
+    top: 128px;
+    left: 150px;
+  }
+
+  #card-expiration-year {
+    position: absolute;
+    top: 128px;
+    left: 175px;
+  }
+
+  #card-security-code {
+    position: absolute;
+    top: 50px;
+    right: 80px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  #card {
+    height: 12.5rem;
     font-size: 15px;
   }
   #card-name {
@@ -169,13 +276,14 @@ export default {
 
   #card-security-code {
     position: absolute;
-    top: 50px;
-    right: 80px;
+    top: 40px;
+    right: 70px;
   }
 }
-@media screen and (min-width: 376px) {
+@media screen and (min-width: 1024px) {
   #card {
-    height: 14.6rem;
+    height: 14.5rem;
+    font-size: 15px;
   }
   #card-name {
     position: absolute;
@@ -190,26 +298,20 @@ export default {
 
   #card-expiration-month {
     position: absolute;
-    top: 148px;
-    left: 115px;
+    top: 132px;
+    left: 160px;
   }
 
   #card-expiration-year {
     position: absolute;
-    top: 148px;
-    left: 140px;
+    top: 132px;
+    left: 185px;
   }
 
   #card-security-code {
     position: absolute;
-    top: 60px;
-    right: 80px;
+    top: 55px;
+    right: 90px;
   }
-}
-
-#card {
-  background-image: url("https://www.viabcp.com/wcm/connect/8e9f2e16-1235-47ff-8e14-bb3a760f90e6/BCP_tarjeta+Credima%CC%81s+De%CC%81bito+Visa+%28tira%29-XL.png?MOD=AJPERES&CONVERT_TO=url&CACHEID=ROOTWORKSPACE-8e9f2e16-1235-47ff-8e14-bb3a760f90e6-muFlKv7");
-  background-size: cover;
-  position: relative;
 }
 </style>

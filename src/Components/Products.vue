@@ -95,7 +95,7 @@
           <div class="row">
             <div v-for="product in productsFiltered" :key="product.id" class="col-lg-4 col-md-6">
               <section class="cards mb-5">
-                <article class="card card--1">
+                <article class="card card--1 mx-auto">
                   <div class="card__info-hover">
                     <svg class="card__like" viewBox="0 0 24 24">
                       <path

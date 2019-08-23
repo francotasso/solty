@@ -36,7 +36,6 @@
 import { mapState } from "vuex";
 export default {
   name: "productDescription",
-  props: ["id"],
   computed: {
     ...mapState("product", ["currentProductToBuy"])
   },
