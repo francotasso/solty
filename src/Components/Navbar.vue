@@ -6,7 +6,7 @@
           <div class="d-flex justify-content-center">
             <router-link to="/products" class="navbar-brand">
               <img
-                src="../assets/SoltyLogo2.png"
+                src="./assets/SoltyLogo2.png"
                 width="60"
                 height="40"
                 alt="Solty Logo"
