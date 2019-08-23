@@ -2,6 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -88,6 +89,9 @@ if (process.env.NODE_ENV === 'production') {
     new HtmlWebpackPlugin({
       template: './index.html'
     }),
+    new CopyWebpackPlugin([
+      {from:'src/assets',to:'assets'} 
+    ]),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
