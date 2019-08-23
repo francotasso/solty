@@ -19,7 +19,7 @@
     "serve-static": "^1.14.1",
     "uglifyjs-webpack-plugin": "^1.3.0",
     "html-webpack-plugin": "^3.2.0",
-    "copy-webpack-plugin": "^5.0.4",
+    "copy-webpack-plugin": "^4.6.0",
     "vee-validate": "^2.2.13",
     "vue": "^2.5.11",
     "vue-router": "^3.0.7",
@@ -50,5 +50,5 @@
   ],
   "description": "App based on apply knowledges about vue js",
   "author": "francotasso",
-  "license": "UNMSM"
+  "license": "None"
 }
