@@ -168,7 +168,7 @@ export default {
 
   .button_container {
     position: fixed;
-    top: 2%;
+    top: 3%;
     left: 4%;
     height: $button-height;
     width: $button-width;
