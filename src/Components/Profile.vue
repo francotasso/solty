@@ -2,7 +2,7 @@
   <div>
     <navbar />
     <div class="container mt-5 mb-5">
-      <div class="d-flex flex-column justify-content-center align-items-center">
+      <div class="d-flex flex-column justify-content-center align-items-center" id="box">
         <h2 class="mb-4">Mi info</h2>
         <div
           v-if="errorMessageUpdateProfile"
@@ -129,5 +129,10 @@ export default {
 <style scopped>
 .form-w-300 {
   width: 300px;
+}
+@media screen and (max-width: 768px) {
+  #box {
+    margin-top: 7rem;
+  }
 }
 </style>

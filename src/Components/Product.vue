@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar />
-    <div class="container">
+    <div class="container" id="box">
       <ul class="nav nav-tabs mt-5">
         <li class="nav-item">
           <router-link class="nav-link" :to="'/product/' + id + '/description'">Descripción</router-link>
@@ -41,7 +41,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+@media screen and (max-width: 768px) {
+  #box {
+    margin-top: 5rem;
+  }
+}
 </style>
 
 

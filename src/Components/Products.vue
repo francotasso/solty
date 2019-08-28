@@ -2,7 +2,7 @@
   <div class="body">
     <navbar />
     <div class="container py-5">
-      <div class="bd-example">
+      <div class="box">
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -387,6 +387,12 @@ body {
 
 .card:hover .card__info-hover {
   opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .box {
+    margin-top: 3rem;
+  }
 }
 </style>
 
