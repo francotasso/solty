@@ -42,10 +42,8 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width: 768px) {
-  #box {
-    margin-top: 6rem;
-  }
+#box {
+  margin-top: 6rem;
 }
 </style>
 
