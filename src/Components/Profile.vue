@@ -78,10 +78,10 @@
             />
           </div>
           <div class="d-flex justify-content-center" v-if="!edit">
-            <button class="btn btn-primary" @click="edit=true">Editar</button>
+            <button class="btn bg-darkblue" @click="edit=true">Editar</button>
           </div>
           <div class="d-flex justify-content-center" v-else>
-            <button class="btn btn-success" @click="handleUpdateProfile">Guardar</button>
+            <button class="btn bg-ocre" @click="handleUpdateProfile">Guardar</button>
           </div>
         </div>
       </div>
@@ -130,9 +130,22 @@ export default {
 .form-w-300 {
   width: 300px;
 }
-@media screen and (max-width: 768px) {
-  #box {
-    margin-top: 7rem;
-  }
+
+#box {
+  margin-top: 7rem;
+}
+
+.bg-darkblue {
+  background-color: #254b8f;
+  color: #fff;
+}
+
+.bg-ocre {
+  background-color: #debb07;
+  color: #fff;
+}
+
+.btn:focus {
+  box-shadow: none;
 }
 </style>

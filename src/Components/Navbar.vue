@@ -1,30 +1,47 @@
 <template>
   <div>
     <div class="d-none d-md-block">
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top">
         <div class="container">
-          <div class="d-flex justify-content-center">
+          <div>
             <router-link to="/products" class="navbar-brand">
               <img
-                src="../assets/SoltyLogo2.png"
-                width="60"
+                src="../assets/SoltyLogo7.png"
+                width="178"
                 height="40"
                 alt="Solty Logo"
                 title="Inicio"
               />
             </router-link>
-            <li class="navbar-brand">Bienvenido {{fullNameLoggedUser}}</li>
           </div>
           <div class id="navbarNav">
             <ul class="navbar-nav ml-auto pointer">
               <li class="nav-item">
-                <router-link class="nav-link" to="/profile">
-                  Mi info
-                  <span class="sr-only">(current)</span>
-                </router-link>
+                <router-link to="/about" class="nav-link">Nosotros</router-link>
               </li>
-              <li class="nav-item" @click="logout">
-                <a class="nav-link">Cerrar sesión</a>
+              <li class="nav-item">
+                <router-link to="/services" class="nav-link">Servicios</router-link>
+              </li>
+              <li class="nav-item">
+                <a data-scroll class="nav-link" href="#foot">Contáctanos</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  id="navbarDropdownMenuLink-333"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-user"></i>
+                </a>
+                <div
+                  class="dropdown-menu dropdown-menu-right dropdown-default"
+                  aria-labelledby="navbarDropdownMenuLink-333"
+                >
+                  <a class="dropdown-item" href="/profile">Mi perfil</a>
+                  <a class="dropdown-item" @click="logout">Cerrar sesión</a>
+                </div>
               </li>
             </ul>
           </div>
@@ -32,12 +49,12 @@
       </nav>
     </div>
     <div class="d-md-none">
-      <nav class="navbar navbar-light bg-dark fixed-top justify-content-center">
+      <nav class="navbar navbar-light bg-black fixed-top justify-content-center">
         <span class="navbar-brand mb-0 h1">
-          <router-link to="/products" class="navbar-brand">
+          <router-link to="/products" class="navbar-brand ml-5">
             <img
-              src="../assets/SoltyLogo2.png"
-              width="60"
+              src="../assets/SoltyLogo7.png"
+              width="178"
               height="40"
               alt="Solty Logo"
               title="Inicio"
@@ -58,7 +75,7 @@
               <a href="/products">Inicio</a>
             </li>
             <li>
-              <a href="#">Nosotros</a>
+              <a href="/about">Nosotros</a>
             </li>
             <li>
               <a href="/profile">Mi perfil</a>
@@ -101,7 +118,10 @@ export default {
 .pointer {
   cursor: pointer;
 }
-@media screen and (max-width: 768px) {
+.bg-black {
+  background: #000;
+}
+@media screen and (max-width: 767px) {
   @import url(https://fonts.googleapis.com/css?family=Vollkorn|Roboto);
 
   $color-background: #f5f5f5;

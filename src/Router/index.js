@@ -4,11 +4,11 @@ import App from '../Components/App.vue'
 import Login from '../Components/Login.vue'
 import Register from '../Components/Register.vue'
 import Profile from '../Components/Profile.vue'
+import AboutUs from '../Components/AboutUs.vue'
 import Products from '../Components/Products.vue'
 import Product from '../Components/Product.vue'
 import ProductDescription from '../Components/ProductDescription.vue'
 import ProductPayment from '../Components/ProductPayment.vue'
-import { format } from 'util';
 
 Vue.use(Router)
 
@@ -58,6 +58,11 @@ export const router = new Router({
             path: '/profile',
             name: 'Profile',
             component: Profile
+        },
+        {
+            path: '/about',
+            name: 'AboutUs',
+            component: AboutUs
         }
     ]
 });

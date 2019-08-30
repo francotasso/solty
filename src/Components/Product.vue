@@ -44,7 +44,7 @@ export default {
 <style scoped>
 @media screen and (max-width: 768px) {
   #box {
-    margin-top: 5rem;
+    margin-top: 6rem;
   }
 }
 </style>

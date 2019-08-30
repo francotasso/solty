@@ -2,74 +2,13 @@
   <div class="body">
     <navbar />
     <div class="container py-5">
-      <div class="box">
-        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active" data-interval="4000">
-              <img
-                src="https://biriska.com/wp-content/uploads/2017/04/gimnasio-paqsule-la-bolsa-deportiva-que-lava-toda-tu-ropa-sin-esfuerzos-1920.jpg"
-                class="d-block w-100"
-                alt="..."
-              />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>Más de 1000 productos vendidos</h5>
-                <p>Somos líderes en la venta de ropa deportiva en todo el Perú</p>
-              </div>
-            </div>
-            <div class="carousel-item" data-interval="4000">
-              <img
-                src="http://www.hdfondos.eu/preview/get_photo/772269/1920/1080"
-                class="d-block w-100"
-                alt="..."
-              />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>Nuestros auspiciadores</h5>
-                <p>Adidas, Nike, Puma, Reebok, New Balance, Under Armour, Billabong y más</p>
-              </div>
-            </div>
-            <div class="carousel-item" data-interval="4000">
-              <img
-                src="https://www.wikileaf.com/thestash/wp-content/uploads/2017/04/Delivery_Issues.jpg"
-                class="d-block w-100"
-                alt="..."
-              />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>En la puerta de tu casa</h5>
-                <p>Sabemos que eres flojo, por eso los productos llegarán a la puerta de tu casa</p>
-              </div>
-            </div>
-          </div>
-          <a
-            class="carousel-control-prev"
-            href="#carouselExampleCaptions"
-            role="button"
-            data-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a
-            class="carousel-control-next"
-            href="#carouselExampleCaptions"
-            role="button"
-            data-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
+      <carousel />
       <div class="mt-3">
         <span class="badge badge-light">Total de productos: {{productsFiltered.length}}</span>
       </div>
       <div class="dropdown mt-3">
         <button
-          class="btn btn-secondary dropdown-toggle"
+          class="btn dropdown-toggle bg-black"
           type="button"
           id="dropdownMenuButton"
           data-toggle="dropdown"
@@ -127,7 +66,7 @@
                       <!-- Button trigger modal -->
                       <button
                         type="button"
-                        class="btn btn-primary"
+                        class="btn bg-darkblue"
                         data-toggle="modal"
                         :data-target="'#modal'+product._id"
                       >Más info</button>
@@ -162,11 +101,11 @@
                     <div class="modal-footer">
                       <button
                         type="button"
-                        class="btn btn-primary"
+                        class="btn bg-darkblue"
                         data-dismiss="modal"
                         @click="previousPurchase(product._id)"
                       >Comprar</button>
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn bg-ocre" data-dismiss="modal">Cerrar</button>
                     </div>
                   </div>
                 </div>
@@ -176,17 +115,22 @@
         </div>
       </div>
     </div>
+    <foot id="foot" />
     <vue-snotify></vue-snotify>
   </div>
 </template>
 
 <script>
 import navbar from "./Navbar";
+import carousel from "./Carousel";
+import foot from "./Footer";
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   name: "Products",
   components: {
-    navbar
+    navbar,
+    carousel,
+    foot
   },
   data() {
     return {};
@@ -240,6 +184,21 @@ export default {
 .body {
   background-image: url("https://fondos.io/wp-content/uploads/2019/01/fondo-blanco-53.jpg");
   background-size: cover;
+}
+.bg-black {
+  background-color: #000;
+  color: #fff;
+}
+.bg-darkblue {
+  background-color: #224994;
+  color: #fff;
+}
+.bg-ocre {
+  background-color: #debb07;
+  color: #fff;
+}
+.btn:focus {
+  box-shadow: none;
 }
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700");
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i");
@@ -387,12 +346,6 @@ body {
 
 .card:hover .card__info-hover {
   opacity: 1;
-}
-
-@media screen and (max-width: 768px) {
-  .box {
-    margin-top: 3rem;
-  }
 }
 </style>
 
