@@ -8,7 +8,7 @@
            src="../assets/AboutImage2.png"
            alt="Coreana a la moda"
            class="img-fluid d-none d-md-block"
-           style="width: 100%;"
+           style="width: 35%;"
          />
        </div>
        <div class="content-right col-md-6 my-auto">
