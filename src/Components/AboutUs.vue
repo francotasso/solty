@@ -8,6 +8,7 @@
            src="../assets/AboutImage2.png"
            alt="Coreana a la moda"
            class="img-fluid d-none d-md-block"
+           style="width: 100%;"
          />
        </div>
        <div class="content-right col-md-6">
@@ -48,7 +49,7 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   text-align: center;
-  margin-top: 7rem;
+  margin-top: 3rem;
   margin-bottom: 3rem;
 }
 </style>
