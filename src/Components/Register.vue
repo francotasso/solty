@@ -1,5 +1,5 @@
 <template>
-  <div class="body vh-100 d-flex align-items-center">
+  <div class="body vh-100 d-flex align-items-center flex-column">
     <div id="register">
       <h2 class="mb-4 text-center">Registro</h2>
       <div
@@ -10,40 +10,16 @@
       <form @submit.prevent="handleSubmit" method="GET">
         <fieldset>
           <p>
-            <input
-              type="text"
-              onBlur="if(this.value=='')this.value='Nombres'"
-              onFocus="if(this.value=='Nombres')this.value='' "
-              placeholder="Ingrese su nombre"
-              v-model="user.firstName"
-            />
+            <input type="text" placeholder="Ingrese su nombre" v-model="user.firstName" />
           </p>
           <p>
-            <input
-              type="text"
-              onBlur="if(this.value=='')this.value='Apellidos'"
-              onFocus="if(this.value=='Apellidos')this.value='' "
-              placeholder="Ingrese su apellido"
-              v-model="user.lastName"
-            />
+            <input type="text" placeholder="Ingrese su apellido" v-model="user.lastName" />
           </p>
           <p>
-            <input
-              type="text"
-              onBlur="if(this.value=='')this.value='Email'"
-              onFocus="if(this.value=='Email')this.value='' "
-              placeholder="Ingrese su email"
-              v-model="user.email"
-            />
+            <input type="text" placeholder="Ingrese su email" v-model="user.email" />
           </p>
           <p>
-            <input
-              type="password"
-              onBlur="if(this.value=='')this.value='Contraseña'"
-              onFocus="if(this.value=='Contraseña')this.value='' "
-              placeholder="Ingrese su contraseña"
-              v-model="user.password"
-            />
+            <input type="password" placeholder="Ingrese su contraseña" v-model="user.password" />
           </p>
           <p>
             <select class="form-control" v-model="user.gender">
@@ -52,19 +28,11 @@
             </select>
           </p>
           <p>
-            <input
-              type="text"
-              onBlur="if(this.value=='')this.value='Teléfono'"
-              onFocus="if(this.value=='Teléfono')this.value='' "
-              placeholder="Ingrese su teléfono"
-              v-model="user.phone"
-            />
+            <input type="text" placeholder="Ingrese su teléfono" v-model="user.phone" />
           </p>
           <p>
             <input
               type="date"
-              onBlur="if(this.value=='')this.value='Fecha de nacimiento'"
-              onFocus="if(this.value=='Fecha de nacimiento')this.value='' "
               placeholder="Ingrese su fecha de nacimiento"
               v-model="user.birthday"
               class="form-control"
@@ -77,6 +45,9 @@
       </form>
     </div>
     <!-- end register -->
+    <footer class="text-white">
+      <p>By Franco Tasso © - 2019 - Lima Perú</p>
+    </footer>
   </div>
 </template>
 
@@ -124,8 +95,8 @@ export default {
   color: #5a5656;
   font: 100%/1.5em "Open Sans", sans-serif;
   margin: 0;
-  background-image: url("https://wallpapersite.com/images/wallpapers/buzz-lightyear-3840x2160-toy-story-4-animation-2019-4k-16748.jpg");
-  background-size: cover;
+  background-image: url("https://cdn.pixabay.com/photo/2015/09/06/00/46/yellow-926728_960_720.jpg");
+  background-size: contain;
 }
 a {
   text-decoration: none;

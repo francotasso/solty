@@ -36,7 +36,7 @@
       <div class="col-md-6">
         <form @submit.prevent="executePurchase(payment)" class="mt-5">
           <div class="form-group">
-            <label for="formGroupExampleInput">Nombre del titular de la tarjeta</label>
+            <label for="formGroupExampleInput" class="bree-serif">Nombre del titular de la tarjeta</label>
             <input
               type="text"
               class="form-control"
@@ -45,7 +45,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="formGroupExampleInput2">Número de la tarjeta</label>
+            <label for="formGroupExampleInput2" class="bree-serif">Número de la tarjeta</label>
             <input
               type="text"
               class="form-control"
@@ -55,7 +55,7 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="inputState">Mes de vencimiento</label>
+              <label for="inputState" class="bree-serif">Mes de vencimiento</label>
               <select id="inputState" class="form-control" v-model="payment.expirationMonth">
                 <option selected>01</option>
                 <option>02</option>
@@ -72,7 +72,7 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="inputState">Año de vencimiento</label>
+              <label for="inputState" class="bree-serif">Año de vencimiento</label>
               <select id="inputState" class="form-control" v-model="payment.expirationYear">
                 <option selected>2019</option>
                 <option>2020</option>
@@ -85,7 +85,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="formGroupExampleInput2">Código de seguridad</label>
+            <label for="formGroupExampleInput2" class="bree-serif">Código de seguridad</label>
             <input
               type="number"
               class="form-control"
@@ -94,7 +94,7 @@
               v-model="payment.securityCode"
             />
           </div>
-          <button class="btn btn-success btn-block">Confirmar compra</button>
+          <button class="btn bg-darkblue btn-block">Confirmar compra</button>
         </form>
       </div>
     </div>
@@ -139,6 +139,23 @@ export default {
 </script>
 
 <style scoped>
+.bg-darkblue {
+  background-color: #224994;
+  color: #fff;
+}
+.btn:focus {
+  box-shadow: none;
+}
+.form-control {
+  border: 1px solid #debb07;
+}
+.form-control:focus {
+  box-shadow: none;
+}
+.bree-serif {
+  font-family: "Bree Serif", serif;
+  font-size: 18px;
+}
 @media screen and (max-width: 360px) {
   #card {
     height: 12rem;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-none d-md-block">
-      <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top">
+      <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top" id="menu">
         <div class="container">
           <div>
             <router-link to="/products" class="navbar-brand">
@@ -110,6 +110,37 @@ export default {
       $(this).toggleClass("active");
       $("#overlay").toggleClass("open");
     });
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute("href")).scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      });
+    });
+    $(window).scroll(function() {
+      if ($("#menu").offset().top > 56) {
+        $("#menu").addClass("bg-light-black");
+      } else {
+        $("#menu").removeClass("bg-light-black");
+      }
+    });
+    $(function() {
+      //detectar scroll hacia abajo
+      var obj = $(document); //objeto sobre el que quiero detectar scroll
+      var obj_top = obj.scrollTop(); //scroll vertical inicial del objeto
+      obj.scroll(function() {
+        var obj_act_top = $(this).scrollTop(); //obtener scroll top instantaneo
+        if (obj_act_top > obj_top) {
+          $("#menu").addClass("d-none");
+        } else {
+          //scroll hacia arriba
+          $("#menu").removeClass("d-none");
+        }
+        obj_top = obj_act_top; //almacenar scroll top anterior
+      });
+    });
   }
 };
 </script>
@@ -119,7 +150,11 @@ export default {
   cursor: pointer;
 }
 .bg-black {
-  background: #000;
+  background-color: #000;
+  transition: all 1s ease;
+}
+.bg-light-black {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 @media screen and (max-width: 767px) {
   @import url(https://fonts.googleapis.com/css?family=Vollkorn|Roboto);

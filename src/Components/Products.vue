@@ -4,7 +4,7 @@
     <div class="container py-5">
       <carousel />
       <div class="mt-3">
-        <span class="badge badge-light">Total de productos: {{productsFiltered.length}}</span>
+        <span class="ml-2 bree-serif">Total de productos: {{productsFiltered.length}}</span>
       </div>
       <div class="dropdown mt-3">
         <button
@@ -199,6 +199,10 @@ export default {
 }
 .btn:focus {
   box-shadow: none;
+}
+.bree-serif {
+  font-family: "Bree Serif", serif;
+  font-size: 18px;
 }
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700");
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i");

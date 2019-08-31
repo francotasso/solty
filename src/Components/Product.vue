@@ -12,7 +12,7 @@
       </ul>
       <router-view></router-view>
       <div class="d-flex justify-content-center mt-3 mb-3">
-        <router-link to="/products" class="btn btn-dark">Regresar</router-link>
+        <router-link to="/products" class="btn btn-dark text-white">Regresar</router-link>
       </div>
     </div>
   </div>
@@ -44,6 +44,9 @@ export default {
 <style scoped>
 #box {
   margin-top: 6rem;
+}
+a {
+  color: #224994;
 }
 </style>
 

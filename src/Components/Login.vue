@@ -110,8 +110,8 @@ export default {
   color: #5a5656;
   font: 100%/1.5em "Open Sans", sans-serif;
   margin: 0;
-  background-image: url("https://wallpapercart.com/wp-content/uploads/2019/05/Movie-Toy-Story-4-Woody-HD-Wallpaper.jpg");
-  background-size: cover;
+  background-image: url("https://cdn.pixabay.com/photo/2015/09/06/00/46/yellow-926728_960_720.jpg");
+  background-size: contain;
 }
 a {
   text-decoration: none;

@@ -148,4 +148,7 @@ export default {
 .btn:focus {
   box-shadow: none;
 }
+.form-control:focus {
+  box-shadow: none;
+}
 </style>
