@@ -13,9 +13,9 @@
        </div>
        <div class="content-right col-md-6 my-auto">
          <h1>Solty tu tienda Online</h1>
-         <p class""mt-3">Solty es una empresa de venta de ropa online con presencia en todo el Perú y gran parte de Latinoamérica</p>
-         <p class""mt-3">Desde nuestros inicios hemos optado siempre por la calidad de la ropa que vendemos a nuestros clientes haciéndolos sentir seguros con su produtos y generando una buena imagen tanto para ellos mismos como para nosotros mismos.</p>
-         <p class""mt-3">No esperes más y opta por nuestras más de 5000 prendas de vestir de la mejor calidad que te harán lucir mejor.</p>
+         <p class="mt-3">Solty es una empresa de venta de ropa online con presencia en todo el Perú y gran parte de Latinoamérica</p>
+         <p class="mt-3">Desde nuestros inicios hemos optado siempre por la calidad de la ropa que vendemos a nuestros clientes haciéndolos sentir seguros con su produtos y generando una buena imagen tanto para ellos mismos como para nosotros mismos.</p>
+         <p class="mt-3">No esperes más y opta por nuestras más de 5000 prendas de vestir de la mejor calidad que te harán lucir mejor.</p>
        </div>
       </div>
     </div>
