@@ -4,7 +4,8 @@ import { router } from "../Router"
 const state = {
     products: [],
     filter: 'all',
-    currentProductToBuy: null
+    currentProductToBuy: null,
+    shoppingCart: []
 }
 
 const getters = {
@@ -27,6 +28,8 @@ const getters = {
             return state.products.filter(
                 product => product.gender === 'Female'
             )
+        } else if (state.filter!== null){
+            return state.products.filter(product => product.productName.toLowerCase().includes(state.filter) || product.brand.toLowerCase().includes(state.filter))
         }
     }
 }
@@ -41,6 +44,18 @@ const mutations = {
     },
     setProductsFilter(state, filter) {
         state.filter = filter
+    },
+    addProductToShoppingCart(state, product) {
+        if (state.shoppingCart != null) {
+            if (state.shoppingCart.includes(product)) {
+                state.shoppingCart.forEach(item => { if (item === product) { item.count++; state.shoppingCart.push() } });
+            } else {
+                product.count = 1;
+                state.shoppingCart.push(product);
+            }
+        } else {
+            state.shoppingCart.push(product);
+        }
     }
 }
 

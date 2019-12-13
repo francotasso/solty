@@ -40,7 +40,7 @@
               type="text"
               placeholder="Ingrese su email"
               v-model="profileLoggedUser.email"
-              :disabled="!edit"
+              disabled
             />
           </div>
           <div class="form-group">

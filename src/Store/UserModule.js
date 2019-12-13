@@ -62,6 +62,15 @@ const actions = {
             router.push({ name: 'Login' });
         });
     },
+    loginGoogle({ state, commit, dispatch }, { }) {
+        userService.loginGoogle().then(data => {
+            localStorage.setItem('userFullName', `${data.firstName} ${data.lastName}`);
+            localStorage.setItem('userId', data._id);
+        }, error => {
+            commit('loginError');
+            router.push({ name: 'Login' });
+        })
+    },
     removeErrorMessageLogin({ commit }) {
         commit('removeErrorMessageLogin');
     },
@@ -69,6 +78,7 @@ const actions = {
         userService.logout().then(data => {
             localStorage.removeItem('userFullName');
             localStorage.removeItem('userId');
+            localStorage.removeItem('googleUp');
             router.push({ name: 'Login' });
         }, error => {
         });

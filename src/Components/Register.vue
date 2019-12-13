@@ -1,7 +1,7 @@
 <template>
   <div class="body vh-100 d-flex align-items-center flex-column">
     <div id="register">
-      <h2 class="mb-4 text-center">Registro</h2>
+      <h2 class="mb-4 text-center register-title">Registro</h2>
       <div
         v-if="errorMessageRegister"
         class="alert alert-warning"
@@ -22,7 +22,7 @@
             <input type="password" placeholder="Ingrese su contraseña" v-model="user.password" />
           </p>
           <p>
-            <select class="form-control" v-model="user.gender">
+            <select class="form-control input-picker" v-model="user.gender">
               <option selected>Masculino</option>
               <option>Femenino</option>
             </select>
@@ -35,7 +35,7 @@
               type="date"
               placeholder="Ingrese su fecha de nacimiento"
               v-model="user.birthday"
-              class="form-control"
+              class="form-control input-picker"
             />
           </p>
           <p>
@@ -95,8 +95,8 @@ export default {
   color: #5a5656;
   font: 100%/1.5em "Open Sans", sans-serif;
   margin: 0;
-  background-image: url("https://cdn.pixabay.com/photo/2015/09/06/00/46/yellow-926728_960_720.jpg");
-  background-size: contain;
+  background-image: url("https://desktopwallpaper.live/wp-content/uploads/2019/06/soft-color-wallpapers-7.jpg");
+  background-size: cover;
 }
 a {
   text-decoration: none;
@@ -119,12 +119,21 @@ strong {
   margin: auto;
   width: 300px;
 }
+.register-title{
+  font-family: 'Pacifico', cursive;
+  color: #1984C1;
+}
+.input-picker{
+  height: 3rem;
+  border-radius: 10px;
+  background: #F5F0EF;
+}
 form fieldset input[type="text"],
 input[type="password"] {
-  background: #e5e5e5;
+  background: #F5F0EF;
   border: none;
-  border-radius: 3px;
-  color: #5a5656;
+  border-radius: 10px;
+  color: #423D3D;
   font-family: inherit;
   font-size: 14px;
   height: 50px;
@@ -136,7 +145,7 @@ input[type="password"] {
 form fieldset input[type="submit"] {
   background-color: #008dde;
   border: none;
-  border-radius: 3px;
+  border-radius: 10px;
   color: #f4f4f4;
   cursor: pointer;
   font-family: inherit;
@@ -144,6 +153,7 @@ form fieldset input[type="submit"] {
   text-transform: uppercase;
   width: 300px;
   -webkit-appearance: none;
+  font-family: 'Nanum Pen Script';
 }
 form fieldset a {
   color: #5a5656;

@@ -1,12 +1,15 @@
 <template>
   <div class="body">
     <navbar />
-    <div class="container py-5">
+    <div class="container py-5" v-if="!showLoading">
       <carousel />
-      <div class="mt-3">
-        <span class="ml-2 bree-serif">Total de productos: {{productsFiltered.length}}</span>
-      </div>
-      <div class="dropdown mt-3">
+      <div class="row">
+        <div class="form-inline md-form form-sm mt-0 col-md-10 px-4 mt-3">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <input class="form-control form-control-sm ml-3 w-75 mt-3" type="text" placeholder="Search"
+              aria-label="Search" v-model="query" @keyup="setProductsFilter(query)"/>
+        </div>
+        <div class="dropdown mt-3 col-md-2 d-flex justify-content-end">
         <button
           class="btn dropdown-toggle bg-black"
           type="button"
@@ -14,20 +17,27 @@
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
-        >Filtrar por</button>
+          style="height: 2.5rem;"
+        >Filtrar por <i class="fas fa-filter ml-3"></i></button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <button class="dropdown-item" @click="setProductsFilter('all')">Todos los productos</button>
           <button
-            class="dropdown-item"
+            class="dropdown-item d-flex justify-content-between"
             @click="setProductsFilter('highToLow')"
-          >Precio (mayor a menor)</button>
+            title="De mayor a menor"
+          >Precio <i class="fas fa-angle-double-down ml-5" style="font-size: 23px;"></i></button>
           <button
-            class="dropdown-item"
+            class="dropdown-item d-flex justify-content-between"
             @click="setProductsFilter('lowToHigh')"
-          >Precio (menor a mayor)</button>
-          <button class="dropdown-item" @click="setProductsFilter('Male')">Para varón</button>
-          <button class="dropdown-item" @click="setProductsFilter('Female')">Para mujer</button>
+            title="De menor a mayor"
+          >Precio <i class="fas fa-angle-double-up ml-5" style="font-size: 23px;"></i></button>
+          <button class="dropdown-item d-flex justify-content-between" @click="setProductsFilter('Male')">Para varón <i class="fas fa-male ml-5" style="font-size: 23px;"></i></button>
+          <button class="dropdown-item d-flex justify-content-between" @click="setProductsFilter('Female')">Para mujer <i class="fas fa-female ml-5" style="font-size: 23px;"></i></button>
         </div>
+      </div>
+      <div class="mt-2 ml-3">
+        <span class="ml-2 bree-serif">Total de productos: {{productsFiltered.length}}</span>
+      </div>
       </div>
       <div class="album py-5 mt-3">
         <div class="container">
@@ -115,7 +125,8 @@
         </div>
       </div>
     </div>
-    <foot id="foot" />
+    <loading v-if="showLoading" @hideLoading="onHideLoading"></loading>
+    <foot v-if="!showLoading" id="foot" />
     <vue-snotify></vue-snotify>
   </div>
 </template>
@@ -124,20 +135,25 @@
 import navbar from "./Navbar";
 import carousel from "./Carousel";
 import foot from "./Footer";
+import loading from "./Loading";
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   name: "Products",
   components: {
     navbar,
     carousel,
-    foot
+    foot,
+    loading
   },
   data() {
-    return {};
+    return {
+      showLoading: true,
+      query: ''
+    };
   },
   computed: {
     ...mapState("user", ["successMessageUpdateProfile"]), //just to notify if user profile was updated
-    ...mapGetters("product", ["productsFiltered"]),
+    ...mapGetters("product", ["productsFiltered", "searchProducts"]),
     ...mapState("payment", ["successMessagePurchase"]) //just to notify if user made a success purchase
   },
   methods: {
@@ -150,10 +166,17 @@ export default {
     ...mapActions("payment", ["removeSuccessMessagePurchase"]),
     displayNotification(body, title) {
       this.$snotify.success(body, title);
+    },
+    onHideLoading(show){
+      this.showLoading = show;
     }
   },
   created() {
     this.getProducts();
+  },
+  beforeMount(){
+    this.showLoading = true;
+    this.setProductsFilter('all');
   },
   mounted() {
     if (this.successMessageUpdateProfile) {
@@ -298,6 +321,7 @@ body {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+  min-height: 430px;
 }
 .card:hover {
   box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.7);

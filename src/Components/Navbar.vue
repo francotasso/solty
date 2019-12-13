@@ -20,10 +20,13 @@
                 <router-link to="/about" class="nav-link">Nosotros</router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/services" class="nav-link">Servicios</router-link>
+                <a class="nav-link" href="#foot">Contáctanos</a>
               </li>
               <li class="nav-item">
-                <a data-scroll class="nav-link" href="#foot">Contáctanos</a>
+                <a class="nav-link" href="#">
+                  <img src="../assets/cart.png" alt="cart" style="width: 5%;" />
+                  <span class="badge badge-danger">1</span>
+                </a>
               </li>
               <li class="nav-item dropdown">
                 <a

@@ -16,7 +16,7 @@
             />
             <div class="carousel-caption d-none d-md-block">
               <h5>Más de 1000 productos vendidos</h5>
-              <p>Somos líderes en la venta de ropa deportiva en todo el Perú</p>
+              <p>Somos líderes en la venta de ropa de calidad en todo el Perú</p>
             </div>
           </div>
           <div class="carousel-item" data-interval="4000">

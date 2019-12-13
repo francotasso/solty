@@ -1,7 +1,7 @@
 <template>
   <div class="body vh-100 d-flex align-items-center flex-column">
     <div id="login">
-      <h2 class="mb-4 text-center">Inicio de sesión</h2>
+      <h2 class="mb-4 text-center mt-4 login-title">Inicio de sesión</h2>
       <div
         v-if="errorMessageLogin"
         class="alert alert-warning"
@@ -12,9 +12,6 @@
           <p>
             <input
               type="text"
-              value="Username"
-              onBlur="if(this.value=='')this.value='Username'"
-              onFocus="if(this.value=='Username')this.value='' "
               placeholder="Ingrese su email"
               v-model="email"
             />
@@ -23,9 +20,6 @@
           <p>
             <input
               type="password"
-              value="Password"
-              onBlur="if(this.value=='')this.value='Password'"
-              onFocus="if(this.value=='Password')this.value='' "
               placeholder="Ingrese su contraseña"
               v-model="password"
             />
@@ -34,24 +28,24 @@
           <p>
             <input type="submit" value="Ingresar" />
           </p>
-          <p>
-            <router-link to="/register">Regístrate</router-link>
+          <p class="text-center">
+            <router-link to="/register" class="register-message">¿Aún no tienes cuenta? Regístrate aquí</router-link>
           </p>
         </fieldset>
       </form>
-      <p>
-        <span class="btn-round">or</span>
+      <hr>
+      <p class="text-center register-message">
+        O inicia sesión con
       </p>
-      <p>
-        <a class="facebook-before">
-          <span class="fontawesome-facebook"></span>
+      <div class="d-flex justify-content-center">
+        <a class="social-logo" href="http://localhost:3000/auth/facebook">
+          <i class="fab fa-facebook-f" style="color: #0d47a1;"></i>
         </a>
-        <button class="facebook">Login Using Facebook</button>
-      </p>
+        <a class="social-logo" href="http://localhost:3000/auth/google">
+          <i class="fab fa-google" style="color: #ef5350;"></i>
+        </a>
+      </div>
     </div>
-    <footer class="text-white">
-      <p>By Franco Tasso © - 2019 - Lima Perú</p>
-    </footer>
     <vue-snotify></vue-snotify>
     <!-- end login -->
   </div>
@@ -59,6 +53,8 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import axios from "axios";
+import API from "../API/API";
 export default {
   name: "Login",
   data() {
@@ -72,8 +68,21 @@ export default {
     ...mapState("user", ["errorMessageLogin", "successMessageRegister"])
   },
   methods: {
+    checkIfLoggedIn() {
+      const url = API.url.concat("/auth/check");
+      axios.get(url, { withCredentials: true }).then(response => {
+        const user = response.data.user;
+        localStorage.setItem(
+          "userFullName",
+          `${user.firstName} ${user.lastName}`
+        );
+        localStorage.setItem("userId", user._id);
+        localStorage.setItem("googleUp", true);
+      });
+    },
     ...mapActions("user", [
       "login",
+      "loginGoogle",
       "removeErrorMessageLogin",
       "removeSuccessMessageRegister"
     ]),
@@ -87,6 +96,7 @@ export default {
     }
   },
   mounted() {
+    this.checkIfLoggedIn();
     if (this.successMessageRegister) {
       this.displayNotification(
         this.successMessageRegister.body,
@@ -110,8 +120,11 @@ export default {
   color: #5a5656;
   font: 100%/1.5em "Open Sans", sans-serif;
   margin: 0;
-  background-image: url("https://cdn.pixabay.com/photo/2015/09/06/00/46/yellow-926728_960_720.jpg");
-  background-size: contain;
+  background-image: url("https://desktopwallpaper.live/wp-content/uploads/2019/06/soft-color-wallpapers-7.jpg");
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 a {
   text-decoration: none;
@@ -134,12 +147,42 @@ strong {
   margin: auto;
   width: 300px;
 }
+.login-title{
+  font-family: 'Pacifico', cursive;
+  color: #1984C1;
+}
+.register-message{
+  font-size: 13px;
+  color: #008dde;
+}
+.register-message:hover{
+  text-decoration: none;
+  color: #077BBE;
+}
+.social-logo {
+  background-color: #F5F0EF;
+  border-radius: 50%;
+  padding: 1rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  -webkit-transition: transform .3s ease-in-out;
+  -moz-transition:transform .3s ease-in-out;
+  -ms-transition:transform .3s ease-in-out;
+}
+.social-logo:hover {
+  background-color: #F9F6F5;
+  transform: scale(1.05);
+}
 form fieldset input[type="text"],
 input[type="password"] {
-  background: #e5e5e5;
+  background: #F5F0EF;
   border: none;
-  border-radius: 3px;
-  color: #5a5656;
+  border-radius: 10px;
+  color: #423D3D;
   font-family: inherit;
   font-size: 14px;
   height: 50px;
@@ -151,7 +194,7 @@ input[type="password"] {
 form fieldset input[type="submit"] {
   background-color: #008dde;
   border: none;
-  border-radius: 3px;
+  border-radius: 10px;
   color: #f4f4f4;
   cursor: pointer;
   font-family: inherit;
@@ -159,10 +202,7 @@ form fieldset input[type="submit"] {
   text-transform: uppercase;
   width: 300px;
   -webkit-appearance: none;
-}
-form fieldset a {
-  color: #5a5656;
-  font-size: 10px;
+  font-family: 'Nanum Pen Script';
 }
 form fieldset a:hover {
   text-decoration: underline;

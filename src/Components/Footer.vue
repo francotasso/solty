@@ -47,7 +47,10 @@
       <!-- Copyright -->
       <div class="footer-copyright text-center py-3">
         © 2019 Copyright:
-        <a href="https://www.facebook.com/francotassop">Franco Tasso</a>
+        <a
+          target="_blank"
+          href="https://www.facebook.com/francotassop"
+        >Franco Tasso</a>
       </div>
       <!-- Copyright -->
     </footer>
