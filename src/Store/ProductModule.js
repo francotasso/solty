@@ -29,7 +29,7 @@ const getters = {
                 product => product.gender === 'Female'
             )
         } else if (state.filter!== null){
-            return state.products.filter(product => product.productName.toLowerCase().includes(state.filter) || product.brand.toLowerCase().includes(state.filter))
+            return state.products.filter(product => product.productName.toLowerCase().includes(state.filter.toLowerCase()) || product.brand.toLowerCase().includes(state.filter.toLowerCase()))
         }
     }
 }
