@@ -78,6 +78,9 @@ export default {
         );
         localStorage.setItem("userId", user._id);
         localStorage.setItem("googleUp", true);
+        this.$router.push('/products');
+      }).catch(err => {
+        return err
       });
     },
     ...mapActions("user", [
