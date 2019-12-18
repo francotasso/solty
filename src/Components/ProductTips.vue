@@ -2,22 +2,10 @@
     <div>
         <div class="container mt-4">
             <h5>Tenga en cuenta las siguientes consideraciones: </h5>
-            <div class="row mt-4">
+            <div class="row mt-4" v-for="(product, index) in currentProductToBuy.tips" :key="index">
                 <div class="col-md-6 row ml-2">
-                    <i class="fas fa-genderless" style="font-size: 1.5rem;"></i>
-                    <p class="ml-3">Tip 1</p>
-                </div>
-                <div class="col-md-6 row ml-2">
-                    <i class="fas fa-genderless" style="font-size: 1.5rem;"></i>
-                    <p class="ml-3">Tip 1</p>
-                </div>
-                <div class="col-md-6 row ml-2">
-                    <i class="fas fa-genderless" style="font-size: 1.5rem;"></i>
-                    <p class="ml-3">Tip 1</p>
-                </div>
-                <div class="col-md-6 row ml-2">
-                    <i class="fas fa-genderless" style="font-size: 1.5rem;"></i>
-                    <p class="ml-3">Tip 1</p>
+                    <i class="fas fa-check" style="font-size: 1.5rem;"></i>
+                    <p class="ml-3">{{product.content}}</p>
                 </div>
             </div>
         </div>
@@ -25,7 +13,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 export default {
     name: 'ProductTips',
     computed: {

@@ -38,10 +38,10 @@
         O inicia sesión con
       </p>
       <div class="d-flex justify-content-center">
-        <a class="social-logo" href="https://solty-back.herokuapp.com/auth/facebook">
+        <a class="social-logo" :href="linkGoogleAuth">
           <i class="fab fa-facebook-f" style="color: #0d47a1;"></i>
         </a>
-        <a class="social-logo" href="https://solty-back.herokuapp.com/auth/google">
+        <a class="social-logo" :href="linkGoogleAuth">
           <i class="fab fa-google" style="color: #ef5350;"></i>
         </a>
       </div>
@@ -61,7 +61,11 @@ export default {
     return {
       email: "",
       password: "",
-      submitted: false
+      submitted: false,
+      linkGoogleAuth: 'https://solty-back.herokuapp.com/auth/google',
+      linkFacebookAuth: 'https://solty-back.herokuapp/auth/facebook'
+      //linkGoogleAuth: 'http://localhost:3000/auth/google',
+      //linkFacebookAuth: 'http://localhost:3000/auth/facebook'
     };
   },
   computed: {

@@ -3,21 +3,9 @@
         <div class="container mt-4">
             <h5>Este producto cuenta con las siguientes características: </h5>
             <div class="row mt-4">
-                <div class="col-md-6 row ml-2">
+                <div class="col-md-6 row ml-2" v-for="(product, index) in currentProductToBuy.details" :key="index">
                     <i class="fas fa-check" style="font-size: 1.5rem;"></i>
-                    <p class="ml-3">Tip 1</p>
-                </div>
-                <div class="col-md-6 row ml-2">
-                    <i class="fas fa-check" style="font-size: 1.5rem;"></i>
-                    <p class="ml-3">Tip 1</p>
-                </div>
-                <div class="col-md-6 row ml-2">
-                    <i class="fas fa-check" style="font-size: 1.5rem;"></i>
-                    <p class="ml-3">Tip 1</p>
-                </div>
-                <div class="col-md-6 row ml-2">
-                    <i class="fas fa-check" style="font-size: 1.5rem;"></i>
-                    <p class="ml-3">Tip 1</p>
+                    <p class="ml-3">{{product.content}}</p>
                 </div>
             </div>
         </div>
@@ -25,7 +13,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 export default {
     name: 'ProductDetails',
     computed: {
@@ -40,5 +28,4 @@ export default {
 </script>
 
 <style scoped>
-    
 </style>

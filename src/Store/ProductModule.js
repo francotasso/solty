@@ -46,16 +46,60 @@ const mutations = {
         state.filter = filter
     },
     addProductToShoppingCart(state, product) {
-        if (state.shoppingCart != null) {
-            if (state.shoppingCart.includes(product)) {
-                state.shoppingCart.forEach(item => { if (item === product) { item.count++; state.shoppingCart.push() } });
+        let cart = state.shoppingCart;
+        if (state.shoppingCart !== null) {
+            if (cart.filter(item => item.id === product.id).length>0 && cart.filter(item => item.size === product.size).length>0 && cart.filter(item => item.color === product.color).length>0) {
+                state.shoppingCart.forEach(item => {
+                    if(item.productName === product.productName && item.size === product.size && item.color === product.color){
+                        item.quantity++; 
+                        item.totalPrice+=product.price; 
+                        state.shoppingCart.push();
+                        return;
+                    }
+                });
             } else {
-                product.count = 1;
-                state.shoppingCart.push(product);
+                let newProduct = {
+                    id : product.id,
+                    productName: product.productName,
+                    size: product.size,
+                    color: product.color,
+                    quantity: 1,
+                    totalPrice: product.price
+                }
+                state.shoppingCart.push(newProduct);
             }
         } else {
-            state.shoppingCart.push(product);
+            let newProduct = {
+                id : product.id,
+                productName: product.productName,
+                size: product.size,
+                color: product.color,
+                quantity: 1,
+                totalPrice: product.price
+            }
+            state.shoppingCart.push(newProduct);
         }
+    },
+    updateProductFromShoppingCart(state, oldProduct, newProduct){
+        if(state.shoppingCart !=null){
+            if(state.shoppingCart.includes(oldProduct)){
+                for(item of state.shoppingCart){
+                    if(item === oldProduct){
+                        item = newProduct;
+                        return;
+                    }
+                }
+            }
+        }
+    },
+    removeProductFromShoppingCart(state, product){
+        if(state.shoppingCart !=null){
+            if(state.shoppingCart.includes(product)){
+                let i = state.shoppingCart.indexOf(product);
+                state.shoppingCart.splice(i, 1);
+            }
+        }
+        console.log(state.shoppingCart);
     }
 }
 

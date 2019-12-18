@@ -3,7 +3,7 @@
     <navbar />
     <div class="container" id="box">
       <div class="row">
-        <div class="col-md-5 align-self-end">
+        <div class="col-md-5 mt-3">
           <img :src="currentProductToBuy.image" :alt="currentProductToBuy.productName" class="img-fluid">
         </div>
         <div class="col-md-7">
