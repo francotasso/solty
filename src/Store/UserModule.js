@@ -50,35 +50,35 @@ const mutations = {
 }
 
 const actions = {
+    checkLogin(){
+        userService.checkLogin().then(data => {
+            if(Object.keys(data).length === 0){
+                window.localStorage.clear();
+                router.push({ name: 'Login' });
+            }
+        }, error => {
+            window.localStorage.clear();
+            router.push({ name: 'Login' });
+        })
+    },
     login({ state, commit, dispatch }, { email, password }) {
         userService.login(email, password).then(data => {
             localStorage.setItem('userFullName', data.text);
             localStorage.setItem('userId', data.id);
             commit('loginSuccess');
             dispatch('getProfile', localStorage.getItem('userId'));
-            router.push({ name: 'Products' });
+            router.push({ name: 'Products', params: { numPage: 1 }});
         }, error => {
             commit('loginError');
             router.push({ name: 'Login' });
         });
-    },
-    loginGoogle({ state, commit, dispatch }, { }) {
-        userService.loginGoogle().then(data => {
-            localStorage.setItem('userFullName', `${data.firstName} ${data.lastName}`);
-            localStorage.setItem('userId', data._id);
-        }, error => {
-            commit('loginError');
-            router.push({ name: 'Login' });
-        })
     },
     removeErrorMessageLogin({ commit }) {
         commit('removeErrorMessageLogin');
     },
     logout({ commit }) {
         userService.logout().then(data => {
-            localStorage.removeItem('userFullName');
-            localStorage.removeItem('userId');
-            localStorage.removeItem('googleUp');
+            window.localStorage.clear();
             router.push({ name: 'Login' });
         }, error => {
         });

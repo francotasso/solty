@@ -3,12 +3,27 @@ import URL from '../API/API';
 import { rejects } from "assert";
 
 export const userService = {
+    checkLogin,
     login,
-    loginGoogle,
     logout,
     register,
     getProfile,
     updateProfile
+}
+
+function checkLogin(){
+    let url = URL.url.concat('/auth/check');
+    return axios
+        .get(
+            url,
+            {withCredentials: true}
+        )
+        .then(res =>{
+            return res.data;
+        })
+        .catch(err =>{
+            return Promise.reject(new Error(err));
+        })
 }
 
 function login(email, password) {
@@ -29,17 +44,6 @@ function login(email, password) {
             return Promise.reject(new Error(err));
         });
 };
-
-function loginGoogle() {
-    let url = URL.url.concat('/auth/google');
-    return axios.get(url, { withCredentials: true })
-        .then(res => {
-            return res.user
-        })
-        .catch(err => {
-            return Promise.reject(new Error(err));
-        });
-}
 
 function logout() {
     let url = URL.url.concat('/logout');

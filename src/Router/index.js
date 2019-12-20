@@ -12,6 +12,7 @@ import ProductDescription from '../Components/ProductDescription.vue'
 import ProductPayment from '../Components/ProductPayment.vue'
 import ProductDetails from '../Components/ProductDetails.vue'
 import ProductTips from '../Components/ProductTips.vue'
+import ShoppingCart from '../Components/ShoppingCart.vue'
 Vue.use(Router)
 
 export const router = new Router({
@@ -39,9 +40,10 @@ export const router = new Router({
             component: Register
         },
         {
-            path: '/products',
+            path: '/products/:numPage',
             name: 'Products',
-            component: Products
+            component: Products,
+            props: true,
         },
         {
             path: '/product/:id',
@@ -75,23 +77,29 @@ export const router = new Router({
             path: '/about',
             name: 'AboutUs',
             component: AboutUs
+        },
+        {
+            path: '/shoppingcart',
+            name: 'ShoppingCart',
+            component: ShoppingCart
         }
     ]
 });
 
 router.beforeEach((to, from, next) => {
     // redirect to login page if not logged in and trying to access a restricted page
-    const publicPages = ['/', '/login', '/register'];
+    const publicPages = ['/', '/login', '/register', '/oauth'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('userFullName');
     if (authRequired && !loggedIn) {
         return next('/login');
     }
     if ((to.path == '/login' || to.path == '/register') && loggedIn) {
-        return next('/products');
+        return next('/products/1');
     }
     if (from.path == '/product/' + from.params.id + '/description' && to.path == '/product/' + from.params.id) {
-        return next('/products');
+        return next('/products/1');
     }
+    console.log('llegó')
     next();
 })

@@ -3,6 +3,8 @@ import { router } from "../Router"
 
 const state = {
     products: [],
+    numPages: 0,
+    currentPage: 1,
     filter: 'all',
     currentProductToBuy: null,
     shoppingCart: []
@@ -31,13 +33,28 @@ const getters = {
         } else if (state.filter!== null){
             return state.products.filter(product => product.productName.toLowerCase().includes(state.filter.toLowerCase()) || product.brand.toLowerCase().includes(state.filter.toLowerCase()))
         }
+    },
+    shoppingCartQuantity(state){
+        let quantity = 0;
+        for(let item of state.shoppingCart){
+            quantity+= parseInt(item.quantity);
+        }
+        return quantity;
+    },
+    shoppingCartTotalPrice(state){
+        let totalPrice = 0;
+        for(let item of state.shoppingCart){
+            totalPrice+=parseFloat(item.totalPrice);
+        }
+        return totalPrice;
     }
 }
 
 const mutations = {
-    setProducts(state, products) {
-        state.products = products
-        state.productsCopy = products
+    setProducts(state, res) {
+        state.products = res.products
+        state.numPages = res.numPages
+        state.currentPage = res.numPage
     },
     setCurrentProductToBuy(state, product) {
         state.currentProductToBuy = product
@@ -52,7 +69,7 @@ const mutations = {
                 state.shoppingCart.forEach(item => {
                     if(item.productName === product.productName && item.size === product.size && item.color === product.color){
                         item.quantity++; 
-                        item.totalPrice+=product.price; 
+                        item.totalPrice=parseFloat(product.price)*item.quantity; 
                         state.shoppingCart.push();
                         return;
                     }
@@ -64,6 +81,7 @@ const mutations = {
                     size: product.size,
                     color: product.color,
                     quantity: 1,
+                    unitPrice: product.price,
                     totalPrice: product.price
                 }
                 state.shoppingCart.push(newProduct);
@@ -75,22 +93,15 @@ const mutations = {
                 size: product.size,
                 color: product.color,
                 quantity: 1,
+                unitPrice: product.price,
                 totalPrice: product.price
             }
             state.shoppingCart.push(newProduct);
         }
     },
-    updateProductFromShoppingCart(state, oldProduct, newProduct){
-        if(state.shoppingCart !=null){
-            if(state.shoppingCart.includes(oldProduct)){
-                for(item of state.shoppingCart){
-                    if(item === oldProduct){
-                        item = newProduct;
-                        return;
-                    }
-                }
-            }
-        }
+    updatePrice(state, product){
+        let i = state.shoppingCart.indexOf(product);
+        state.shoppingCart[i].totalPrice = product.unitPrice * product.quantity;
     },
     removeProductFromShoppingCart(state, product){
         if(state.shoppingCart !=null){
@@ -104,9 +115,10 @@ const mutations = {
 }
 
 const actions = {
-    getProducts({ commit }) {
-        productService.getProducts().then(res => {
+    getProducts({ commit }, numPage) {
+        productService.getProducts(numPage).then(res => {
             commit('setProducts', res);
+            router.push({ name: 'Products', params: { numPage: numPage } });
         },
             error => {
             })

@@ -23,12 +23,11 @@ export default {
                 `${user.firstName} ${user.lastName}`
                 );
                 localStorage.setItem("userId", user._id);
-                localStorage.setItem("googleUp", true);
-                this.$router.push('/products');
+                this.$router.push('/products/1');
             });
         }
     },
-    beforeMount(){
+    created(){
         this.checkIfLoggedIn();
     }
 }

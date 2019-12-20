@@ -87,10 +87,17 @@ export default {
   },
   methods: {
     ...mapActions("product", ["getProduct"]),
-    ...mapActions("user", ["getProfile"])
+    ...mapActions("user", ["checkLogin","getProfile"])
+  },
+  created(){
+    this.checkLogin();
   },
   beforeMount() {
     this.getProduct(this.id);
+    $(document).ready(function() {
+        $('html, body').animate({scrollTop:0}, 'slow');
+        return false;
+    });
     //this.getProfile(localStorage.getItem("userId"));
   }
 };

@@ -103,7 +103,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("user", ["profileLoggedUser", "errorMessageUpdateProfile"])
+    ...mapState("user", ["checkLogin","profileLoggedUser", "errorMessageUpdateProfile"])
   },
   methods: {
     ...mapActions("user", [
@@ -114,6 +114,9 @@ export default {
     handleUpdateProfile() {
       this.updateProfile(this.profileLoggedUser);
     }
+  },
+  created(){
+    this.checkLogin();
   },
   beforeMount() {
     this.getProfile(localStorage.getItem("userId"));

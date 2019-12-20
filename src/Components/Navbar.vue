@@ -23,9 +23,9 @@
                 <a class="nav-link" href="#foot">Contáctanos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/shoppingcart">
                   <img src="../assets/cart.png" alt="cart" style="width: 5%;" />
-                  <span class="badge badge-danger">1</span>
+                  <span class="badge badge-danger">{{shoppingCartQuantity}}</span>
                 </a>
               </li>
               <li class="nav-item dropdown">
@@ -52,9 +52,9 @@
       </nav>
     </div>
     <div class="d-md-none">
-      <nav class="navbar navbar-light bg-black fixed-top justify-content-center">
-        <span class="navbar-brand mb-0 h1">
-          <router-link to="/products" class="navbar-brand ml-5">
+      <nav class="navbar navbar-light bg-black fixed-top d-flex flex-row justify-content-center">
+        <span class="navbar-brand mb-0 h1 col-8">
+          <router-link to="/products" class="navbar-brand" style="margin-left: 5rem;">
             <img
               src="../assets/SoltyLogo7.png"
               width="178"
@@ -64,6 +64,10 @@
             />
           </router-link>
         </span>
+        <a class="nav-link d-flex justify-content-end ml-4" href="/shoppingcart">
+          <i class="fas fa-shopping-cart text-white"></i>
+          <span class="ml-2 badge badge-danger">{{shoppingCartQuantity}}</span>
+        </a>
       </nav>
       <div class="button_container" id="toggle">
         <span class="top"></span>
@@ -94,13 +98,16 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "navbar",
   data() {
     return {
       fullNameLoggedUser: ""
     };
+  },
+  computed: {
+    ...mapGetters("product", ["shoppingCartQuantity"])
   },
   methods: {
     ...mapActions("user", ["logout"])

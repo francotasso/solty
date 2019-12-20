@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 import { user } from './UserModule'
 import { product } from './ProductModule'
@@ -12,5 +13,6 @@ export default new Vuex.Store({
         user,
         product,
         payment
-    }
+    },
+    plugins: [createPersistedState()]
 })

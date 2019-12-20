@@ -123,6 +123,17 @@
             </div>
           </div>
         </div>
+        <nav aria-label="..." class="d-flex justify-content-center">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <span class="page-link">Previous</span>
+            </li>
+            <li class="page-item" v-for="n in numPages" :key="n" :class="n==currentPage ? 'active' : '' "><a class="page-link" :href="`/products/${n}`">{{n}}</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
     <loading v-if="showLoading" @hideLoading="onHideLoading"></loading>
@@ -145,6 +156,7 @@ export default {
     foot,
     loading
   },
+  props: ["numPage"],
   data() {
     return {
       showLoading: true,
@@ -153,11 +165,12 @@ export default {
   },
   computed: {
     ...mapState("user", ["successMessageUpdateProfile"]), //just to notify if user profile was updated
+    ...mapState("product", ["numPages", "currentPage"]),
     ...mapGetters("product", ["productsFiltered", "searchProducts"]),
     ...mapState("payment", ["successMessagePurchase"]) //just to notify if user made a success purchase
   },
   methods: {
-    ...mapActions("user", ["removeSuccessMessageUpdateProfile"]),
+    ...mapActions("user", ["checkLogin", "removeSuccessMessageUpdateProfile"]),
     ...mapActions("product", [
       "getProducts",
       "previousPurchase",
@@ -172,7 +185,8 @@ export default {
     }
   },
   created() {
-    this.getProducts();
+    this.checkLogin();
+    this.getProducts(this.numPage);
   },
   beforeMount(){
     this.showLoading = true;

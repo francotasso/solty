@@ -38,7 +38,7 @@
         O inicia sesión con
       </p>
       <div class="d-flex justify-content-center">
-        <a class="social-logo" :href="linkGoogleAuth">
+        <a class="social-logo" :href="linkFacebookAuth">
           <i class="fab fa-facebook-f" style="color: #0d47a1;"></i>
         </a>
         <a class="social-logo" :href="linkGoogleAuth">
@@ -72,24 +72,8 @@ export default {
     ...mapState("user", ["errorMessageLogin", "successMessageRegister"])
   },
   methods: {
-    checkIfLoggedIn() {
-      const url = API.url.concat("/auth/check");
-      axios.get(url, { withCredentials: true }).then(response => {
-        const user = response.data.user;
-        localStorage.setItem(
-          "userFullName",
-          `${user.firstName} ${user.lastName}`
-        );
-        localStorage.setItem("userId", user._id);
-        localStorage.setItem("googleUp", true);
-        this.$router.push('/products');
-      }).catch(err => {
-        return err
-      });
-    },
     ...mapActions("user", [
       "login",
-      "loginGoogle",
       "removeErrorMessageLogin",
       "removeSuccessMessageRegister"
     ]),
@@ -103,7 +87,6 @@ export default {
     }
   },
   mounted() {
-    this.checkIfLoggedIn();
     if (this.successMessageRegister) {
       this.displayNotification(
         this.successMessageRegister.body,

@@ -6,8 +6,8 @@ export const productService = {
     getProduct
 }
 
-function getProducts() {
-    let url = URL.url.concat('/products');
+function getProducts(numPage) {
+    let url = URL.url.concat(`/products/${numPage}`);
     return axios
         .get(
             url,
