@@ -51,7 +51,7 @@
               type="text"
               placeholder="Ingrese su género"
               v-model="profileLoggedUser.gender"
-              disabled
+              :disabled="!profileLoggedUser.gender"
             />
           </div>
           <div class="form-group">

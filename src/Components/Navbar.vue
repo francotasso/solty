@@ -4,7 +4,7 @@
       <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top" id="menu">
         <div class="container">
           <div>
-            <router-link to="/products" class="navbar-brand">
+            <router-link to="/products/1" class="navbar-brand">
               <img
                 src="../assets/SoltyLogo7.png"
                 width="178"
@@ -54,7 +54,7 @@
     <div class="d-md-none">
       <nav class="navbar navbar-light bg-black fixed-top d-flex flex-row justify-content-center">
         <span class="navbar-brand mb-0 h1 col-8">
-          <router-link to="/products" class="navbar-brand" style="margin-left: 5rem;">
+          <router-link to="/products/1" class="navbar-brand" style="margin-left: 5rem;">
             <img
               src="../assets/SoltyLogo7.png"
               width="178"
@@ -79,7 +79,7 @@
         <nav class="overlay-menu">
           <ul>
             <li>
-              <a href="/products">Inicio</a>
+              <a href="/products/1">Inicio</a>
             </li>
             <li>
               <a href="/about">Nosotros</a>
