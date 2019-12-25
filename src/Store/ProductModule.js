@@ -64,28 +64,16 @@ const mutations = {
     },
     addProductToShoppingCart(state, product) {
         let cart = state.shoppingCart;
-        if (state.shoppingCart !== null) {
-            if (cart.filter(item => item.id === product.id).length>0 && cart.filter(item => item.size === product.size).length>0 && cart.filter(item => item.color === product.color).length>0) {
-                state.shoppingCart.forEach(item => {
-                    if(item.productName === product.productName && item.size === product.size && item.color === product.color){
-                        item.quantity++; 
-                        item.totalPrice=parseFloat(product.price)*item.quantity; 
-                        state.shoppingCart.push();
-                        return;
-                    }
-                });
-            } else {
-                let newProduct = {
-                    id : product.id,
-                    productName: product.productName,
-                    size: product.size,
-                    color: product.color,
-                    quantity: 1,
-                    unitPrice: product.price,
-                    totalPrice: product.price
+        let u = undefined;
+        if (cart !== null && cart.find(item => item.id === product.id)!==u && cart.find(item => item.size === product.size)!==u && cart.find(item => item.color === product.color)!==u) {
+            state.shoppingCart.forEach(item => {
+                if(item.productName === product.productName && item.size === product.size && item.color === product.color){
+                    item.quantity++; 
+                    item.totalPrice=parseFloat(product.price)*item.quantity; 
+                    state.shoppingCart.push();
+                    return;
                 }
-                state.shoppingCart.push(newProduct);
-            }
+            });
         } else {
             let newProduct = {
                 id : product.id,
