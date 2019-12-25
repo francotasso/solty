@@ -35,18 +35,10 @@ const getters = {
         }
     },
     shoppingCartQuantity(state){
-        let quantity = 0;
-        for(let item of state.shoppingCart){
-            quantity+= parseInt(item.quantity);
-        }
-        return quantity;
+        return state.shoppingCart.reduce((quantity, item) => {return quantity + item.quantity}, 0)
     },
     shoppingCartTotalPrice(state){
-        let totalPrice = 0;
-        for(let item of state.shoppingCart){
-            totalPrice+=parseFloat(item.totalPrice);
-        }
-        return totalPrice;
+        return state.shoppingCart.reduce((totalPrice, item) => {return totalPrice + item.totalPrice}, 0)
     }
 }
 
