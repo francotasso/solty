@@ -8,17 +8,15 @@ export const productService = {
 
 function getProducts(numPage) {
     let url = URL.url.concat(`/products/${numPage}`);
-    return axios
-        .get(
-            url,
-            { withCredentials: true }
-        )
+    return new Promise((resolve, reject) => {
+      axios.get(url, { withCredentials: true })
         .then(res => {
-            return res.data;
+            resolve(res.data)
         })
-        .catch(err => {
-            return Promise.reject(new Error(err));
+        .catch(error => {
+            reject(new Error(`Error ${error}`));
         });
+    })
 };
 
 function getProduct(productId) {
