@@ -35,7 +35,7 @@ const getters = {
         }
     },
     shoppingCartQuantity(state){
-        return state.shoppingCart.reduce((quantity, item) => {return quantity + item.quantity}, 0)
+        return state.shoppingCart.reduce((quantity, item) => {return quantity + parseInt(item.quantity)}, 0)
     },
     shoppingCartTotalPrice(state){
         return state.shoppingCart.reduce((totalPrice, item) => {return totalPrice + item.totalPrice}, 0)
