@@ -83,13 +83,10 @@ const mutations = {
 }
 
 const actions = {
-    getProducts({ commit }, numPage) {
-        productService.getProducts(numPage).then(res => {
-            commit('setProducts', res);
-            router.push({ name: 'Products', params: { numPage: numPage } });
-        },
-            error => {
-            })
+    async getProducts({ commit }, numPage) {
+        let products = await productService.getProducts(numPage)
+        commit('setProducts', products);
+        router.push({ name: 'Products', params: { numPage: numPage } })
     },
     previousPurchase({ commit }, productId) {
         productService.getProduct(productId).then(res => {
