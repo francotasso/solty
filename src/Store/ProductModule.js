@@ -74,16 +74,11 @@ const mutations = {
     },
     updatePrice(state, product){
         let i = state.shoppingCart.indexOf(product);
-        state.shoppingCart[i].totalPrice = product.unitPrice * product.quantity;
+        if(i!==-1) state.shoppingCart[i].totalPrice = product.unitPrice * product.quantity;
     },
     removeProductFromShoppingCart(state, product){
-        if(state.shoppingCart !=null){
-            if(state.shoppingCart.includes(product)){
-                let i = state.shoppingCart.indexOf(product);
-                state.shoppingCart.splice(i, 1);
-            }
-        }
-        console.log(state.shoppingCart);
+        let i = state.shoppingCart.indexOf(product)
+        if(i!==-1) state.shoppingCart.splice(i, 1)
     }
 }
 
