@@ -103,10 +103,11 @@ export default {
     };
   },
   computed: {
-    ...mapState("user", ["checkLogin","profileLoggedUser", "errorMessageUpdateProfile"])
+    ...mapState("user", ["profileLoggedUser", "errorMessageUpdateProfile"])
   },
   methods: {
     ...mapActions("user", [
+      "checkLogin",
       "getProfile",
       "updateProfile",
       "removeErrorMessageUpdateProfile"

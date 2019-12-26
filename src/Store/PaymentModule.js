@@ -24,13 +24,14 @@ const mutations = {
 }
 
 const actions = {
-    executePurchase({ commit }, payment) {
-        paymentService.executePurchase(payment).then(res => {
-            commit('purchaseSuccess', res);
-            router.push({ name: 'Products' });
-        }, error => {
+    async executePurchase({ commit }, payment) {
+        try {
+            let checkout = await paymentService.executePurchase(payment)
+            commit('purchaseSuccess', checkout)
+            router.push({ name: 'Products', params: { id: 1 } })
+        } catch (e) {
             commit('purchaseError', error);
-        })
+        }
     },
     removeErrorMessagePurchase({ commit }) {
         commit('removeErrorMessagePurchase');

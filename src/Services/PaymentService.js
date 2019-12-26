@@ -7,7 +7,13 @@ export const paymentService = {
 
 function executePurchase(payment) {
     let url = URL.url.concat('/payment');
-    return axios.post(url, payment, { withCredentials: true }).then(res => { return res.data; }).catch(err => {
-        return Promise.reject(err.response.data);
+    return new Promise((resolve, reject) => {
+        axios.post(url, payment, { withCredentials: true })
+        .then(res => { 
+            resolve(res.data)
+        })
+        .catch(error => {
+            reject(error.response.data)
+        })
     })
 }

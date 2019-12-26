@@ -62,10 +62,8 @@ export default {
       email: "",
       password: "",
       submitted: false,
-      linkGoogleAuth: 'https://solty-back.herokuapp.com/auth/google',
-      linkFacebookAuth: 'https://solty-back.herokuapp/auth/facebook'
-      //linkGoogleAuth: 'http://localhost:3000/auth/google',
-      //linkFacebookAuth: 'http://localhost:3000/auth/facebook'
+      linkGoogleAuth: `${API.url}/auth/google`,
+      linkFacebookAuth: `${API.url}/auth/facebook`
     };
   },
   computed: {

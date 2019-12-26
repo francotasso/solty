@@ -50,46 +50,49 @@ const mutations = {
 }
 
 const actions = {
-    checkLogin(){
-        userService.checkLogin().then(data => {
-            if(Object.keys(data).length === 0){
-                window.localStorage.clear();
-                router.push({ name: 'Login' });
+    async checkLogin(){
+        try {
+            let user = await userService.checkLogin()
+            if(Object.keys(user).length === 0){
+                window.localStorage.clear()
+                router.push({ name: 'Login' })
             }
-        }, error => {
-            window.localStorage.clear();
-            router.push({ name: 'Login' });
-        })
+        } catch (e) {
+            window.localStorage.clear()
+            router.push({ name: 'Login' })
+        }
     },
-    login({ state, commit, dispatch }, { email, password }) {
-        userService.login(email, password).then(data => {
-            localStorage.setItem('userFullName', data.text);
-            localStorage.setItem('userId', data.id);
+    async login({ state, commit, dispatch }, { email, password }) {
+        try {
+            let user = await userService.login(email, password)
+            localStorage.setItem('userFullName', user.text);
+            localStorage.setItem('userId', user.id);
             commit('loginSuccess');
             dispatch('getProfile', localStorage.getItem('userId'));
             router.push({ name: 'Products', params: { numPage: 1 }});
-        }, error => {
-            commit('loginError');
-            router.push({ name: 'Login' });
-        });
+        } catch (e) {
+            commit('loginError')
+            router.push({ name: 'Login' })
+        }
     },
     removeErrorMessageLogin({ commit }) {
         commit('removeErrorMessageLogin');
     },
-    logout({ commit }) {
-        userService.logout().then(data => {
-            window.localStorage.clear();
-            router.push({ name: 'Login' });
-        }, error => {
-        });
+    async logout({ commit }) {
+        let session = await userService.logout()
+        console.log(session.text)
+        window.localStorage.clear()
+        router.push({ name: 'Login' })
     },
-    register({ commit }, user) {
-        userService.register(user).then(data => {
-            commit('registerSuccess');
-            router.push({ name: 'Login' });
-        }, error => {
-            commit('registerError', error);
-        });
+    async register({ commit }, user) {
+        try {
+            let signup = await userService.register(user)
+            console.log(signup.text)
+            commit('registerSuccess')
+            router.push({ name: 'Login' })
+        } catch (e) {
+            commit('registerError', error)
+        }
     },
     removeErrorMessageRegister({ commit }) {
         commit('removeErrorMessageRegister');
@@ -97,22 +100,22 @@ const actions = {
     removeSuccessMessageRegister({ commit }) {
         commit('removeSuccessMessageRegister');
     },
-    getProfile({ commit }, id) {
-        userService.getProfile(id).then(data => {
-            commit('setProfileLoggedUser', data);
-        }, error => {
-        });
+    async getProfile({ commit }, id) {
+        let user = await userService.getProfile(id)
+        commit('setProfileLoggedUser', user)
     },
-    updateProfile({ state, commit, dispatch }, user) {
-        userService.updateProfile(user).then(data => {
-            commit('updateProfileSuccess');
-            dispatch('getProfile', localStorage.getItem('userId'));
-            localStorage.userFullName = state.profileLoggedUser.firstName + " " + state.profileLoggedUser.lastName;
+    async updateProfile({ state, commit, dispatch }, user) {
+        try {
+            let update = await userService.updateProfile(user)
+            console.log(update.text)
+            commit('updateProfileSuccess')
+            dispatch('getProfile', localStorage.getItem('userId'))
+            localStorage.userFullName = state.profileLoggedUser.firstName + " " + state.profileLoggedUser.lastName
             router.push({ name: 'Products' });
-        }, error => {
-            commit('updateProfileError', error);
-            dispatch('getProfile', localStorage.getItem('userId'));
-        });
+        } catch (e) {
+            commit('updateProfileError', error)
+            dispatch('getProfile', localStorage.getItem('userId'))
+        }
     },
     removeErrorMessageUpdateProfile({ commit }) {
         commit('removeErrorMessageUpdateProfile');

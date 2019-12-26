@@ -85,27 +85,27 @@ const mutations = {
 const actions = {
     async getProducts({ commit }, numPage) {
         let products = await productService.getProducts(numPage)
-        commit('setProducts', products);
+        commit('setProducts', products)
         router.push({ name: 'Products', params: { numPage: numPage } })
     },
-    previousPurchase({ commit }, productId) {
-        productService.getProduct(productId).then(res => {
-            commit('setCurrentProductToBuy', res);
-            router.push({ name: 'Product', params: { id: productId } });
-        },
-            error => {
-                router.push({ name: 'Login' });
-            })
-    },
-    getProduct({ commit }, productId) {
-        productService.getProduct(productId).then(res => {
-            commit('setCurrentProductToBuy', res);
-            router.push({ name: 'ProductDescription' });
-        },
-            error => {
-                router.push({ name: 'Login' });
-            })
-    },
+    async getProduct({ commit }, productId) {
+        try {
+            let product = await productService.getProduct(productId)
+            commit('setCurrentProductToBuy', product)
+            router.push({ name: 'ProductDescription' })
+        } catch (e) {
+            router.push({ name: 'Login' })
+        }
+    }, 
+    async previousPurchase({ commit }, productId) {
+        try {
+            let product = await productService.getProduct(productId)
+            commit('setCurrentProductToBuy', product)
+            router.push({ name: 'Product', params: { id: productId } })
+        } catch (e) {
+            router.push({ name: 'Login' })
+        }     
+    }, 
     setProductsFilter({ commit }, filter) {
         commit('setProductsFilter', filter);
     }

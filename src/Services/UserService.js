@@ -13,78 +13,78 @@ export const userService = {
 
 function checkLogin(){
     let url = URL.url.concat('/auth/check');
-    return axios
-        .get(
-            url,
-            {withCredentials: true}
-        )
+    return new Promise((resolve, reject) => {
+        axios.get(url, {withCredentials: true})
         .then(res =>{
-            return res.data;
+            resolve(res.data)
         })
-        .catch(err =>{
-            return Promise.reject(new Error(err));
+        .catch(error =>{
+            reject(new Error(`Error ${error}`))
         })
-}
+    })
+};
 
 function login(email, password) {
     let url = URL.url.concat('/login');
-    return axios
-        .post(
-            url,
-            {
-                email,
-                password
-            },
-            { withCredentials: true }
-        )
+    return new Promise((resolve, reject) => {
+        axios.post(url, {email, password}, { withCredentials: true })
         .then(res => {
-            return res.data;
+            resolve(res.data)
         })
-        .catch(err => {
-            return Promise.reject(new Error(err));
-        });
+        .catch(error => {
+            reject(new Error(`Error ${error}`))
+        })
+    })
 };
 
 function logout() {
     let url = URL.url.concat('/logout');
-    return axios.get(url, { withCredentials: true })
+    return new Promise((resolve, reject) => {
+        axios.get(url, { withCredentials: true })
         .then(res => {
-            return res.data
+            resolve(res.data)
         })
-        .catch(err => {
-            return Promise.reject(new Error(err));
+        .catch(error => {
+            reject(new Error(`Error ${error}`))
         });
+    })
 };
 
 function register(user) {
     let url = URL.url.concat('/register');
-    return axios.post(url, user, { withCredentials: true })
+    return new Promise((resolve, reject) => {
+        axios.post(url, user, { withCredentials: true })
         .then(res => {
-            return res.data
+            resolve(res.data)
         })
-        .catch(err => {
-            return Promise.reject(err.response.data);
-        })
+        .catch(error => {
+            reject(error.response.data)
+        });
+    })
 };
 
 function getProfile(id) {
     let url = URL.url.concat(`/user/${id}`);
-    return axios.get(url, { withCredentials: true })
+    return new Promise((resolve, reject) => {
+        axios.get(url, { withCredentials: true })
         .then(res => {
-            return res.data
+            resolve(res.data)
         })
-        .catch(err => {
-            return Promise.reject(err.response.data);
-        })
+        .catch(error => {
+            reject(error.response.data)
+        });
+    })
 };
 
 function updateProfile(user) {
     let url = URL.url.concat(`/user/${user._id}`);
-    return axios.put(url, user, { withCredentials: true })
+    return new Promise((resolve, reject) => {
+        axios.put(url, user, { withCredentials: true })
         .then(res => {
-            return res.data
+            resolve(res.data)
         })
-        .catch(err => {
-            return Promise.reject(err.response.data);
-        })
-}
+        .catch(error => {
+            reject(error.response.data)
+        });
+    })
+};
