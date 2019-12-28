@@ -53,7 +53,7 @@
     </div>
     <div class="d-md-none">
       <nav class="navbar navbar-light bg-black fixed-top d-flex flex-row justify-content-center">
-        <span class="navbar-brand mb-0 h1 col-8">
+        <span class="brand-new mb-0 h1 col-8">
           <router-link to="/products/1" class="navbar-brand" style="margin-left: 5rem;">
             <img
               src="../assets/SoltyLogo7.png"
@@ -378,6 +378,21 @@ export default {
       opacity: 1;
       left: 0;
     }
+  }
+}
+
+.brand-new{
+  font-size: 1.25rem;
+  line-height: inherit;
+}
+
+@media screen and (max-width: 360px) {
+  .brand-new{
+    margin-left: 0px !important;
+  }
+  img {
+    width: 150px;
+    height: 33px;
   }
 }
 </style>

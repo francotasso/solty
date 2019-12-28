@@ -3,64 +3,67 @@
     <navbar />
     <div class="container-fluid d-flex justify-content-center" style="margin-top: 4rem;">
         <div class="limiter">
-		<div class="container-table100">
-			<div class="wrap-table100">
-				<div class="table100" v-if="shoppingCart.length>0">
-                    <div class="mb-4"><h3>Listado de items de su carrito</h3></div>
-                    <div class="d-md-none">Total: S/. {{shoppingCartTotalPrice}}</div>
-					<table>
-						<thead>
-							<tr class="table100-head">
-								<th class="column1">Nombre</th>
-								<th class="column2">Talla</th>
-								<th class="column3">Color</th>
-								<th class="column4">Cantidad</th>
-								<th class="column5">Subtotal</th>
-								<th class="column6">Eliminar</th>
-							</tr>
-						</thead>
-						<tbody>
-								<tr v-for="(item, index) in shoppingCart" :key="index">
-									<td class="column1"><router-link :to="`product/${item.id}/description`">{{item.productName}}</router-link></td>
-									<td class="column2">
-                                        <select id="size" class="form-control" v-model="item.size">
-                                            <option :selected="item.size === 'XS'">XS</option>
-                                            <option :selected="item.size === 'S'">S</option>
-                                            <option :selected="item.size === 'M'">M</option>
-                                            <option :selected="item.size === 'L'">L</option>
-                                            <option :selected="item.size === 'XL'">XL</option>
-                                        </select>
-                                    </td>
-									<td class="column3">
-                                        <select id="size" class="form-control" v-model="item.color">
-                                            <option :selected="item.color === 'Negro'">Negro</option>
-                                            <option :selected="item.color === 'Azul'">Azul</option>
-                                            <option :selected="item.color === 'Verde'">Verde</option>
-                                            <option :selected="item.color === 'Gris'">Gris</option>
-                                            <option :selected="item.color === 'Amarillo'">Amarillo</option>
-                                        </select>
-                                    </td>
-									<td class="column4">
-                                        <input class="form-control text-center"  v-model="item.quantity" @keyup="updatePrice(item)"/>
-                                    </td>
-									<td class="column5">S/.{{item.totalPrice}}</td>
-									<td class="column6"><i class="fas fa-times" @click="removeProductFromShoppingCart(item)" title="Remover de la lista"></i></td>
-								</tr>						
-						</tbody>
-					</table>
-                    <div class="d-flex justify-content-end mt-4" style="margin-right: 13rem;">
-                        Total: S/. {{shoppingCartTotalPrice}}
-                    </div>
-				</div>
+		      <div class="container-table100">
+			      <div class="wrap-table100">
+				      <div class="table100" v-if="shoppingCart.length>0">
+                <div class="mb-4"><h3>Listado de items de su carrito</h3></div>
+                <div class="d-md-none">Total: S/. {{shoppingCartTotalPrice}}</div>
+                <table>
+                  <thead>
+                    <tr class="table100-head">
+                      <th class="column1">Nombre</th>
+                      <th class="column2">Talla</th>
+                      <th class="column3">Color</th>
+                      <th class="column4">Cantidad</th>
+                      <th class="column5">Subtotal</th>
+                      <th class="column6">Eliminar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(item, index) in shoppingCart" :key="index">
+                      <td class="column1"><router-link :to="`product/${item.id}/description`">{{item.productName}}</router-link></td>
+                      <td class="column2">
+                        <select id="size" class="form-control" v-model="item.size">
+                            <option :selected="item.size === 'XS'">XS</option>
+                            <option :selected="item.size === 'S'">S</option>
+                            <option :selected="item.size === 'M'">M</option>
+                            <option :selected="item.size === 'L'">L</option>
+                            <option :selected="item.size === 'XL'">XL</option>
+                        </select>
+                      </td>
+                      <td class="column3">
+                        <select id="size" class="form-control" v-model="item.color">
+                            <option :selected="item.color === 'Negro'">Negro</option>
+                            <option :selected="item.color === 'Azul'">Azul</option>
+                            <option :selected="item.color === 'Verde'">Verde</option>
+                            <option :selected="item.color === 'Gris'">Gris</option>
+                            <option :selected="item.color === 'Amarillo'">Amarillo</option>
+                        </select>
+                      </td>
+                      <td class="column4">
+                        <input class="form-control text-center" type="number" min="1" step="1" v-model="item.quantity" @keyup="updatePrice(item)"/>
+                      </td>
+                      <td class="column5">S/.{{item.totalPrice}}</td>
+                      <td class="column6"><i class="fas fa-times" @click="removeProductFromShoppingCart(item)" title="Remover de la lista"></i></td>
+                    </tr>						
+                  </tbody>
+                 </table>
+                  <div class="d-flex justify-content-end mt-4" style="margin-right: 13rem;">
+                      Total: S/. {{shoppingCartTotalPrice}}
+                  </div>
+                  <div class="d-flex justify-content-center mt-4">
+                    <router-link type="button" class="btn btn-success p-2" to="/checkout">Ir a pagar</router-link>
+                  </div>
+				        </div>
                 <div v-else>
                     <div class="container d-flex justify-content-center align-items-center">
                         <h3 class="text-center">No hay productos en el carrito</h3>
                     </div>
                 </div>
-			</div>
-		</div>
-	</div>
-    </div>
+			        </div>
+		        </div>
+	        </div>
+        </div>
     <foot />
   </div>
 </template>
@@ -90,6 +93,12 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap");
+
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
 .box {
   margin-top: 5rem;
 }
@@ -99,21 +108,10 @@ export default {
   margin-top: 3rem;
   margin-bottom: 3rem;
 }
-
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
-* {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
-}
-
 body, html {
 	height: 100%;
 	font-family: sans-serif;
 }
-
-/* ------------------------------------ */
 a {
 	margin: 0px;
 	transition: all 0.4s;
@@ -121,76 +119,45 @@ a {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
 }
-
 a:focus {
 	outline: none !important;
 }
-
 a:hover {
 	text-decoration: none;
 }
-
-/* ------------------------------------ */
 h1,h2,h3,h4,h5,h6 {margin: 0px;}
-
 p {margin: 0px;}
-
 ul, li {
 	margin: 0px;
 	list-style-type: none;
 }
-
-
-/* ------------------------------------ */
 input {
   display: block;
 	outline: none;
 	border: none !important;
 }
-
 textarea {
   display: block;
   outline: none;
 }
-
 textarea:focus, input:focus {
   border-color: transparent !important;
 }
-
-/* ------------------------------------ */
 button {
 	outline: none !important;
 	border: none;
 	background: transparent;
 }
-
 button:hover {
 	cursor: pointer;
 }
-
 iframe {
 	border: none !important;
 }
-
-
-
-
-/*//////////////////////////////////////////////////////////////////
-[ Utiliti ]*/
-
-
-
-
-
-
-/*//////////////////////////////////////////////////////////////////
-[ Table ]*/
-
 .limiter {
   width: 100%;
   margin: 0 auto;
 }
-
 .container-table100 {
   width: 100%;
   min-height: 100vh;
@@ -203,11 +170,9 @@ iframe {
   flex-wrap: wrap;
   padding: 33px 30px;
 }
-
 .wrap-table100 {
   width: 1170px;
 }
-
 table {
   border-spacing: 1;
   border-collapse: collapse;
@@ -235,7 +200,6 @@ table tbody tr {
 table tbody tr:last-child {
   border: 0;
 }
-
 .table100-head th{
   font-family: OpenSans-Regular;
   font-size: 18px;
@@ -243,11 +207,9 @@ table tbody tr:last-child {
   line-height: 1.2;
   font-weight: unset;
 }
-
 tbody tr:nth-child(even) {
   background-color: #f5f5f5;
 }
-
 tbody tr {
   font-family: OpenSans-Regular;
   font-size: 15px;
@@ -255,43 +217,34 @@ tbody tr {
   line-height: 1.2;
   font-weight: unset;
 }
-
 tbody tr:hover {
   color: #555555;
   background-color: #f5f5f5;
   cursor: pointer;
 }
-
 .column1 {
   width: 260px;
   padding-left: 40px;
 }
-
 .column2 {
   width: 160px;
 }
-
 .column3 {
   width: 245px;
 }
-
 .column4 {
   width: 110px;
   text-align: right;
 }
-
 .column5 {
   width: 170px;
   text-align: right;
 }
-
 .column6 {
   width: 222px;
   text-align: right;
   padding-right: 62px;
 }
-
-
 @media screen and (max-width: 992px) {
   table {
     display: block;

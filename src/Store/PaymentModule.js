@@ -24,11 +24,12 @@ const mutations = {
 }
 
 const actions = {
-    async executePurchase({ commit }, payment) {
+    async executePurchase({ state, commit, rootState }, payment) {
         try {
             let checkout = await paymentService.executePurchase(payment)
             commit('purchaseSuccess', checkout)
-            router.push({ name: 'Products', params: { id: 1 } })
+            rootState.product.shoppingCart = []
+            router.push({ name: 'Products', params: { numPage: 1 } })
         } catch (e) {
             commit('purchaseError', error);
         }

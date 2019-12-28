@@ -74,7 +74,7 @@ const mutations = {
     },
     updatePrice(state, product){
         let i = state.shoppingCart.indexOf(product);
-        if(i!==-1) state.shoppingCart[i].totalPrice = product.unitPrice * product.quantity;
+        if(i!==-1) state.shoppingCart[i].totalPrice = product.unitPrice * parseInt(product.quantity);
     },
     removeProductFromShoppingCart(state, product){
         let i = state.shoppingCart.indexOf(product)
@@ -101,7 +101,7 @@ const actions = {
         try {
             let product = await productService.getProduct(productId)
             commit('setCurrentProductToBuy', product)
-            router.push({ name: 'Product', params: { id: productId } })
+            router.push({ name: 'ProductDescription', params: { id: productId } })
         } catch (e) {
             router.push({ name: 'Login' })
         }     

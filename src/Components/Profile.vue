@@ -51,7 +51,7 @@
               type="text"
               placeholder="Ingrese su género"
               v-model="profileLoggedUser.gender"
-              :disabled="!profileLoggedUser.gender"
+              :disabled="!editGender"
             />
           </div>
           <div class="form-group">
@@ -78,7 +78,7 @@
             />
           </div>
           <div class="d-flex justify-content-center" v-if="!edit">
-            <button class="btn bg-darkblue" @click="edit=true">Editar</button>
+            <button class="btn bg-darkblue" @click="editFields">Editar</button>
           </div>
           <div class="d-flex justify-content-center" v-else>
             <button class="btn bg-ocre" @click="handleUpdateProfile">Guardar</button>
@@ -99,7 +99,8 @@ export default {
   },
   data() {
     return {
-      edit: false
+      edit: false,
+      editGender: false
     };
   },
   computed: {
@@ -112,6 +113,12 @@ export default {
       "updateProfile",
       "removeErrorMessageUpdateProfile"
     ]),
+    editFields(){
+      this.edit = true;
+      if(this.profileLoggedUser.gender === undefined || this.profileLoggedUser.gender === ""){
+        this.editGender = true;
+      }
+    },
     handleUpdateProfile() {
       this.updateProfile(this.profileLoggedUser);
     }

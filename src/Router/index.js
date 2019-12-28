@@ -9,7 +9,7 @@ import AboutUs from '../Components/AboutUs.vue'
 import Products from '../Components/Products.vue'
 import Product from '../Components/Product.vue'
 import ProductDescription from '../Components/ProductDescription.vue'
-import ProductPayment from '../Components/ProductPayment.vue'
+import Payment from '../Components/Payment.vue'
 import ProductDetails from '../Components/ProductDetails.vue'
 import ProductTips from '../Components/ProductTips.vue'
 import ShoppingCart from '../Components/ShoppingCart.vue'
@@ -82,6 +82,11 @@ export const router = new Router({
             path: '/shoppingcart',
             name: 'ShoppingCart',
             component: ShoppingCart
+        },
+        {
+            path: '/checkout',
+            name: 'Payment',
+            component: Payment
         }
     ]
 });
@@ -100,6 +105,5 @@ router.beforeEach((to, from, next) => {
     if (from.path == '/product/' + from.params.id + '/description' && to.path == '/product/' + from.params.id) {
         return next('/products/1');
     }
-    console.log('llegó')
     next();
 })

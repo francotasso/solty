@@ -38,8 +38,8 @@ const mutations = {
     updateProfileError(state, error) {
         state.errorMessageUpdateProfile = error
     },
-    updateProfileSuccess(state) {
-        state.successMessageUpdateProfile = { title: 'Perfil', body: 'Actualizado correctamente' }
+    updateProfileSuccess(state, text) {
+        state.successMessageUpdateProfile = { title: 'Perfil', body: text }
     },
     removeErrorMessageUpdateProfile(state) {
         state.errorMessageUpdateProfile = null
@@ -50,10 +50,10 @@ const mutations = {
 }
 
 const actions = {
-    async checkLogin(){
+    async checkLogin() {
         try {
             let user = await userService.checkLogin()
-            if(Object.keys(user).length === 0){
+            if (Object.keys(user).length === 0) {
                 window.localStorage.clear()
                 router.push({ name: 'Login' })
             }
@@ -69,7 +69,7 @@ const actions = {
             localStorage.setItem('userId', user.id);
             commit('loginSuccess');
             dispatch('getProfile', localStorage.getItem('userId'));
-            router.push({ name: 'Products', params: { numPage: 1 }});
+            router.push({ name: 'Products', params: { numPage: 1 } });
         } catch (e) {
             commit('loginError')
             router.push({ name: 'Login' })
@@ -107,14 +107,17 @@ const actions = {
     async updateProfile({ state, commit, dispatch }, user) {
         try {
             let update = await userService.updateProfile(user)
-            console.log(update.text)
-            commit('updateProfileSuccess')
-            dispatch('getProfile', localStorage.getItem('userId'))
-            localStorage.userFullName = state.profileLoggedUser.firstName + " " + state.profileLoggedUser.lastName
-            router.push({ name: 'Products' });
-        } catch (e) {
+            if (update.text === "Actualizado correctamente") {
+                commit('updateProfileSuccess', update.text)
+                dispatch('getProfile', localStorage.getItem('userId'))
+                localStorage.userFullName = state.profileLoggedUser.firstName + " " + state.profileLoggedUser.lastName
+            } else {
+                commit('updateProfileSuccess', update.text)
+            }
+            router.push({ name: 'Products', params: { numPage: 1 } });
+        } catch (error) {
             commit('updateProfileError', error)
-            dispatch('getProfile', localStorage.getItem('userId'))
+            //dispatch('getProfile', localStorage.getItem('userId'))
         }
     },
     removeErrorMessageUpdateProfile({ commit }) {

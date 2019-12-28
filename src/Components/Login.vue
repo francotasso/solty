@@ -26,8 +26,14 @@
           </p>
           <!-- JS because of IE support; better: placeholder="Password" -->
           <p>
-            <input type="submit" value="Ingresar" />
+            <button type="submit">
+              <div v-if="!submitted">Ingresar</div>
+              <div v-else class="spinner-border" role="status"> 
+                <span class="sr-only">Loading...</span>
+              </div>
+            </button>
           </p>
+          
           <p class="text-center">
             <router-link to="/register" class="register-message">¿Aún no tienes cuenta? Regístrate aquí</router-link>
           </p>
@@ -53,7 +59,6 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import axios from "axios";
 import API from "../API/API";
 export default {
   name: "Login",
@@ -75,10 +80,11 @@ export default {
       "removeErrorMessageLogin",
       "removeSuccessMessageRegister"
     ]),
-    handleSubmit() {
+    async handleSubmit() {
       this.submitted = true;
       const { email, password } = this;
-      this.login({ email, password });
+      await this.login({ email, password });
+      this.submitted = false;
     },
     displayNotification(body, title) {
       this.$snotify.success(body, title);
@@ -95,6 +101,7 @@ export default {
   beforeDestroy() {
     if (this.errorMessageLogin) {
       this.removeErrorMessageLogin();
+      this.submitted = false;
     }
     if (this.successMessageRegister) {
       this.removeSuccessMessageRegister();
@@ -179,7 +186,7 @@ input[type="password"] {
   width: 300px;
   -webkit-appearance: none;
 }
-form fieldset input[type="submit"] {
+form fieldset button[type="submit"] {
   background-color: #008dde;
   border: none;
   border-radius: 10px;
