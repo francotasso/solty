@@ -10,39 +10,32 @@
       <form @submit.prevent="handleSubmit" method="GET">
         <fieldset>
           <p>
-            <input
-              type="text"
-              placeholder="Ingrese su email"
-              v-model="email"
-            />
+            <input type="text" placeholder="Ingrese su email" v-model="email" />
           </p>
           <!-- JS because of IE support; better: placeholder="Username" -->
           <p>
-            <input
-              type="password"
-              placeholder="Ingrese su contraseña"
-              v-model="password"
-            />
+            <input type="password" placeholder="Ingrese su contraseña" v-model="password" />
           </p>
           <!-- JS because of IE support; better: placeholder="Password" -->
           <p>
-            <button type="submit">
+            <button type="submit" :disabled="submitted" :class="submitted ? 'disabled' : ''">
               <div v-if="!submitted">Ingresar</div>
-              <div v-else class="spinner-border" role="status"> 
+              <div v-else class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </button>
           </p>
-          
+
           <p class="text-center">
-            <router-link to="/register" class="register-message">¿Aún no tienes cuenta? Regístrate aquí</router-link>
+            <router-link
+              to="/register"
+              class="register-message"
+            >¿Aún no tienes cuenta? Regístrate aquí</router-link>
           </p>
         </fieldset>
       </form>
-      <hr>
-      <p class="text-center register-message">
-        O inicia sesión con
-      </p>
+      <hr />
+      <p class="text-center register-message">O inicia sesión con</p>
       <div class="d-flex justify-content-center">
         <a class="social-logo" :href="linkFacebookAuth">
           <i class="fab fa-facebook-f" style="color: #0d47a1;"></i>
@@ -142,20 +135,20 @@ strong {
   margin: auto;
   width: 300px;
 }
-.login-title{
-  font-family: 'Pacifico', cursive;
-  color: #1984C1;
+.login-title {
+  font-family: "Pacifico", cursive;
+  color: #1984c1;
 }
-.register-message{
+.register-message {
   font-size: 13px;
   color: #008dde;
 }
-.register-message:hover{
+.register-message:hover {
   text-decoration: none;
-  color: #077BBE;
+  color: #077bbe;
 }
 .social-logo {
-  background-color: #F5F0EF;
+  background-color: #f5f0ef;
   border-radius: 50%;
   padding: 1rem;
   margin-right: 1rem;
@@ -164,20 +157,20 @@ strong {
   height: 3rem;
   display: flex;
   justify-content: center;
-  -webkit-transition: transform .3s ease-in-out;
-  -moz-transition:transform .3s ease-in-out;
-  -ms-transition:transform .3s ease-in-out;
+  -webkit-transition: transform 0.3s ease-in-out;
+  -moz-transition: transform 0.3s ease-in-out;
+  -ms-transition: transform 0.3s ease-in-out;
 }
 .social-logo:hover {
-  background-color: #F9F6F5;
+  background-color: #f9f6f5;
   transform: scale(1.05);
 }
 form fieldset input[type="text"],
 input[type="password"] {
-  background: #F5F0EF;
+  background: #f5f0ef;
   border: none;
   border-radius: 10px;
-  color: #423D3D;
+  color: #423d3d;
   font-family: inherit;
   font-size: 14px;
   height: 50px;
@@ -197,7 +190,7 @@ form fieldset button[type="submit"] {
   text-transform: uppercase;
   width: 300px;
   -webkit-appearance: none;
-  font-family: 'Nanum Pen Script';
+  font-family: "Nanum Pen Script";
 }
 form fieldset a:hover {
   text-decoration: underline;
@@ -214,6 +207,10 @@ form fieldset a:hover {
   text-align: center;
   text-transform: uppercase;
   width: 50px;
+}
+
+.disabled {
+  background-color: #c3c2c2 !important;
 }
 
 .facebook-before {

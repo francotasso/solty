@@ -30,15 +30,15 @@ const getters = {
             return state.products.filter(
                 product => product.gender === 'Female'
             )
-        } else if (state.filter!== null){
+        } else if (state.filter !== null) {
             return state.products.filter(product => product.productName.toLowerCase().includes(state.filter.toLowerCase()) || product.brand.toLowerCase().includes(state.filter.toLowerCase()))
         }
     },
-    shoppingCartQuantity(state){
-        return state.shoppingCart.reduce((quantity, item) => {return quantity + parseInt(item.quantity)}, 0)
+    shoppingCartQuantity(state) {
+        return state.shoppingCart.reduce((quantity, item) => { return quantity + parseInt(item.quantity) }, 0)
     },
-    shoppingCartTotalPrice(state){
-        return state.shoppingCart.reduce((totalPrice, item) => {return totalPrice + item.totalPrice}, 0)
+    shoppingCartTotalPrice(state) {
+        return state.shoppingCart.reduce((totalPrice, item) => { return totalPrice + item.totalPrice }, 0)
     }
 }
 
@@ -56,29 +56,30 @@ const mutations = {
     },
     addProductToShoppingCart(state, product) {
         let currentProduct = state.shoppingCart.find(item => item.id === product.id && item.size === product.size && item.color === product.color)
-        if (currentProduct){
+        if (currentProduct) {
             currentProduct.quantity++;
-            currentProduct.totalPrice = parseFloat(product.price)*currentProduct.quantity
+            currentProduct.totalPrice = parseFloat(product.price) * currentProduct.quantity
         } else {
             let newProduct = {
-                id : product.id,
+                id: product.id,
                 productName: product.productName,
                 size: product.size,
                 color: product.color,
                 quantity: 1,
                 unitPrice: product.price,
-                totalPrice: product.price
+                totalPrice: product.price,
+                available: product.available
             }
             state.shoppingCart.push(newProduct);
         }
     },
-    updatePrice(state, product){
+    updatePrice(state, product) {
         let i = state.shoppingCart.indexOf(product);
-        if(i!==-1) state.shoppingCart[i].totalPrice = product.unitPrice * parseInt(product.quantity);
+        if (i !== -1) state.shoppingCart[i].totalPrice = product.unitPrice * parseInt(product.quantity);
     },
-    removeProductFromShoppingCart(state, product){
+    removeProductFromShoppingCart(state, product) {
         let i = state.shoppingCart.indexOf(product)
-        if(i!==-1) state.shoppingCart.splice(i, 1)
+        if (i !== -1) state.shoppingCart.splice(i, 1)
     }
 }
 
@@ -96,7 +97,7 @@ const actions = {
         } catch (e) {
             router.push({ name: 'Login' })
         }
-    }, 
+    },
     async previousPurchase({ commit }, productId) {
         try {
             let product = await productService.getProduct(productId)
@@ -104,8 +105,8 @@ const actions = {
             router.push({ name: 'ProductDescription', params: { id: productId } })
         } catch (e) {
             router.push({ name: 'Login' })
-        }     
-    }, 
+        }
+    },
     setProductsFilter({ commit }, filter) {
         commit('setProductsFilter', filter);
     }

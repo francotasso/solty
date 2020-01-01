@@ -19,9 +19,9 @@
             </li>
             <li
               class="page-item"
+              :class="n==currentPage ? 'active' : '' "
               v-for="n in numPages"
               :key="n"
-              :class="n==currentPage ? 'active' : '' "
             >
               <a class="page-link" :href="`/products/${n}`">{{n}}</a>
             </li>
@@ -120,6 +120,9 @@ export default {
 .bree-serif {
   font-family: "Bree Serif", serif;
   font-size: 18px;
+}
+.blanco {
+  color: #fff !important;
 }
 </style>
 

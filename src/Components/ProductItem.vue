@@ -1,47 +1,40 @@
 <template>
-    <div>
-        <section class="cards mb-5">
-            <article class="card card--1 mx-auto">
-                <div
-                class="card__img"
-                :style="{ 'background-image': 'url(' + product.image + ')' }"
-                ></div>
-                <div
-                class="card__img--hover"
-                :style="{ 'background-image': 'url(' + product.image + ')' }"
-                ></div>
-                <div class="card__info">
-                <span class="card__category">{{product.brand}}</span>
-                <h3 class="card__title">{{product.productName}}</h3>
-                <div class="d-flex justify-content-center">
-                    <button
-                    type="button"
-                    class="btn bg-darkblue"
-                    data-toggle="modal"
-                    :data-target="'#modal'+product._id"
-                    >Más info</button>
-                </div>
-                </div>
-            </article>
-        </section>
-        <ProductItemModal :product="product"/>
-    </div>
+  <div>
+    <section class="cards mb-5">
+      <article class="card card--1 mx-auto">
+        <div class="card__img" :style="{ 'background-image': 'url(' + product.image + ')' }"></div>
+        <div class="card__img--hover" :style="{ 'background-image': 'url(' + product.image + ')' }"></div>
+        <div class="card__info">
+          <span class="card__category">{{product.brand}}</span>
+          <h3 class="card__title">{{product.productName}}</h3>
+          <p class="card__price">S/. {{product.price}}</p>
+          <div class="d-flex justify-content-center">
+            <button
+              type="button"
+              class="btn bg-darkblue"
+              data-toggle="modal"
+              :data-target="'#modal'+product._id"
+            >Más info</button>
+          </div>
+        </div>
+      </article>
+    </section>
+    <ProductItemModal :product="product" />
+  </div>
 </template>
 
 <script>
 import ProductItemModal from "./ProductItemModal";
 export default {
-    name: 'ProductItem',
-    components: {
-        ProductItemModal
-    },
-    props: ['product'],
-    data(){
-        return {
-
-        }
-    }
-}
+  name: "ProductItem",
+  components: {
+    ProductItemModal
+  },
+  props: ["product"],
+  data() {
+    return {};
+  }
+};
 </script>
 
 <style scoped>
@@ -114,7 +107,7 @@ export default {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
-  min-height: 430px;
+  min-height: 475px;
 }
 .card:hover {
   box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.7);
@@ -136,6 +129,13 @@ export default {
   letter-spacing: 2px;
   font-weight: 500;
   color: #868686;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Pathway+Gothic+One&display=swap");
+
+.card__price {
+  font-family: "Pathway Gothic One", sans-serif;
+  font-size: 18px;
 }
 
 .card__title {

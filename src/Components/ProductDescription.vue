@@ -5,7 +5,7 @@
       <div>
         <p class="text-justify">{{currentProductToBuy.description}}</p>
       </div>
-      <hr>
+      <hr />
       <div class="mt-4">
         <div class="row">
           <div class="col-md-4 px-3">
@@ -16,42 +16,51 @@
             <div class="col-md-6">
               <label for="size" class="bree-serif">Talla</label>
               <select id="size" class="form-control" v-model="size">
-                <option>XS</option>
-                <option>S</option>
-                <option selected>M</option>
-                <option>L</option>
-                <option>XL</option>
+                <option
+                  v-for="(itemSize, index) in currentProductToBuy.available.sizes"
+                  :key="index"
+                >{{itemSize.size}}</option>
               </select>
             </div>
             <div class="col-md-6">
               <label for="color" class="bree-serif">Color</label>
               <select id="color" class="form-control" v-model="color">
-                <option selected>Negro</option>
-                <option>Azul</option>
-                <option>Verde</option>
-                <option>Gris</option>
-                <option>Amarillo</option>
+                <option v-for="(itemColor, index) in colors" :key="index">{{itemColor.color}}</option>
               </select>
             </div>
           </div>
         </div>
-        <hr>
+        <hr />
         <div class="row mt-4">
           <div class="col-md-4 p-0">
             <p style="font-size: 10px;">* Incluye promoción por tiempo limitado</p>
-            <button class="btn btn-block btn-elegant text-white" type="button" data-toggle="modal" data-target="#cartModal" @click="addProduct()"><i class="fas fa-shopping-cart"></i> Agregar al carrito</button>
+            <button
+              class="btn btn-block btn-elegant text-white"
+              type="button"
+              data-toggle="modal"
+              data-target="#cartModal"
+              @click="addProduct()"
+            >
+              <i class="fas fa-shopping-cart"></i> Agregar al carrito
+            </button>
             <ShoppingCartModal />
           </div>
-          <div class="col-md-5 pl-5 pt-3 d-flex justify-content-center align-items-center stars" style="font-size: 2rem;">
+          <div
+            class="col-md-5 pl-5 pt-3 d-flex justify-content-center align-items-center stars"
+            style="font-size: 2rem;"
+          >
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="far fa-star"></i>
           </div>
-          <div class="col-md-3 d-flex flex-column align-content-between pt-3" style="font-size: 12px;">
+          <div
+            class="col-md-3 d-flex flex-column align-content-between pt-3"
+            style="font-size: 12px;"
+          >
             <p class="text-right">Envío gratis</p>
-            <p class="text-right" >Devolución gratis</p>
+            <p class="text-right">Devolución gratis</p>
           </div>
         </div>
       </div>
@@ -61,41 +70,57 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import ShoppingCartModal from './ShoppingCartModal';
+import ShoppingCartModal from "./ShoppingCartModal";
 export default {
   name: "productDescription",
   computed: {
     ...mapState("product", ["currentProductToBuy", "shoppingCart"]),
-    shoppingCartSort(){
-      return this.shoppingCart.sort((a,b) => a.totalPrice > b.totalPrice ? 1 : a.totalPrice < b.totalPrice ? -1 : 0);
+    shoppingCartSort() {
+      return this.shoppingCart.sort((a, b) =>
+        a.totalPrice > b.totalPrice ? 1 : a.totalPrice < b.totalPrice ? -1 : 0
+      );
+    },
+    colors() {
+      let i = this.currentProductToBuy.available.sizes.findIndex(
+        item => item.size == this.size
+      );
+      this.color = this.currentProductToBuy.available.sizes[i].colors[0].color;
+      return this.currentProductToBuy.available.sizes.filter(
+        item => item.size === this.size
+      )[0].colors;
     }
   },
   components: {
     ShoppingCartModal
   },
   filters: {
-    translateGender(gender){
-      return gender === 'Male' ? 'Hombre' : 'Mujer'
+    translateGender(gender) {
+      return gender === "Male" ? "Hombre" : "Mujer";
     }
   },
   data() {
     return {
-      size: "M",
-      color: "Negro"
+      size: "",
+      color: ""
     };
   },
   methods: {
     ...mapMutations("product", ["addProductToShoppingCart"]),
-    addProduct(){
+    addProduct() {
       let product = {
-        id : this.currentProductToBuy._id,
+        id: this.currentProductToBuy._id,
         productName: this.currentProductToBuy.productName,
         size: this.size,
         color: this.color,
-        price: this.currentProductToBuy.price
-      }
+        price: this.currentProductToBuy.price,
+        available: this.currentProductToBuy.available
+      };
       this.addProductToShoppingCart(product);
     }
+  },
+  beforeMount() {
+    (this.size = this.currentProductToBuy.available.sizes[0].size),
+      (this.color = this.currentProductToBuy.available.sizes[0].colors[0].color);
   }
 };
 </script>
@@ -121,11 +146,11 @@ textarea {
 .form-control:focus {
   box-shadow: none;
 }
-@media (max-width: 768px){
-  .stars{
+@media (max-width: 768px) {
+  .stars {
     justify-content: center;
     margin-top: 1.5rem;
     padding-left: 0 !important;
   }
-} 
+}
 </style>
