@@ -120,6 +120,29 @@ tr:hover {
     background-color: #f5f5f5;
     cursor: pointer;
 }
+.column1 {
+    width: 260px;
+    padding-left: 40px;
+}
+.column2 {
+    width: 160px;
+}
+.column3 {
+    width: 245px;
+}
+.column4 {
+    width: 110px;
+    text-align: right;
+}
+.column5 {
+    width: 170px;
+    text-align: right;
+}
+.column6 {
+    width: 222px;
+    text-align: right;
+    padding-right: 62px;
+}
 
 @media screen and (max-width: 992px) {
     table { 
@@ -169,6 +192,12 @@ tr:hover {
     }
     tr {
        font-size: 14px;
+    }
+    .column4, .column5, .column6 {
+       text-align: left;
+     }
+    .column4, .column5, .column6, .column1, .column2, .column3 {
+       width: 100%;
     }
 }
 </style>
