@@ -74,4 +74,101 @@ export default {
 </script>
 
 <style scoped>
+body,html { 
+   height: 100%; 
+   font-family: sans-serif;
+}
+a { 
+    margin: 0px;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+}
+a:focus { 
+    outline: none !important
+}
+a:hover { 
+    text-decoration: none;
+}
+p { 
+    margin: 0px;
+}
+input { 
+    display: block;
+    outline: none;
+    border: none !important;
+}
+tr { 
+    height: 50px;
+}
+tr:last-child { 
+    border: 0;
+}
+tr:nth-child(even) { 
+    background-color: #f5f5f5;
+}
+tr { 
+    font-family: OpenSans-Regular;
+    font-size: 15px;
+    color: #808080;
+    line-height: 1.2;
+    font-weight: unset;
+}
+tr:hover { 
+    color: #555555;
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 992px) {
+    table { 
+       display: block; 
+    }
+    tr, td, th { 
+       display: block;
+    } 
+    tr { 
+       height: auto; padding: 37px 0; 
+    }
+    tr td { 
+       padding-left: 40% !important;
+       margin-bottom: 24px;
+    }
+    tr td:last-child {
+       margin-bottom: 0;
+    }
+    tr td:before {
+       font-family: OpenSans-Regular;
+       font-size: 14px;
+       color: #999999;
+       line-height: 1.2;
+       font-weight: unset;
+       position: absolute;
+       width: 40%;
+       left: 30px;
+       top: 0;
+    }
+    tr td:nth-child(1):before { 
+       content: "Nombre"; 
+    }
+    tr td:nth-child(2):before {
+       content: "Talla";
+    }
+    tr td:nth-child(3):before {
+       content: "Color";
+    }
+    tr td:nth-child(4):before {
+       content: "Cantidad";
+    }
+    tr td:nth-child(5):before {
+       content: "Subtotal";
+    }
+    tr td:nth-child(6):before {
+       content: "Eliminar";
+    }
+    tr {
+       font-size: 14px;
+    }
+}
 </style>
