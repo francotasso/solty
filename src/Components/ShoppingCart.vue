@@ -6,32 +6,38 @@
         <div class="container-table100">
           <div class="wrap-table100">
             <div class="table100" v-if="shoppingCart.length>0">
-              <div class="mb-4">
-                <h3>Listado de items de su carrito</h3>
-              </div>
-              <div class="d-md-none">Total: S/. {{shoppingCartTotalPrice}}</div>
-              <table>
-                <thead>
-                  <tr class="table100-head">
-                    <th class="column1">Nombre</th>
-                    <th class="column2">Talla</th>
-                    <th class="column3">Color</th>
-                    <th class="column4">Cantidad</th>
-                    <th class="column5">Subtotal</th>
-                    <th class="column6">Eliminar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <ShoppingCartItem v-for="(item,index) in shoppingCart" :key="index" :item="item" />
-                </tbody>
-              </table>
-              <div
-                class="d-flex justify-content-end mt-4"
-                style="margin-right: 13rem;"
-              >Total: S/. {{shoppingCartTotalPrice}}</div>
-              <div class="d-flex justify-content-center mt-4">
-                <router-link type="button" class="btn btn-success p-2" to="/checkout">Ir a pagar</router-link>
-              </div>
+              <form action="/checkout">
+                <div class="mb-4">
+                  <h3>Listado de items de su carrito</h3>
+                </div>
+                <div class="d-md-none">Total: S/. {{shoppingCartTotalPrice}}</div>
+                <table>
+                  <thead>
+                    <tr class="table100-head">
+                      <th class="column1">Nombre</th>
+                      <th class="column2">Talla</th>
+                      <th class="column3">Color</th>
+                      <th class="column4">Cantidad</th>
+                      <th class="column5">Subtotal</th>
+                      <th class="column6">Eliminar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ShoppingCartItem
+                      v-for="(item,index) in shoppingCart"
+                      :key="index"
+                      :item="item"
+                    />
+                  </tbody>
+                </table>
+                <div
+                  class="d-flex justify-content-end mt-4"
+                  style="margin-right: 13rem;"
+                >Total: S/. {{shoppingCartTotalPrice}}</div>
+                <div class="d-flex justify-content-center mt-4">
+                  <input type="submit" class="btn btn-success p-2" value="Ir a pagar" />
+                </div>
+              </form>
             </div>
             <div v-else>
               <div class="container d-flex justify-content-center align-items-center">

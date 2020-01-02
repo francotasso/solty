@@ -3,7 +3,12 @@
     <section class="cards mb-5">
       <article class="card card--1 mx-auto">
         <div class="card__img" :style="{ 'background-image': 'url(' + product.image + ')' }"></div>
-        <div class="card__img--hover" :style="{ 'background-image': 'url(' + product.image + ')' }"></div>
+        <div class="card__img--hover" :style="{ 'background-image': 'url(' + product.image + ')' }">
+          <span
+            v-if="product.discount.status"
+            class="product-discount-label"
+          >{{product.discount.percentage}}%</span>
+        </div>
         <div class="card__info">
           <span class="card__category">{{product.brand}}</span>
           <h3 class="card__title">{{product.productName}}</h3>
@@ -129,6 +134,18 @@ export default {
   letter-spacing: 2px;
   font-weight: 500;
   color: #868686;
+}
+
+.product-discount-label {
+  display: block;
+  padding: 4px 15px 4px 30px;
+  color: #fff;
+  background-color: #0081c2;
+  position: absolute;
+  top: 10px;
+  right: 0;
+  -webkit-clip-path: polygon(34% 0, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(34% 0, 100% 0, 100% 100%, 0 100%);
 }
 
 @import url("https://fonts.googleapis.com/css?family=Pathway+Gothic+One&display=swap");

@@ -3,10 +3,10 @@
     <navbar />
     <div class="content">
       <div
-      v-if="errorMessagePurchase"
-      class="alert alert-warning mt-3"
-      role="alert"
-    >{{errorMessagePurchase.text}}</div>
+        v-if="errorMessagePurchase"
+        class="alert alert-warning mt-3"
+        role="alert"
+      >{{errorMessagePurchase.text}}</div>
       <div class="row">
         <div class="col-md-6">
           <div
@@ -127,7 +127,6 @@ export default {
     navbar
   },
   computed: {
-    ...mapState("user", ["profileLoggedUser"]),
     ...mapState("product", ["shoppingCart"]),
     ...mapState("payment", ["errorMessagePurchase"]),
     ...mapGetters("product", ["shoppingCartTotalPrice"])
@@ -137,15 +136,15 @@ export default {
     ...mapActions("payment", ["executePurchase", "removeErrorMessagePurchase"])
   },
   beforeMount() {
-    this.getProfile(localStorage.getItem("userId"))
-    this.payment.userId = this.profileLoggedUser._id;
-    for(let item of this.shoppingCart){
+    this.getProfile(localStorage.getItem("userId"));
+    this.payment.userId = localStorage.getItem("userId");
+    for (let item of this.shoppingCart) {
       let product = {
         id: item.id,
         size: item.size,
         color: item.color,
         quantity: item.quantity
-      }
+      };
       this.payment.products.push(product);
     }
     this.payment.totalPrice = this.shoppingCartTotalPrice;
@@ -159,7 +158,7 @@ export default {
 </script>
 
 <style scoped>
-.content{
+.content {
   margin-top: 4rem;
   margin-bottom: 4rem;
 }
@@ -181,7 +180,7 @@ export default {
   font-size: 18px;
 }
 @media screen and (max-width: 360px) {
-  .content{
+  .content {
     margin-top: 7rem;
   }
   #card {

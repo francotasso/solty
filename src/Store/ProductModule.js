@@ -38,7 +38,7 @@ const getters = {
         return state.shoppingCart.reduce((quantity, item) => { return quantity + parseInt(item.quantity) }, 0)
     },
     shoppingCartTotalPrice(state) {
-        return state.shoppingCart.reduce((totalPrice, item) => { return totalPrice + item.totalPrice }, 0)
+        return state.shoppingCart.reduce((totalPrice, item) => { return totalPrice + parseFloat(item.totalPrice) }, 0)
     }
 }
 
@@ -75,7 +75,15 @@ const mutations = {
     },
     updatePrice(state, product) {
         let i = state.shoppingCart.indexOf(product);
-        if (i !== -1) state.shoppingCart[i].totalPrice = product.unitPrice * parseInt(product.quantity);
+        if (i !== -1) {
+            let totalPrice = (product.unitPrice * parseInt(product.quantity)).toFixed(2)
+            if (isNaN(totalPrice)) {
+                state.shoppingCart[i].quantity = 1;
+                state.shoppingCart[i].totalPrice = product.unitPrice;
+            } else {
+                state.shoppingCart[i].totalPrice = totalPrice;
+            }
+        }
     },
     removeProductFromShoppingCart(state, product) {
         let i = state.shoppingCart.indexOf(product)
