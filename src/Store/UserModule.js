@@ -65,10 +65,10 @@ const actions = {
     async login({ state, commit, dispatch }, { email, password }) {
         try {
             let user = await userService.login(email, password)
-            localStorage.setItem('userFullName', user.text);
-            localStorage.setItem('userId', user.id);
+            localStorage.setItem('userFullName', user.firstName + " " + user.lastName);
+            localStorage.setItem('userId', user._id);
             commit('loginSuccess');
-            dispatch('getProfile', localStorage.getItem('userId'));
+            commit('setProfileLoggedUser', user);
             router.push({ name: 'Products', params: { numPage: 1 } });
         } catch (e) {
             commit('loginError')
@@ -104,20 +104,17 @@ const actions = {
         let user = await userService.getProfile(id)
         commit('setProfileLoggedUser', user)
     },
-    async updateProfile({ state, commit, dispatch }, user) {
+    async updateProfile({ state, commit, dispatch }, userLogged) {
         try {
-            let update = await userService.updateProfile(user)
-            if (update.text === "Actualizado correctamente") {
-                commit('updateProfileSuccess', update.text)
-                dispatch('getProfile', localStorage.getItem('userId'))
+            let user = await userService.updateProfile(userLogged)
+            if (user) {
+                commit('updateProfileSuccess', "Actualizado correctamente")
+                commit('setProfileLoggedUser', user);
                 localStorage.userFullName = state.profileLoggedUser.firstName + " " + state.profileLoggedUser.lastName
-            } else {
-                commit('updateProfileSuccess', update.text)
             }
             router.push({ name: 'Products', params: { numPage: 1 } });
         } catch (error) {
-            commit('updateProfileError', error)
-            //dispatch('getProfile', localStorage.getItem('userId'))
+            commit('updateProfileError', error);
         }
     },
     removeErrorMessageUpdateProfile({ commit }) {

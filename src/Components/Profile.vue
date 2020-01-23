@@ -109,13 +109,15 @@ export default {
   methods: {
     ...mapActions("user", [
       "checkLogin",
-      "getProfile",
       "updateProfile",
       "removeErrorMessageUpdateProfile"
     ]),
-    editFields(){
+    editFields() {
       this.edit = true;
-      if(this.profileLoggedUser.gender === undefined || this.profileLoggedUser.gender === ""){
+      if (
+        this.profileLoggedUser.gender === undefined ||
+        this.profileLoggedUser.gender === ""
+      ) {
         this.editGender = true;
       }
     },
@@ -123,11 +125,8 @@ export default {
       this.updateProfile(this.profileLoggedUser);
     }
   },
-  created(){
+  created() {
     this.checkLogin();
-  },
-  beforeMount() {
-    this.getProfile(localStorage.getItem("userId"));
   },
   beforeDestroy() {
     if (this.errorMessageUpdateProfile) {

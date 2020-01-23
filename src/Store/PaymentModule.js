@@ -30,7 +30,7 @@ const actions = {
             commit('purchaseSuccess', checkout)
             rootState.product.shoppingCart = []
             router.push({ name: 'Products', params: { numPage: 1 } })
-        } catch (e) {
+        } catch (error) {
             commit('purchaseError', error);
         }
     },

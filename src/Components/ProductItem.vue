@@ -1,26 +1,25 @@
 <template>
   <div>
     <section class="cards mb-5">
-      <article class="card card--1 mx-auto">
-        <div class="card__img" :style="{ 'background-image': 'url(' + product.image + ')' }"></div>
-        <div class="card__img--hover" :style="{ 'background-image': 'url(' + product.image + ')' }">
+      <article class="card mx-auto" @click="previousPurchase(product._id)">
+        <div class="card__img" :style="{ 'background-image': 'url(' + product.image + ')' }">
           <span
             v-if="product.discount.status"
             class="product-discount-label"
           >{{product.discount.percentage}}%</span>
         </div>
         <div class="card__info">
-          <span class="card__category">{{product.brand}}</span>
+          <span class="card__brand">{{product.brand}}</span>
           <h3 class="card__title">{{product.productName}}</h3>
           <p class="card__price">S/. {{product.price}}</p>
-          <div class="d-flex justify-content-center">
+          <!--<div class="d-flex justify-content-center">
             <button
               type="button"
               class="btn bg-darkblue"
               data-toggle="modal"
               :data-target="'#modal'+product._id"
             >Más info</button>
-          </div>
+          </div>-->
         </div>
       </article>
     </section>
@@ -29,6 +28,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import ProductItemModal from "./ProductItemModal";
 export default {
   name: "ProductItem",
@@ -38,6 +38,9 @@ export default {
   props: ["product"],
   data() {
     return {};
+  },
+  methods: {
+    ...mapActions("product", ["previousPurchase"])
   }
 };
 </script>
@@ -73,7 +76,6 @@ export default {
 }
 
 .card__img {
-  visibility: hidden;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -81,53 +83,31 @@ export default {
   height: 235px;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-}
-
-.card__info-hover {
-  position: absolute;
-  padding: 16px;
-  width: 100%;
-  opacity: 0;
-  top: 0;
-}
-
-.card__img--hover {
-  transition: 0.2s all ease-out;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 100%;
-  position: absolute;
-  height: 235px;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  top: 0;
 }
 .card {
   margin-right: 25px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
+  transition: all 0.7s cubic-bezier(0.175, 0.885, 0, 1);
   background-color: #fff;
   position: relative;
   width: 100%;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
-  min-height: 475px;
+  min-height: 415px;
 }
 .card:hover {
   box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.7);
-  transform: scale(1.1, 1.1);
+  transform: scale(0.95, 0.95);
 }
 
 .card__info {
-  z-index: 2;
   background-color: #fff;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   padding: 16px 24px 24px 24px;
 }
 
-.card__category {
+.card__brand {
   font-family: "Raleway", sans-serif;
   text-transform: uppercase;
   font-size: 13px;
@@ -159,18 +139,8 @@ export default {
   margin-top: 5px;
   margin-bottom: 10px;
   font-family: "Roboto Slab", serif;
-}
-
-.card__by {
-  font-size: 12px;
-  font-family: "Raleway", sans-serif;
-  font-weight: 500;
-}
-
-.card__author {
-  font-weight: 600;
-  text-decoration: none;
-  color: #ad7d52;
+  font-weight: 450;
+  font-size: 24px;
 }
 
 .card:hover .card__img--hover {
@@ -182,7 +152,7 @@ export default {
   position: relative;
 }
 
-.card:hover .card__info-hover {
+.card:hover {
   opacity: 1;
 }
 
@@ -204,5 +174,26 @@ export default {
 .bree-serif {
   font-family: "Bree Serif", serif;
   font-size: 18px;
+}
+
+@media screen and (max-width: 1200px) {
+  .card__title {
+    font-size: 22px;
+    font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .card__title {
+    font-size: 20px;
+    font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .card__title {
+    font-size: 18px;
+    font-weight: 400;
+  }
 }
 </style>

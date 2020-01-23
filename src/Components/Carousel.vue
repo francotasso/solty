@@ -76,5 +76,37 @@ export default {
 <style scoped>
 .box {
   margin-top: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .box {
+    width: 1000px;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .box {
+    width: 850px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .box {
+    width: 700px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .box {
+    width: 550px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .box {
+    width: 400px;
+  }
 }
 </style>

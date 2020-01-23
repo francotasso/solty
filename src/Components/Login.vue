@@ -1,24 +1,32 @@
 <template>
-  <div class="body vh-100 d-flex align-items-center flex-column">
-    <div id="login">
-      <h2 class="mb-4 text-center mt-4 login-title">Inicio de sesión</h2>
+  <div class="background">
+    <div class="login-card">
+      <h2 class="login-card__title">Inicio de sesión</h2>
       <div
         v-if="errorMessageLogin"
-        class="alert alert-warning"
+        class="login-card__alert"
         role="alert"
       >{{errorMessageLogin.text}}</div>
       <form @submit.prevent="handleSubmit" method="GET">
         <fieldset>
           <p>
-            <input type="text" placeholder="Ingrese su email" v-model="email" />
+            <input v-model="email" class="form-input" type="text" placeholder="Ingrese su email" />
           </p>
-          <!-- JS because of IE support; better: placeholder="Username" -->
           <p>
-            <input type="password" placeholder="Ingrese su contraseña" v-model="password" />
+            <input
+              v-model="password"
+              class="form-input"
+              type="password"
+              placeholder="Ingrese su contraseña"
+            />
           </p>
-          <!-- JS because of IE support; better: placeholder="Password" -->
           <p>
-            <button type="submit" :disabled="submitted" :class="submitted ? 'disabled' : ''">
+            <button
+              class="login-card__button"
+              :class="isLoading"
+              type="submit"
+              :disabled="submitted"
+            >
               <div v-if="!submitted">Ingresar</div>
               <div v-else class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
@@ -26,27 +34,26 @@
             </button>
           </p>
 
-          <p class="text-center">
+          <p class="not-registered">
             <router-link
               to="/register"
-              class="register-message"
+              class="not-registered__message"
             >¿Aún no tienes cuenta? Regístrate aquí</router-link>
           </p>
         </fieldset>
       </form>
       <hr />
-      <p class="text-center register-message">O inicia sesión con</p>
-      <div class="d-flex justify-content-center">
-        <a class="social-logo" :href="linkFacebookAuth">
+      <p class="not-registered__message">O inicia sesión con</p>
+      <div class="social">
+        <a class="social__logo" :href="linkFacebookAuth">
           <i class="fab fa-facebook-f" style="color: #0d47a1;"></i>
         </a>
-        <a class="social-logo" :href="linkGoogleAuth">
+        <a class="social__logo" :href="linkGoogleAuth">
           <i class="fab fa-google" style="color: #ef5350;"></i>
         </a>
       </div>
     </div>
     <vue-snotify></vue-snotify>
-    <!-- end login -->
   </div>
 </template>
 
@@ -65,7 +72,10 @@ export default {
     };
   },
   computed: {
-    ...mapState("user", ["errorMessageLogin", "successMessageRegister"])
+    ...mapState("user", ["errorMessageLogin", "successMessageRegister"]),
+    isLoading() {
+      return this.submitted ? "disabled" : "";
+    }
   },
   methods: {
     ...mapActions("user", [
@@ -104,69 +114,38 @@ export default {
 </script>
 
 <style scoped>
-.body {
+.background {
   color: #5a5656;
   font: 100%/1.5em "Open Sans", sans-serif;
   margin: 0;
   background-image: url("https://desktopwallpaper.live/wp-content/uploads/2019/06/soft-color-wallpapers-7.jpg");
   background-size: cover;
-  height: 100%;
+  height: 100vh;
   width: 100%;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-a {
-  text-decoration: none;
-}
-h1 {
-  font-size: 1em;
-}
-h1,
-p {
-  margin-bottom: 10px;
-}
-strong {
-  font-weight: bold;
-}
-.uppercase {
-  text-transform: uppercase;
-}
-/* ---------- LOGIN ---------- */
-#login {
-  margin: auto;
+.login-card {
   width: 300px;
 }
-.login-title {
+.login-card__title {
   font-family: "Pacifico", cursive;
   color: #1984c1;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
-.register-message {
-  font-size: 13px;
-  color: #008dde;
+.login-card__alert {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0.75rem 1.25rem;
+  color: #856405;
+  background-color: #fff3ce;
+  margin-bottom: 0.75rem;
 }
-.register-message:hover {
-  text-decoration: none;
-  color: #077bbe;
-}
-.social-logo {
-  background-color: #f5f0ef;
-  border-radius: 50%;
-  padding: 1rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
-  width: 3rem;
-  height: 3rem;
-  display: flex;
-  justify-content: center;
-  -webkit-transition: transform 0.3s ease-in-out;
-  -moz-transition: transform 0.3s ease-in-out;
-  -ms-transition: transform 0.3s ease-in-out;
-}
-.social-logo:hover {
-  background-color: #f9f6f5;
-  transform: scale(1.05);
-}
-form fieldset input[type="text"],
-input[type="password"] {
+.form-input {
   background: #f5f0ef;
   border: none;
   border-radius: 10px;
@@ -179,7 +158,7 @@ input[type="password"] {
   width: 300px;
   -webkit-appearance: none;
 }
-form fieldset button[type="submit"] {
+.login-card__button {
   background-color: #008dde;
   border: none;
   border-radius: 10px;
@@ -192,39 +171,44 @@ form fieldset button[type="submit"] {
   -webkit-appearance: none;
   font-family: "Nanum Pen Script";
 }
-form fieldset a:hover {
-  text-decoration: underline;
-}
-.btn-round {
-  background: #5a5656;
-  border-radius: 50%;
-  color: #f4f4f4;
-  display: block;
-  font-size: 12px;
-  height: 50px;
-  line-height: 50px;
-  margin: 30px 125px;
-  text-align: center;
-  text-transform: uppercase;
-  width: 50px;
-}
-
 .disabled {
   background-color: #c3c2c2 !important;
 }
-
-.facebook-before {
-  background: #0064ab;
-  border-radius: 3px 0px 0px 3px;
-  color: #f4f4f4;
-  display: block;
-  float: left;
-  height: 50px;
-  line-height: 50px;
+.not-registered {
   text-align: center;
-  width: 50px;
 }
-
+.not-registered__message {
+  font-size: 13px;
+  color: #008dde;
+  text-align: center;
+}
+.not-registered__message:hover {
+  text-decoration: none;
+  color: #077bbe;
+}
+.social {
+  display: flex;
+  justify-content: center;
+}
+.social__logo {
+  background-color: #f5f0ef;
+  border-radius: 50%;
+  padding: 1rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  -webkit-transition: transform 0.3s ease-in-out;
+  -moz-transition: transform 0.3s ease-in-out;
+  -ms-transition: transform 0.3s ease-in-out;
+}
+.social__logo:hover {
+  background-color: #f9f6f5;
+  transform: scale(1.05);
+}
 .facebook {
   background: #0079ce;
   border: none;
@@ -236,7 +220,7 @@ form fieldset a:hover {
   width: 250px;
 }
 @media (max-width: 425px) {
-  .body {
+  .background {
     background: none;
   }
 }

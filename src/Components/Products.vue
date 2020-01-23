@@ -1,13 +1,17 @@
 <template>
   <div class="body">
     <navbar />
-    <div class="container py-5" v-if="!showLoading">
+    <div class="container-box py-5" v-if="!showLoading">
       <carousel />
       <SearchItem />
       <div class="album py-5 mt-3">
-        <div class="container">
-          <div class="row">
-            <div v-for="product in productsFiltered" :key="product.id" class="col-lg-4 col-md-6">
+        <div class="container-box">
+          <div class="d-flex flex-wrap">
+            <div
+              v-for="product in productsFiltered"
+              :key="product.id"
+              class="container__product-item"
+            >
               <ProductItem :product="product" />
             </div>
           </div>
@@ -15,25 +19,25 @@
         <nav aria-label="..." class="d-flex justify-content-center">
           <ul class="pagination">
             <li class="page-item" :class="currentPage===1 ? 'disabled' : ''">
-              <a class="page-link" :href="`/products/${currentPage-1}`">Previous</a>
+              <a class="page-link" :href="`/products/${currentPage-1}`">Anterior</a>
             </li>
             <li
               class="page-item"
-              :class="n==currentPage ? 'active' : '' "
+              :class="n==currentPage ? 'active no-click' : '' "
               v-for="n in numPages"
               :key="n"
             >
               <a class="page-link" :href="`/products/${n}`">{{n}}</a>
             </li>
             <li class="page-item" :class="currentPage===numPages ? 'disabled' : ''">
-              <a class="page-link" :href="`/products/${currentPage+1}`">Next</a>
+              <a class="page-link" :href="`/products/${currentPage+1}`">Siguiente</a>
             </li>
           </ul>
         </nav>
       </div>
     </div>
     <loading v-if="showLoading" @hideLoading="onHideLoading"></loading>
-    <foot v-if="!showLoading" id="foot" />
+    <foot v-if="!showLoading" id="foot" class="footer" />
     <vue-snotify></vue-snotify>
   </div>
 </template>
@@ -116,6 +120,10 @@ export default {
 .body {
   background-image: url("https://fondos.io/wp-content/uploads/2019/01/fondo-blanco-53.jpg");
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .bree-serif {
   font-family: "Bree Serif", serif;
@@ -123,6 +131,74 @@ export default {
 }
 .blanco {
   color: #fff !important;
+}
+.no-click {
+  pointer-events: none;
+}
+.container__product-item {
+  width: 25%;
+}
+.container-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 1400px;
+}
+.footer {
+  width: 100%;
+}
+@media screen and (max-width: 992px) {
+  .container__product-item {
+    width: 33.3333%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .container__product-item {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .container__product-item {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1430px) {
+  .container-box {
+    width: 1250px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .container-box {
+    width: 1000px;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .container-box {
+    width: 850px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .container-box {
+    width: 700px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .container-box {
+    width: 550px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container-box {
+    width: 400px;
+  }
 }
 </style>
 

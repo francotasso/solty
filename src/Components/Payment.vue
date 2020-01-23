@@ -4,36 +4,29 @@
     <div class="content">
       <div
         v-if="errorMessagePurchase"
-        class="alert alert-warning mt-3"
+        class="content__alert"
         role="alert"
       >{{errorMessagePurchase.text}}</div>
       <div class="row">
         <div class="col-md-6">
-          <div
-            :class="'text-white '+ (errorMessagePurchase ? 'mt-1' : 'mt-5')"
-            id="card"
-            style="max-width: 22.8rem;"
-          >
-            <div class="card-body" id="card-name">
+          <div class="payment-card" :class="errorMargin">
+            <div class="payment-card__name">
               <p class="card-text">{{payment.ownerName}}</p>
             </div>
-            <div class="card-body" id="card-number">
+            <div class="payment-card__number">
               <p class="card-text">{{payment.cardNumber}}</p>
             </div>
-            <div class="card-body" id="card-expiration-month">
+            <div class="payment-card__expiration-month">
               <p class="card-text">{{payment.expirationMonth}}</p>
             </div>
-            <div class="card-body" id="card-expiration-year">
+            <div class="payment-card__expiration-year">
               <p class="card-text">{{payment.expirationYear}}</p>
             </div>
-            <div class="card-body" id="card-security-code">
+            <div class="payment-card__security-code">
               <p class="card-text">{{payment.securityCode}}</p>
             </div>
           </div>
-          <div
-            class="text-center display-3 mt-5"
-            style="max-width: 22.8rem;"
-          >S/. {{shoppingCartTotalPrice}}</div>
+          <div class="total-price">S/. {{shoppingCartTotalPrice}}</div>
         </div>
         <div class="col-md-6">
           <form @submit.prevent="executePurchase(payment)" class="mt-5">
@@ -129,14 +122,16 @@ export default {
   computed: {
     ...mapState("product", ["shoppingCart"]),
     ...mapState("payment", ["errorMessagePurchase"]),
-    ...mapGetters("product", ["shoppingCartTotalPrice"])
+    ...mapGetters("product", ["shoppingCartTotalPrice"]),
+    errorMargin() {
+      return this.errorMessagePurchase ? "mt-1" : "mt-5";
+    }
   },
   methods: {
     ...mapActions("user", ["getProfile"]),
     ...mapActions("payment", ["executePurchase", "removeErrorMessagePurchase"])
   },
   beforeMount() {
-    this.getProfile(localStorage.getItem("userId"));
     this.payment.userId = localStorage.getItem("userId");
     for (let item of this.shoppingCart) {
       let product = {
@@ -162,6 +157,36 @@ export default {
   margin-top: 4rem;
   margin-bottom: 4rem;
 }
+.content__alert {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0.75rem 1.25rem;
+  color: #856405;
+  background-color: #fff3ce;
+  margin-top: 5rem;
+  margin-bottom: 0.75rem;
+}
+.payment-card {
+  background-image: url("https://www.viabcp.com/wcm/connect/8e9f2e16-1235-47ff-8e14-bb3a760f90e6/BCP_tarjeta+Credima%CC%81s+De%CC%81bito+Visa+%28tira%29-XL.png?MOD=AJPERES&CONVERT_TO=url&CACHEID=ROOTWORKSPACE-8e9f2e16-1235-47ff-8e14-bb3a760f90e6-muFlKv7");
+  background-size: cover;
+  position: relative;
+  max-width: 22.8rem;
+  color: #fff;
+  margin: 0 auto;
+}
+.payment-card__name,
+.payment-card__number,
+.payment-card__expiration-month,
+.payment-card__expiration-year,
+.payment-card__security-code {
+  padding: 1.25rem;
+}
+.total-price {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 4.5rem;
+  font-weight: 300;
+}
 .bg-darkblue {
   background-color: #224994;
   color: #fff;
@@ -183,175 +208,169 @@ export default {
   .content {
     margin-top: 7rem;
   }
-  #card {
+  .payment-card {
     height: 13.2rem;
     font-size: 15px;
   }
-  #card-name {
+  .payment-card__name {
     position: absolute;
     bottom: 0;
   }
 
-  #card-number {
+  .payment-card__number {
     position: absolute;
     top: 80px;
     left: 10px;
   }
 
-  #card-expiration-month {
+  .payment-card__expiration-month {
     position: absolute;
     top: 104px;
     left: 130px;
   }
 
-  #card-expiration-year {
+  .payment-card__expiration-year {
     position: absolute;
     top: 104px;
     left: 155px;
   }
 
-  #card-security-code {
+  .payment-card__security-code {
     position: absolute;
     top: 40px;
     right: 70px;
   }
 }
 @media screen and (min-width: 361px) and (max-width: 410px) {
-  #card {
+  .payment-card {
     height: 12.5rem;
   }
-  #card-name {
+  .payment-card__name {
     position: absolute;
     bottom: 0;
   }
 
-  #card-number {
+  .payment-card__number {
     position: absolute;
     top: 90px;
     left: 12px;
   }
 
-  #card-expiration-month {
+  .payment-card__expiration-month {
     position: absolute;
     top: 110px;
     left: 135px;
   }
 
-  #card-expiration-year {
+  .payment-card__expiration-year {
     position: absolute;
     top: 110px;
     left: 160px;
   }
 
-  #card-security-code {
+  .payment-card__security-code {
     position: absolute;
     top: 40px;
     right: 70px;
   }
 }
-
-#card {
-  background-image: url("https://www.viabcp.com/wcm/connect/8e9f2e16-1235-47ff-8e14-bb3a760f90e6/BCP_tarjeta+Credima%CC%81s+De%CC%81bito+Visa+%28tira%29-XL.png?MOD=AJPERES&CONVERT_TO=url&CACHEID=ROOTWORKSPACE-8e9f2e16-1235-47ff-8e14-bb3a760f90e6-muFlKv7");
-  background-size: cover;
-  position: relative;
-}
 @media screen and (min-width: 411px) and (max-width: 767px) {
-  #card {
+  .payment-card {
     height: 14.5rem;
     font-size: 15px;
   }
-  #card-name {
+  .payment-card__name {
     position: absolute;
     bottom: 0;
   }
 
-  #card-number {
+  .payment-card__number {
     position: absolute;
     top: 100px;
     left: 12px;
   }
 
-  #card-expiration-month {
+  .payment-card__expiration-month {
     position: absolute;
     top: 128px;
     left: 150px;
   }
 
-  #card-expiration-year {
+  .payment-card__expiration-year {
     position: absolute;
     top: 128px;
     left: 175px;
   }
 
-  #card-security-code {
+  .payment-card__security-code {
     position: absolute;
     top: 50px;
     right: 80px;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-  #card {
+  .payment-card {
     height: 12.5rem;
     font-size: 15px;
   }
-  #card-name {
+  .payment-card__name {
     position: absolute;
     bottom: 0;
   }
 
-  #card-number {
+  .payment-card__number {
     position: absolute;
     top: 90px;
     left: 12px;
   }
 
-  #card-expiration-month {
+  .payment-card__expiration-month {
     position: absolute;
     top: 110px;
     left: 130px;
   }
 
-  #card-expiration-year {
+  .payment-card__expiration-year {
     position: absolute;
     top: 110px;
     left: 155px;
   }
 
-  #card-security-code {
+  .payment-card__security-code {
     position: absolute;
     top: 40px;
     right: 70px;
   }
 }
 @media screen and (min-width: 1024px) {
-  #card {
+  .payment-card {
     height: 14.5rem;
     font-size: 15px;
   }
-  #card-name {
+  .payment-card__name {
     position: absolute;
     bottom: 0;
   }
 
-  #card-number {
+  .payment-card__number {
     position: absolute;
     top: 110px;
     left: 15px;
   }
 
-  #card-expiration-month {
+  .payment-card__expiration-month {
     position: absolute;
     top: 132px;
     left: 160px;
   }
 
-  #card-expiration-year {
+  .payment-card__expiration-year {
     position: absolute;
     top: 132px;
     left: 185px;
   }
 
-  #card-security-code {
+  .payment-card__security-code {
     position: absolute;
     top: 55px;
     right: 90px;
