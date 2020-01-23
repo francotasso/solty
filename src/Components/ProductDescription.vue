@@ -20,9 +20,13 @@
                 class="ml-4"
               >S/. {{currentProductToBuy.price * (1 - (currentProductToBuy.discount.percentage/100))}}</p>
               <p
-                v-if="validCode && submitCode"
+                v-if="validCode && submitCode && currentProductToBuy.discount.status"
                 class="ml-4"
               >S/. {{currentProductToBuy.price * (1 - (currentProductToBuy.discount.percentage/100))*(1-(discountCodeObject.percentage/100))}}</p>
+              <p
+                v-if="validCode && submitCode && !currentProductToBuy.discount.status"
+                class="ml-4"
+              >S/. {{currentProductToBuy.price*(1-(discountCodeObject.percentage/100))}}</p>
             </div>
           </div>
           <div class="col-md-7 d-flex flex-wrap justify-content-between p-0">
