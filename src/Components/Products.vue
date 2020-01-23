@@ -124,6 +124,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 .bree-serif {
   font-family: "Bree Serif", serif;
@@ -197,7 +198,7 @@ export default {
 
 @media screen and (max-width: 600px) {
   .container-box {
-    width: 400px;
+    width: 100%;
   }
 }
 </style>
