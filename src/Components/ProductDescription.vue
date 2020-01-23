@@ -12,7 +12,7 @@
             <p>{{currentProductToBuy.brand}} - {{currentProductToBuy.gender | translateGender}}</p>
             <div class="d-flex">
               <p
-                :class="currentProductToBuy.discount.status ? 'discount' : ''"
+                :class="currentProductToBuy.discount.status || discountCodeObject ? 'discount' : ''"
               >S/.{{currentProductToBuy.price}}</p>
               <p
                 v-if="currentProductToBuy.discount.status"
