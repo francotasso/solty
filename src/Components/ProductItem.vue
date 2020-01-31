@@ -1,7 +1,7 @@
 <template>
   <div>
-    <section class="cards mb-5">
-      <article class="card mx-auto" @click="previousPurchase(product._id)">
+    <section class="product-container">
+      <article class="product-card" @click="previousPurchase(product._id)">
         <div class="card__img" :style="{ 'background-image': 'url(' + product.image + ')' }">
           <span
             v-if="product.discount.status"
@@ -12,29 +12,16 @@
           <span class="card__brand">{{product.brand}}</span>
           <h3 class="card__title">{{product.productName}}</h3>
           <p class="card__price">S/. {{product.price}}</p>
-          <!--<div class="d-flex justify-content-center">
-            <button
-              type="button"
-              class="btn bg-darkblue"
-              data-toggle="modal"
-              :data-target="'#modal'+product._id"
-            >Más info</button>
-          </div>-->
         </div>
       </article>
     </section>
-    <ProductItemModal :product="product" />
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import ProductItemModal from "./ProductItemModal";
 export default {
   name: "ProductItem",
-  components: {
-    ProductItemModal
-  },
   props: ["product"],
   data() {
     return {};
@@ -46,15 +33,6 @@ export default {
 </script>
 
 <style scoped>
-.cards {
-  width: 100%;
-  display: flex;
-  display: -webkit-flex;
-  justify-content: center;
-  -webkit-justify-content: center;
-  max-width: 820px;
-}
-
 .card__like {
   width: 18px;
 }
@@ -79,32 +57,19 @@ export default {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 100%;
-  height: 235px;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+  width: 275px;
+  height: 275px;
 }
-.card {
-  margin-right: 25px;
-  transition: all 0.7s cubic-bezier(0.175, 0.885, 0, 1);
-  background-color: #fff;
+.product-card {
   position: relative;
-  width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
-  min-height: 415px;
+  height: 453px;
+  background-color: #fff;
 }
-.card:hover {
-  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.7);
-  transform: scale(0.95, 0.95);
-}
-
 .card__info {
   background-color: #fff;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
   padding: 16px 24px 24px 24px;
+  background-color: #fff;
+  width: 275px;
 }
 
 .card__brand {
@@ -118,14 +83,14 @@ export default {
 
 .product-discount-label {
   display: block;
-  padding: 4px 15px 4px 30px;
+  padding: 4px 15px 4px 15px;
   color: #fff;
-  background-color: #0081c2;
+  background-color: #333;
   position: absolute;
   top: 10px;
   right: 0;
-  -webkit-clip-path: polygon(34% 0, 100% 0, 100% 100%, 0 100%);
-  clip-path: polygon(34% 0, 100% 0, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0% 0, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(0% 0, 100% 0, 100% 100%, 0 100%);
 }
 
 @import url("https://fonts.googleapis.com/css?family=Pathway+Gothic+One&display=swap");
@@ -142,20 +107,6 @@ export default {
   font-weight: 450;
   font-size: 24px;
 }
-
-.card:hover .card__img--hover {
-  height: 100%;
-}
-
-.card:hover .card__info {
-  background-color: transparent;
-  position: relative;
-}
-
-.card:hover {
-  opacity: 1;
-}
-
 .bg-black {
   background-color: #000;
   color: #fff;
@@ -187,6 +138,35 @@ export default {
   .card__title {
     font-size: 20px;
     font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .card__img {
+    width: 250px;
+    height: 250px;
+  }
+  .card__info {
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .card__img {
+    width: 275px;
+    height: 275px;
+  }
+  .card__info {
+    width: 275px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .card__img {
+    width: 100%;
+  }
+  .card__info {
+    width: 100%;
   }
 }
 

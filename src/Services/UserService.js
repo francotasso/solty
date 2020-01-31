@@ -16,7 +16,7 @@ function checkLogin() {
     return new Promise((resolve, reject) => {
         axios.get(url, { withCredentials: true })
             .then(res => {
-                resolve(res.data)
+                resolve(res.data.user)
             })
             .catch(error => {
                 reject(new Error(`Error ${error}`))

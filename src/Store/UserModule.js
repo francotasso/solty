@@ -26,8 +26,8 @@ const mutations = {
     loginSuccess(state) {
         state.errorMessageLogin = null
     },
-    loginError(state) {
-        state.errorMessageLogin = { text: 'Email o contraseña inválido' }
+    loginError(state, message) {
+        state.errorMessageLogin = { text: message }
     },
     removeErrorMessageLogin() {
         state.errorMessageLogin = null
@@ -50,6 +50,24 @@ const mutations = {
 }
 
 const actions = {
+    async loginThirdParty({ commit }) {
+        try {
+            let user = await userService.checkLogin()
+            if (user.hasOwnProperty('googleId') || user.hasOwnProperty('facebookId')) {
+                localStorage.setItem(
+                    "userFullName",
+                    `${user.firstName} ${user.lastName}`
+                );
+                commit('setProfileLoggedUser', user)
+                localStorage.setItem("userId", user._id)
+                router.push({ name: 'Products', params: { numPage: 1 } });
+            }
+        } catch (e) {
+            commit('loginError', 'Error al iniciar sesión con terceros, vuelva a intentarlo en unos minutos')
+            router.push({ name: 'Login' })
+        }
+    },
+
     async checkLogin() {
         try {
             let user = await userService.checkLogin()
@@ -65,20 +83,20 @@ const actions = {
     async login({ state, commit, dispatch }, { email, password }) {
         try {
             let user = await userService.login(email, password)
-            localStorage.setItem('userFullName', user.firstName + " " + user.lastName);
+            localStorage.setItem('userFullName', `${user.firstName} ${user.lastName}`);
             localStorage.setItem('userId', user._id);
             commit('loginSuccess');
             commit('setProfileLoggedUser', user);
             router.push({ name: 'Products', params: { numPage: 1 } });
         } catch (e) {
-            commit('loginError')
+            commit('loginError', 'Email o contraseña inválido')
             router.push({ name: 'Login' })
         }
     },
     removeErrorMessageLogin({ commit }) {
         commit('removeErrorMessageLogin');
     },
-    async logout({ commit }) {
+    async logout() {
         let session = await userService.logout()
         console.log(session.text)
         window.localStorage.clear()

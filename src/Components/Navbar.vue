@@ -136,21 +136,6 @@ export default {
         $("#menu").removeClass("bg-light-black");
       }
     });
-    $(function() {
-      //detectar scroll hacia abajo
-      var obj = $(document); //objeto sobre el que quiero detectar scroll
-      var obj_top = obj.scrollTop(); //scroll vertical inicial del objeto
-      obj.scroll(function() {
-        var obj_act_top = $(this).scrollTop(); //obtener scroll top instantaneo
-        if (obj_act_top > obj_top) {
-          $("#menu").addClass("d-none");
-        } else {
-          //scroll hacia arriba
-          $("#menu").removeClass("d-none");
-        }
-        obj_top = obj_act_top; //almacenar scroll top anterior
-      });
-    });
   }
 };
 </script>
@@ -381,13 +366,13 @@ export default {
   }
 }
 
-.brand-new{
+.brand-new {
   font-size: 1.25rem;
   line-height: inherit;
 }
 
 @media screen and (max-width: 360px) {
-  .brand-new{
+  .brand-new {
     margin-left: 0px !important;
   }
   img {

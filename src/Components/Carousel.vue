@@ -75,7 +75,7 @@ export default {
 
 <style scoped>
 .box {
-  margin-top: 3rem;
+  margin-top: 2rem;
   margin-left: auto;
   margin-right: auto;
 }
