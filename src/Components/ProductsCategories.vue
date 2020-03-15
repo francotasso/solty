@@ -66,6 +66,9 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Sigmar+One&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Cabin&display=swap");
+* {
+  box-sizing: border-box;
+}
 .category-title {
   display: flex;
   justify-content: center;
