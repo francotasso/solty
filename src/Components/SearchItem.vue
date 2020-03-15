@@ -103,6 +103,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+}
 .bg-black {
   background-color: #333;
   color: #fff;
