@@ -68,6 +68,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+}
 .dark {
   background-color: #181919;
 }
