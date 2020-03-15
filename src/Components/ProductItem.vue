@@ -33,6 +33,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+}
 .card__like {
   width: 18px;
 }
