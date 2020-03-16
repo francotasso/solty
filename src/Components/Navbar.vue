@@ -51,7 +51,7 @@
         </div>
       </nav>
     </div>
-    <div class="d-md-none">
+    <div class="d-md-none border-box">
       <nav class="navbar navbar-light bg-black fixed-top d-flex flex-row justify-content-center">
         <span class="brand-new mb-0 h1 col-8">
           <router-link to="/products/1" class="navbar-brand" style="margin-left: 5rem;">
@@ -141,7 +141,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
+.border-box {
   box-sizing: border-box;
 }
 .pointer {
