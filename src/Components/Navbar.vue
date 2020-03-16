@@ -1,7 +1,7 @@
 <template>
-  <div class="border-box">
+  <div>
     <div class="d-none d-md-block">
-      <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top" id="menu">
+      <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top vw-100" id="menu">
         <div class="container">
           <div>
             <router-link to="/products/1" class="navbar-brand">
@@ -141,8 +141,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.border-box {
-  box-sizing: border-box;
+.vw-1000 {
+  width: 100vw;
 }
 .pointer {
   cursor: pointer;
