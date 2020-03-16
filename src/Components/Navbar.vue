@@ -141,7 +141,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vw-1000 {
+.vw-100 {
   width: 100vw;
 }
 .pointer {
