@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="border-box">
     <div class="d-none d-md-block">
       <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top" id="menu">
         <div class="container">
