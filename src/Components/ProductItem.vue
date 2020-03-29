@@ -1,11 +1,19 @@
 <template>
   <div>
-    <section class="product-container">
+    <section class="product-container" :id="`product-${product._id}`">
       <article class="product-card" @click="previousPurchase(product._id)">
         <div class="card__img" :style="{ 'background-image': 'url(' + product.image + ')' }">
-          <span class="product-favorite">
+          <span class="product-favorite" :id="`favorite-${product._id}`">
             <i class="far fa-heart" v-if="!favorite" @click.stop="favorite = !favorite"></i>
             <i class="fas fa-heart" v-else @click.stop="favorite = !favorite"></i>
+            <b-tooltip :target="`favorite-${product._id}`" triggers="hover">
+              <span v-if="!favorite">
+                Agregar a favoritos
+              </span>
+              <span v-else>
+                Eliminar de favoritos
+              </span>
+            </b-tooltip>
           </span>
           <span
             v-if="product.discount.status"

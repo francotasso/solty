@@ -63,7 +63,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css?family=Sigmar+One&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Cabin&display=swap");
 * {
@@ -77,34 +77,42 @@ export default {
   margin-bottom: 1rem;
 }
 
-.category-container {
-  margin-right: 1rem;
-}
-
 .category__box {
+  position: relative;
   height: 100px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   color: rgb(139, 138, 138);
   font-family: "Cabin", sans-serif;
-}
-
-.category__box:hover {
-  cursor: pointer;
-  color: #000;
-}
-
-.category__box-selected {
-  background-color: rgb(32, 32, 32);
-  border: 3px solid rgb(32, 32, 32);
-  color: #fff;
-}
-
-.category__box-selected:hover {
-  background-color: rgb(32, 32, 32);
-  border: 3px solid rgb(32, 32, 32);
-  color: #fff;
+  padding: 0 .5rem;
+  &:after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: rgb(32, 32, 32);
+    transition: width .5s;
+  }
+  &:hover{
+    cursor: pointer;
+    color: #000;
+    &:after{
+      width: 100%;
+    }
+  }
+  &-selected{
+    background-color: rgb(32, 32, 32);
+    border: 3px solid rgb(32, 32, 32);
+    color: #fff;
+    &:hover{
+      background-color: rgb(32, 32, 32);
+      border: 3px solid rgb(32, 32, 32);
+      color: #fff;
+    }
+  }
 }
 
 @media screen and (max-width: 1050px) {
