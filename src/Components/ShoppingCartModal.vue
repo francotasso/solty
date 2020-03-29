@@ -42,12 +42,12 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-mdb-color text-white"
+              class="btn btn-continue text-white"
               data-dismiss="modal"
             >Seguir comprando</button>
             <router-link
               to="/shoppingcart"
-              class="btn btn-indigo text-white"
+              class="btn btn-pay"
               style="text-decoration: none;"
               data-dismiss="modal"
             >Ir a pagar</router-link>
@@ -88,6 +88,14 @@ export default {
 }
 .form-control:focus {
   box-shadow: none;
+}
+.btn-continue{
+  background-color: #333;
+}
+.btn-pay {
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: .25rem;
 }
 @media (max-width: 768px) {
   .stars {

@@ -3,6 +3,10 @@
     <section class="product-container">
       <article class="product-card" @click="previousPurchase(product._id)">
         <div class="card__img" :style="{ 'background-image': 'url(' + product.image + ')' }">
+          <span class="product-favorite">
+            <i class="far fa-heart" v-if="!favorite" @click.stop="favorite = !favorite"></i>
+            <i class="fas fa-heart" v-else @click.stop="favorite = !favorite"></i>
+          </span>
           <span
             v-if="product.discount.status"
             class="product-discount-label"
@@ -24,7 +28,9 @@ export default {
   name: "ProductItem",
   props: ["product"],
   data() {
-    return {};
+    return {
+      favorite: false
+    };
   },
   methods: {
     ...mapActions("product", ["previousPurchase"])
@@ -32,7 +38,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 * {
   box-sizing: border-box;
 }
@@ -62,6 +68,8 @@ export default {
   background-repeat: no-repeat;
   width: 275px;
   height: 275px;
+  cursor: pointer;
+  border-right: 1px solid #ccc;
 }
 .product-card {
   position: relative;
@@ -69,7 +77,6 @@ export default {
   background-color: #fff;
 }
 .card__info {
-  background-color: #fff;
   padding: 16px 24px 24px 24px;
   background-color: #fff;
   width: 275px;
@@ -92,6 +99,16 @@ export default {
   position: absolute;
   top: 10px;
   right: 0;
+  -webkit-clip-path: polygon(0% 0, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(0% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.product-favorite {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 1px 4px;
+  color: #333;
   -webkit-clip-path: polygon(0% 0, 100% 0, 100% 100%, 0 100%);
   clip-path: polygon(0% 0, 100% 0, 100% 100%, 0 100%);
 }

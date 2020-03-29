@@ -1,18 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import App from '../Components/App.vue'
-import Oauth from '../Components/Oauth.vue'
-import Login from '../Components/Login.vue'
-import Register from '../Components/Register.vue'
-import Profile from '../Components/Profile.vue'
-import AboutUs from '../Components/AboutUs.vue'
-import Products from '../Components/Products.vue'
-import Product from '../Components/Product.vue'
+
+import App from  '../Pages/App.vue'
+import Oauth from '../Pages/Oauth.vue'
+import Login from '../Pages/Login.vue'
+import Register from '../Pages/Register.vue'
+import Profile from '../Pages/Profile.vue'
+import AboutUs from '../Pages/AboutUs.vue'
+import Products from '../Pages/Products.vue'
+import Product from '../Pages/Product.vue'
 import ProductDescription from '../Components/ProductDescription.vue'
-import Payment from '../Components/Payment.vue'
 import ProductDetails from '../Components/ProductDetails.vue'
 import ProductTips from '../Components/ProductTips.vue'
-import ShoppingCart from '../Components/ShoppingCart.vue'
+import Payment from '../Pages/Payment.vue'
+import ShoppingCart from '../Pages/ShoppingCart.vue'
+
 Vue.use(Router)
 
 export const router = new Router({

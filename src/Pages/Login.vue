@@ -118,7 +118,7 @@ export default {
   color: #5a5656;
   font: 100%/1.5em "Open Sans", sans-serif;
   margin: 0;
-  background-image: url("https://desktopwallpaper.live/wp-content/uploads/2019/06/soft-color-wallpapers-7.jpg");
+  background-image: url("https://images.pexels.com/photos/917494/pexels-photo-917494.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=1920&w=1080");
   background-size: cover;
   height: 100vh;
   width: 100%;

@@ -1,71 +1,67 @@
 <template>
-  <div class="body">
-    <navbar />
-    <div class="container-box margin-top" v-if="!showLoading">
-      <carousel />
-      <div class="full-container margin-top">
-        <div class="container-box row-direction">
-          <div class="container-box__categories">
-            <ProductsCategories />
-          </div>
-          <div>
-            <div class="total-products">
-              <SearchItem />
+  <wrapper-section>
+    <div class="body">
+      <div class="container-box margin-top" v-if="!showLoading">
+        <carousel />
+        <div class="full-container margin-top">
+          <div class="container-box row-direction">
+            <div class="container-box__categories">
+              <ProductsCategories />
             </div>
-            <div class="container-box__products">
-              <div v-for="product in productsFiltered" :key="product.id" class="product-box">
-                <ProductItem :product="product" />
+            <div>
+              <div class="total-products">
+                <SearchItem />
               </div>
-              <div v-if="productsFiltered.length == 0" class="products-not-found">
-                <span>No se encontraron productos</span>
+              <div class="container-box__products">
+                <div v-for="product in productsFiltered" :key="product.id" class="product-box">
+                  <ProductItem :product="product" />
+                </div>
+                <div v-if="productsFiltered.length == 0" class="products-not-found">
+                  <span>No se encontraron productos</span>
+                </div>
+                <nav class="container-pagination">
+                  <ul class="pages">
+                    <li class="item-page" :class="currentPage===1 ? 'disabled' : ''">
+                      <span class="link-page" @click="goTo(currentPage-1)">Anterior</span>
+                    </li>
+                    <li
+                      class="item-page"
+                      :class="n==currentPage ? 'enable no-click' : '' "
+                      v-for="n in numPages"
+                      :key="n"
+                    >
+                      <span class="link-page" @click="goTo(n)">{{n}}</span>
+                    </li>
+                    <li class="item-page" :class="currentPage===numPages ? 'disabled' : ''">
+                      <span class="link-page" @click="goTo(currentPage+1)">Siguiente</span>
+                    </li>
+                  </ul>
+                </nav>
               </div>
-              <nav class="container-pagination">
-                <ul class="pages">
-                  <li class="item-page" :class="currentPage===1 ? 'disabled' : ''">
-                    <span class="link-page" @click="goTo(currentPage-1)">Anterior</span>
-                  </li>
-                  <li
-                    class="item-page"
-                    :class="n==currentPage ? 'enable no-click' : '' "
-                    v-for="n in numPages"
-                    :key="n"
-                  >
-                    <span class="link-page" @click="goTo(n)">{{n}}</span>
-                  </li>
-                  <li class="item-page" :class="currentPage===numPages ? 'disabled' : ''">
-                    <span class="link-page" @click="goTo(currentPage+1)">Siguiente</span>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
         </div>
       </div>
+      <loading v-if="showLoading" @hideLoading="onHideLoading"></loading>
+      <vue-snotify></vue-snotify>
     </div>
-    <loading v-if="showLoading" @hideLoading="onHideLoading"></loading>
-    <foot v-if="!showLoading" id="foot" class="footer" />
-    <vue-snotify></vue-snotify>
-  </div>
+  </wrapper-section>
 </template>
 
 <script>
-import navbar from "./Navbar";
-import carousel from "./Carousel";
-import ProductItem from "./ProductItem";
-import ProductsCategories from "./ProductsCategories";
-import SearchItem from "./SearchItem";
-import foot from "./Footer";
-import loading from "./Loading";
+import carousel from "../Components/Carousel";
+import ProductItem from "../Components/ProductItem";
+import ProductsCategories from "../Components/ProductsCategories";
+import SearchItem from "../Components/SearchItem";
+import loading from "../Components/Loading";
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   name: "Products",
   components: {
-    navbar,
     carousel,
     SearchItem,
     ProductItem,
     ProductsCategories,
-    foot,
     loading
   },
   props: ["numPage"],

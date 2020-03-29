@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Footer -->
-    <footer class="page-footer font-small dark darken-3">
+    <footer class="page-footer font-small dark darken-3" id="footer">
       <div class="d-flex justify-content-center">
         <h1 class="mt-5 text-center d-none d-md-block">Contáctanos en nuestra redes sociales</h1>
       </div>
@@ -46,7 +46,7 @@
 
       <!-- Copyright -->
       <div class="footer-copyright text-center py-3">
-        © 2019 Copyright:
+        © 2020 Copyright:
         <a
           target="_blank"
           href="https://www.facebook.com/francotassop"

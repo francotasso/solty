@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <navbar />
+  <wrapper-section>
     <div class="container-fluid d-flex justify-content-center" style="margin-top: 4rem;">
       <div class="limiter">
         <div class="container-table100">
@@ -35,7 +34,11 @@
                   style="margin-right: 13rem;"
                 >Total: S/. {{shoppingCartTotalPrice}}</div>
                 <div class="d-flex justify-content-center mt-4">
-                  <input type="submit" class="btn btn-success p-2" value="Ir a pagar" />
+                  <router-link
+                    to="/checkout"
+                    class="btn btn-pay p-2"
+                    style="text-decoration: none;"
+                  >Ir a pagar</router-link>
                 </div>
               </form>
             </div>
@@ -48,21 +51,16 @@
         </div>
       </div>
     </div>
-    <foot />
-  </div>
+  </wrapper-section>
 </template>
 
 <script>
-import navbar from "./Navbar";
-import ShoppingCartItem from "./ShoppingCartItem";
-import foot from "./Footer";
+import ShoppingCartItem from "../Components/ShoppingCartItem";
 import { mapState, mapGetters, mapMutations } from "vuex";
 export default {
   name: "aboutus",
   components: {
-    navbar,
-    ShoppingCartItem,
-    foot
+    ShoppingCartItem
   },
   data() {
     return {};
@@ -243,6 +241,11 @@ tbody tr:hover {
   width: 222px;
   text-align: right;
   padding-right: 62px;
+}
+.btn-pay {
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: .25rem;
 }
 @media screen and (max-width: 992px) {
   table {

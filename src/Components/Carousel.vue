@@ -10,7 +10,7 @@
         <div class="carousel-inner">
           <div class="carousel-item active" data-interval="4000">
             <img
-              src="https://3er1viui9wo30pkxh1v2nh4w-wpengine.netdna-ssl.com/wp-content/uploads/prod/sites/41/2018/09/JanetAI_2000-1920x1080-1024x576.jpg"
+              src="https://images.pexels.com/photos/285171/pexels-photo-285171.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
               class="d-block w-100"
               alt="..."
             />
@@ -21,7 +21,7 @@
           </div>
           <div class="carousel-item" data-interval="4000">
             <img
-              src="https://estaticos.qdq.com/swdata/photos/005/005463333/745b6ea7ccbb402ca1ffe69df10e20e9.jpg"
+              src="https://images.pexels.com/photos/3978385/pexels-photo-3978385.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
               class="d-block w-100"
               alt="..."
             />
@@ -32,7 +32,7 @@
           </div>
           <div class="carousel-item" data-interval="4000">
             <img
-              src="https://www.telemundo.com/sites/nbcutelemundo/files/images/promo/article/2019/02/22/modelos-en-la-semana-de-la-moda-vestidas-de-mostaza.jpg"
+              src="https://images.pexels.com/photos/720606/pexels-photo-720606.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
               class="d-block w-100"
               alt="..."
             />

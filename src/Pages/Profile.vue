@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <navbar />
+  <wrapper-section>
     <div class="container mt-5 mb-5">
       <div class="d-flex flex-column justify-content-center align-items-center" id="box">
         <h2 class="mb-4">Mi info</h2>
@@ -86,17 +85,13 @@
         </div>
       </div>
     </div>
-  </div>
+  </wrapper-section>
 </template>
 
 <script>
-import navbar from "./Navbar";
 import { mapState, mapActions } from "vuex";
 export default {
   name: "Profile",
-  components: {
-    navbar
-  },
   data() {
     return {
       edit: false,

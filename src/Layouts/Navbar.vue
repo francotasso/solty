@@ -20,7 +20,7 @@
                 <router-link to="/about" class="nav-link">Nosotros</router-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#foot">Contáctanos</a>
+                <a class="nav-link" href="#footer">Contáctanos</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/shoppingcart">

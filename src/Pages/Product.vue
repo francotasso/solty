@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <navbar />
+  <wrapper-section>
     <div class="container" id="box">
       <div class="row">
         <div class="col-md-5 mt-3">
@@ -24,22 +23,17 @@
       <hr class="mt-5">
       <ProductRelated/>
     </div>
-    <foot id="foot"/>
-  </div>
+  </wrapper-section>
 </template>
 
 <script>
-import navbar from "./Navbar";
-import ProductRelated from "./ProductRelated";
-import foot from "./Footer";
+import ProductRelated from "../Components/ProductRelated";
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   name: "product",
   props: ["id"],
   components: {
-    navbar,
-    ProductRelated,
-    foot
+    ProductRelated
   },
   computed: {
     ...mapState("product", ["currentProductToBuy", "shoppingCart"])
