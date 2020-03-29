@@ -116,6 +116,7 @@ export default {
 .content {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 .search-content {
   margin-left: 1rem;
