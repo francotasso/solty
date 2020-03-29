@@ -109,7 +109,7 @@ export default {
 
 @media screen and (max-width: 600px) {
   .box {
-    width: 400px;
+    width: 100%;
   }
 }
 </style>
