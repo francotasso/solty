@@ -46,12 +46,18 @@ export const router = new Router({
             name: 'Products',
             component: Products,
             props: true,
+            meta: {
+              auth: true
+            }
         },
         {
             path: '/product/:id',
             name: 'Product',
             component: Product,
             props: true,
+            meta: {
+              auth: true
+            },
             children: [
                 {
                     path: 'description',
@@ -73,39 +79,59 @@ export const router = new Router({
         {
             path: '/profile',
             name: 'Profile',
-            component: Profile
+            component: Profile,
+            meta: {
+              auth: true
+            }
         },
         {
             path: '/about',
             name: 'AboutUs',
-            component: AboutUs
+            component: AboutUs,
+            meta: {
+              auth: true
+            }
         },
         {
             path: '/shoppingcart',
             name: 'ShoppingCart',
-            component: ShoppingCart
+            component: ShoppingCart,
+            meta: {
+              auth: true
+            }
         },
         {
             path: '/checkout',
             name: 'Payment',
-            component: Payment
+            component: Payment,
+            meta: {
+              auth: true
+            }
         }
     ]
 });
 
 router.beforeEach((to, from, next) => {
-    // redirect to login page if not logged in and trying to access a restricted page
-    const publicPages = ['/', '/login', '/register', '/oauth'];
-    const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('userFullName');
-    if (authRequired && !loggedIn) {
-        return next('/login');
+    const publicPages = ['/', '/login', '/register', '/oauth'];
+    if (to.matched.some(record => record.meta.auth)) {
+        if (!loggedIn) {
+            next({
+                path: '/login',
+                query: { redirect: to.fullPath }
+            })
+        } else {
+            if(from.query.redirect){
+                next(`/${from.query.redirect}`)
+            } else {
+                next()
+            }
+        }
+    } else {
+        if(publicPages.includes(to.path) && loggedIn){
+            next('/products/1')
+        } else {
+            next()
+        }
     }
-    if ((to.path == '/login' || to.path == '/register') && loggedIn) {
-        return next('/products/1');
-    }
-    if (from.path == '/product/' + from.params.id + '/description' && to.path == '/product/' + from.params.id) {
-        return next('/products/1');
-    }
-    next();
 })

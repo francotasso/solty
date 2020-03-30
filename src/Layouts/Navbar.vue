@@ -14,20 +14,24 @@
               />
             </router-link>
           </div>
-          <div class id="navbarNav">
+          <div>
             <ul class="navbar-nav ml-auto pointer">
-              <li class="nav-item">
-                <router-link to="/about" class="nav-link">Nosotros</router-link>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#footer">Contáctanos</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/shoppingcart">
-                  <img src="../assets/cart.png" alt="cart" style="width: 5%;" />
-                  <span class="badge badge-danger">{{shoppingCartQuantity}}</span>
-                </a>
-              </li>
+              <div class="d-flex justify-contetn-between">
+                <div class="d-flex">
+                  <li class="nav-item">
+                    <router-link to="/about" class="nav-link">Nosotros</router-link>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#footer">Contáctanos</a>
+                  </li>
+                </div>
+                <li class="nav-item">
+                  <a class="nav-link" href="/shoppingcart">
+                    <img src="../assets/cart.png" alt="cart" style="width: 5%;" />
+                    <span class="badge badge-danger">{{shoppingCartQuantity}}</span>
+                  </a>
+                </li>
+              </div>
               <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"

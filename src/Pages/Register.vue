@@ -44,10 +44,6 @@
         </fieldset>
       </form>
     </div>
-    <!-- end register -->
-    <footer class="text-white">
-      <p>By Franco Tasso © - 2019 - Lima Perú</p>
-    </footer>
   </div>
 </template>
 
@@ -95,8 +91,8 @@ export default {
   color: #5a5656;
   font: 100%/1.5em "Open Sans", sans-serif;
   margin: 0;
-  background-image: url("https://desktopwallpaper.live/wp-content/uploads/2019/06/soft-color-wallpapers-7.jpg");
-  background-size: cover;
+  background-image: url("https://images.pexels.com/photos/1367192/pexels-photo-1367192.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-size: cover; 
 }
 a {
   text-decoration: none;
@@ -163,8 +159,6 @@ form fieldset a:hover {
   text-decoration: underline;
 }
 @media (max-width: 425px) {
-  .body {
-    background: none;
-  }
+  
 }
 </style>

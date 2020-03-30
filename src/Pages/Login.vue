@@ -220,8 +220,8 @@ export default {
   width: 250px;
 }
 @media (max-width: 425px) {
-  .background {
-    background: none;
+  .not-registered__message {
+    color: #fff;
   }
 }
 </style>
