@@ -90,7 +90,7 @@ if (process.env.NODE_ENV === 'production') {
       template: './index.html'
     }),
     new CopyWebpackPlugin([
-      {from:'src/assets',to:'assets'} 
+      {from:'src/assets',to:'src/assets'} 
     ]),
     new webpack.LoaderOptionsPlugin({
       minimize: true

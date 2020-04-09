@@ -7,18 +7,22 @@
         class="login-card__alert"
         role="alert"
       >{{errorMessageLogin.text}}</div>
-      <form @submit.prevent="handleSubmit" method="GET">
+      <form @submit.prevent="handleSubmit" method="GET" class="form-container">
         <fieldset>
-          <p>
+          <p class="username-container">
             <input v-model="email" class="form-input" type="text" placeholder="Ingrese su email" />
           </p>
-          <p>
+          <p class="password-container">
             <input
               v-model="password"
               class="form-input"
-              type="password"
+              :type="!showPassword ? 'password' : 'text'"
               placeholder="Ingrese su contraseña"
             />
+            <span class="show-password" @click="showPassword = !showPassword">
+              <i class="fas fa-eye-slash" v-if="!showPassword"></i>
+              <i class="fas fa-eye" v-else></i>
+            </span>
           </p>
           <p>
             <button
@@ -42,15 +46,16 @@
           </p>
         </fieldset>
       </form>
-      <hr />
-      <p class="not-registered__message">O inicia sesión con</p>
-      <div class="social">
-        <a class="social__logo" :href="linkFacebookAuth">
-          <i class="fab fa-facebook-f" style="color: #0d47a1;"></i>
-        </a>
-        <a class="social__logo" :href="linkGoogleAuth">
-          <i class="fab fa-google" style="color: #ef5350;"></i>
-        </a>
+      <div class="third-party-login">
+        <p class="not-registered__message">O inicia sesión con</p>
+        <div class="social">
+          <a class="social__logo" :href="linkFacebookAuth">
+            <i class="fab fa-facebook-f" style="color: #0d47a1;"></i>
+          </a>
+          <a class="social__logo" :href="linkGoogleAuth">
+            <i class="fab fa-google" style="color: #ef5350;"></i>
+          </a>
+        </div>
       </div>
     </div>
     <vue-snotify></vue-snotify>
@@ -68,7 +73,8 @@ export default {
       password: "",
       submitted: false,
       linkGoogleAuth: `${API.url}/auth/google`,
-      linkFacebookAuth: `${API.url}/auth/facebook`
+      linkFacebookAuth: `${API.url}/auth/facebook`,
+      showPassword: false
     };
   },
   computed: {
@@ -88,6 +94,9 @@ export default {
       const { email, password } = this;
       await this.login({ email, password });
       this.submitted = false;
+      if (this.errorMessageLogin) {
+        setTimeout(() => {this.removeErrorMessageLogin()}, 3000)
+      }
     },
     displayNotification(body, title) {
       this.$snotify.success(body, title);
@@ -113,7 +122,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .background {
   color: #5a5656;
   font: 100%/1.5em "Open Sans", sans-serif;
@@ -128,12 +137,18 @@ export default {
   align-items: center;
 }
 .login-card {
-  width: 300px;
+  width: 425px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(250, 250, 250);
+  border-radius: .5rem;
 }
 .login-card__title {
   font-family: "Pacifico", cursive;
-  color: #1984c1;
-  margin-top: 1.5rem;
+  color: #3C4B6D;
+  margin-top: 2.5rem;
   margin-bottom: 1.5rem;
   text-align: center;
 }
@@ -147,8 +162,8 @@ export default {
 }
 .form-input {
   background: #f5f0ef;
-  border: none;
-  border-radius: 10px;
+  border: .5px solid #CBE3E1;
+  border-radius: .5rem;
   color: #423d3d;
   font-family: inherit;
   font-size: 14px;
@@ -158,10 +173,29 @@ export default {
   width: 300px;
   -webkit-appearance: none;
 }
+.form-container {
+  width: 300px;
+}
+.username-container {
+  width: 300px;
+}
+.password-container {
+  position: relative;
+  width: 300px;
+  .show-password {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    cursor: pointer;
+    .fa-eye {
+      margin-right: 0.065rem;
+    }
+  }
+}
 .login-card__button {
-  background-color: #008dde;
+  background-color: #3C4B6D;
   border: none;
-  border-radius: 10px;
+  border-radius: .5rem;
   color: #f4f4f4;
   cursor: pointer;
   font-family: inherit;
@@ -174,21 +208,35 @@ export default {
 .disabled {
   background-color: #c3c2c2 !important;
 }
+.third-party-login{
+  width: 100%;
+  background-color: #37435F;
+  border-bottom-left-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+  .not-registered__message {
+    color: #f5f0ef;
+    &:hover {
+      color: #f5f0ef;
+    }
+  }
+}
 .not-registered {
   text-align: center;
 }
 .not-registered__message {
   font-size: 13px;
-  color: #008dde;
+  color: #3C4D76;
   text-align: center;
+  margin-top: 1rem;
 }
 .not-registered__message:hover {
   text-decoration: none;
-  color: #077bbe;
+  color: #405C9E;
 }
 .social {
   display: flex;
   justify-content: center;
+  margin-bottom: 1.5rem;
 }
 .social__logo {
   background-color: #f5f0ef;
@@ -220,8 +268,8 @@ export default {
   width: 250px;
 }
 @media (max-width: 425px) {
-  .not-registered__message {
-    color: #fff;
+  .login-card {
+    width: 350px;
   }
 }
 </style>
