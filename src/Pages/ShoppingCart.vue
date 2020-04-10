@@ -4,10 +4,10 @@
       <div class="limiter">
         <div class="container-table100">
           <div class="wrap-table100">
-            <div class="table100" v-if="shoppingCart.length>0">
+            <div class="table100" v-if="shoppingCart.length">
               <form action="/checkout">
                 <div class="mb-4">
-                  <h3>Listado de items de su carrito</h3>
+                  <h3>TU CARRITO</h3>
                 </div>
                 <div class="d-md-none">Total: S/. {{shoppingCartTotalPrice}}</div>
                 <table>
@@ -43,8 +43,9 @@
               </form>
             </div>
             <div v-else>
-              <div class="container d-flex justify-content-center align-items-center">
-                <h3 class="text-center">No hay productos en el carrito</h3>
+              <div class="container d-flex justify-content-center align-items-center flex-column mt-4">
+                <img src="https://d3ieicw58ybon5.cloudfront.net/bypass/static/cart/cart_empty.png" alt="There's no products">
+                <h4 class="text-center no-products-title">No hay productos en el carrito</h4>
               </div>
             </div>
           </div>
@@ -65,6 +66,9 @@ export default {
   data() {
     return {};
   },
+  mounted(){
+    window.scroll(0, 0)
+  },
   computed: {
     ...mapState("product", ["shoppingCart"]),
     ...mapGetters("product", ["shoppingCartTotalPrice"])
@@ -77,7 +81,7 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
 * {
   margin: 0px;
   padding: 0px;
@@ -246,6 +250,10 @@ tbody tr:hover {
   background-color: #fff;
   border: 2px solid #333;
   border-radius: .25rem;
+}
+.no-products-title{
+  font-family: 'Titan One', cursive;
+  margin-top: 1rem;
 }
 @media screen and (max-width: 992px) {
   table {

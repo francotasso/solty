@@ -127,6 +127,7 @@ const mutations = {
                 productName: product.productName,
                 size: product.size,
                 color: product.color,
+                image: product.image,
                 quantity: 1,
                 unitPrice: product.price,
                 totalPrice: product.price,

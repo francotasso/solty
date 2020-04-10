@@ -49,10 +49,11 @@ export default {
     this.checkLogin();
   },
   mounted() {
-    $(document).ready(function() {
+    /* $(document).ready(function() {
         $('html, body').animate({scrollTop:0}, 'slow');
         return false;
-    });
+    }); */
+    window.scroll(0,0)
   }
 };
 </script>

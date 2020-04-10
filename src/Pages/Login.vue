@@ -123,6 +123,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$main-color: #202022;
 .background {
   color: #5a5656;
   font: 100%/1.5em "Open Sans", sans-serif;
@@ -147,7 +148,7 @@ export default {
 }
 .login-card__title {
   font-family: "Pacifico", cursive;
-  color: #3C4B6D;
+  color: $main-color;
   margin-top: 2.5rem;
   margin-bottom: 1.5rem;
   text-align: center;
@@ -190,10 +191,13 @@ export default {
     .fa-eye {
       margin-right: 0.065rem;
     }
+    .fas {
+      color: $main-color;
+    }
   }
 }
 .login-card__button {
-  background-color: #3C4B6D;
+  background-color: $main-color;
   border: none;
   border-radius: .5rem;
   color: #f4f4f4;
@@ -210,7 +214,7 @@ export default {
 }
 .third-party-login{
   width: 100%;
-  background-color: #37435F;
+  background-color: $main-color;
   border-bottom-left-radius: .5rem;
   border-bottom-right-radius: .5rem;
   .not-registered__message {
@@ -225,13 +229,13 @@ export default {
 }
 .not-registered__message {
   font-size: 13px;
-  color: #3C4D76;
+  color: #555;
   text-align: center;
   margin-top: 1rem;
 }
 .not-registered__message:hover {
   text-decoration: none;
-  color: #405C9E;
+  color: #333;
 }
 .social {
   display: flex;

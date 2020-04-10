@@ -14,10 +14,10 @@
               />
             </router-link>
           </div>
-          <div>
-            <ul class="navbar-nav ml-auto pointer">
-              <div class="d-flex justify-contetn-between">
-                <div class="d-flex">
+          <div class="d-flex justify-content-between" style="width: 100%;">
+            <ul class="navbar-nav pointer">
+              <div class="d-flex justify-contents-between">
+                <div class="d-flex links">
                   <li class="nav-item">
                     <router-link to="/about" class="nav-link">Nosotros</router-link>
                   </li>
@@ -25,13 +25,16 @@
                     <a class="nav-link" href="#footer">Contáctanos</a>
                   </li>
                 </div>
-                <li class="nav-item">
-                  <a class="nav-link" href="/shoppingcart">
-                    <img src="../assets/cart.png" alt="cart" style="width: 5%;" />
-                    <span class="badge badge-danger">{{shoppingCartQuantity}}</span>
-                  </a>
-                </li>
               </div>
+            </ul>
+            <ul class="navbar-nav pointer">
+              <li class="nav-item shopping-cart" @mouseenter="showFastCart = true" @mouseleave="showFastCart = false">
+                <a class="nav-link" href="/shoppingcart">
+                  <i class="fas fa-shopping-cart"></i> 
+                  <span class="badge badge-danger">{{shoppingCartQuantity}}</span>
+                </a>
+                <ShoppingCartFast v-if="showFastCart" class="fast-cart"/>
+              </li>
               <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
@@ -102,13 +105,18 @@
 </template>
 
 <script>
+import ShoppingCartFast from "../Components/ShoppingCartFast"
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "navbar",
   data() {
     return {
-      fullNameLoggedUser: ""
+      fullNameLoggedUser: "",
+      showFastCart: false
     };
+  },
+  components: {
+    ShoppingCartFast
   },
   computed: {
     ...mapGetters("product", ["shoppingCartQuantity"])
@@ -370,6 +378,46 @@ export default {
       opacity: 1;
       left: 0;
     }
+  }
+}
+
+.links .nav-item {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  &::before , &::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 0px;
+    height: 2px;
+    background-color: #234b96;
+    transition: all .6s ease-out;
+  }
+  &::before{
+    left: 50%;
+  }
+  &::after{
+    right: 50%;
+  }
+  &:hover {
+    &::before , &::after{
+      width: 50%;
+    }
+  }
+  .nav-link {
+    &:hover {
+      color: #fff !important;
+    }
+  }
+}
+
+.shopping-cart {
+  position: relative;
+  .fast-cart{
+    position: absolute;
+    bottom: -415px;
+    left: -125px;
   }
 }
 

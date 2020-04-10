@@ -33,6 +33,9 @@ export default {
   name: "aboutus",
   data() {
     return {};
+  },
+  mounted(){
+    window.scroll(0,0)
   }
 };
 </script>

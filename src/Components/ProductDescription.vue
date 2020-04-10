@@ -164,6 +164,7 @@ export default {
         size: this.size,
         color: this.color,
         price: this.currentProductToBuy.price * multiplier * multiplier2,
+        image: this.currentProductToBuy.image,
         available: this.currentProductToBuy.available
       };
       this.addProductToShoppingCart(product);
