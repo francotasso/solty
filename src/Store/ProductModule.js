@@ -151,6 +151,9 @@ const mutations = {
     removeProductFromShoppingCart(state, product) {
         let i = state.shoppingCart.indexOf(product)
         if (i !== -1) state.shoppingCart.splice(i, 1)
+    },
+    removeProductsFromShoppingCart(state){
+        state.shoppingCart = []
     }
 }
 

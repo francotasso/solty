@@ -1,54 +1,81 @@
 <template>
   <wrapper-section>
-    <div class="container-fluid d-flex justify-content-center" style="margin-top: 4rem;">
-      <div class="limiter">
-        <div class="container-table100">
-          <div class="wrap-table100">
-            <div class="table100" v-if="shoppingCart.length">
-              <form action="/checkout">
-                <div class="mb-4">
-                  <h3>TU CARRITO</h3>
-                </div>
-                <div class="d-md-none">Total: S/. {{shoppingCartTotalPrice}}</div>
-                <table>
-                  <thead>
-                    <tr class="table100-head">
-                      <th class="column1">Nombre</th>
-                      <th class="column2">Talla</th>
-                      <th class="column3">Color</th>
-                      <th class="column4">Cantidad</th>
-                      <th class="column5">Subtotal</th>
-                      <th class="column6">Eliminar</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <ShoppingCartItem
-                      v-for="(item,index) in shoppingCart"
-                      :key="index"
-                      :item="item"
-                    />
-                  </tbody>
-                </table>
-                <div
-                  class="d-flex justify-content-end mt-4"
-                  style="margin-right: 13rem;"
-                >Total: S/. {{shoppingCartTotalPrice}}</div>
-                <div class="d-flex justify-content-center mt-4">
-                  <router-link
-                    to="/checkout"
-                    class="btn btn-pay p-2"
-                    style="text-decoration: none;"
-                  >Ir a pagar</router-link>
-                </div>
-              </form>
-            </div>
-            <div v-else>
-              <div class="container d-flex justify-content-center align-items-center flex-column mt-4">
-                <img src="https://d3ieicw58ybon5.cloudfront.net/bypass/static/cart/cart_empty.png" alt="There's no products">
-                <h4 class="text-center no-products-title">No hay productos en el carrito</h4>
+    <div class="container">
+      <div v-if="shoppingCart.length" class="shopping-cart">
+        <div class="shopping-cart__checkout">
+          <div class="title mb-4">
+            <h4 class="d-flex justify-content-between">
+              <div>
+                <span class="font-weight-bold">TU CARRITO</span>
+                <span class="text-secondary small ml-2">{{shoppingCartQuantity}} ARTÍCULOS</span>
               </div>
+              <div>
+                <span class="text-secondary small mr-4 delete-items" @click="removeProductsFromShoppingCart">Eliminar todo</span>
+              </div>
+            </h4>
+          </div>
+          <ul class="items__wrapper">
+            <li v-for="(item,index) in shoppingCart" :key="index" class="item__cart" :class="{'mb-3': index!==shoppingCart.length-1}">
+              <div class="item-image__container">
+                <img :src="item.image" :alt="item.productName" width="120px" @click="swapPurchase(item.id)">
+              </div>
+              <div class="item-container">
+                <div class="item-title__container mt-1">
+                  <h6 class="text-uppercase d-flex justify-content-between">
+                    <span class="font-weight-bold">{{item.productName}}</span>
+                    <span>S/.{{item.totalPrice}}</span>
+                  </h6>
+                </div>
+                <div class="item-information__container">
+                  <div class="item-information">
+                    <span>Color: {{item.color}}</span>
+                    <span>Talla: {{item.size}}</span>
+                    <span>Precio(u): S/.{{item.unitPrice}}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="checkout-continue">
+            <router-link to="/checkout" class="checkout-continue__button">
+              <span class="mr-2">CONTINUAR</span>
+              <span class="ml-1"><i class="fas fa-long-arrow-alt-right"></i></span>
+            </router-link>
+          </div>
+        </div>
+        <div class="shopping-cart__resume">
+          <div class="resume-card">
+            <div class="resume-card__title"><h5 class="font-weight-bolder">RESUMEN DEL PEDIDO: </h5></div>
+            <div class="resume-card__body">
+              <ul class="resume-card__list">
+                <li class="resume-card__item-information mt-3">
+                  <p class="mx-2">{{shoppingCartQuantity}} PRODUCTO<span v-if="shoppingCartQuantity > 1">S</span></p>
+                  <p class="d-flex justify-content-between ml-4 mr-2">
+                    <span>SUBTOTAL</span>
+                    <span>S/. {{shoppingCartTotalPrice}}</span>
+                  </p>
+                </li>
+                <li class="resume-card__item-information mt-3">
+                  <p class="d-flex justify-content-between mx-2">
+                    <span>Entrega</span>
+                    <span>Gratis</span>
+                  </p>
+                </li>
+                <li class="resume-card__item-information mt-3">
+                  <p class="d-flex justify-content-between mx-2 font-weight-bold">
+                    <span>Total</span>
+                    <span>S/. {{shoppingCartTotalPrice}}</span>
+                  </p>
+                </li>
+              </ul>
             </div>
           </div>
+        </div>
+      </div>
+      <div v-else>
+        <div class="container d-flex justify-content-center align-items-center flex-column mt-4">
+          <img src="https://d3ieicw58ybon5.cloudfront.net/bypass/static/cart/cart_empty.png" alt="There's no products">
+          <h4 class="text-center no-products-title">No hay productos en el carrito</h4>
         </div>
       </div>
     </div>
@@ -57,7 +84,7 @@
 
 <script>
 import ShoppingCartItem from "../Components/ShoppingCartItem";
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "aboutus",
   components: {
@@ -71,268 +98,129 @@ export default {
   },
   computed: {
     ...mapState("product", ["shoppingCart"]),
-    ...mapGetters("product", ["shoppingCartTotalPrice"])
+    ...mapGetters("product", ["shoppingCartTotalPrice", "shoppingCartQuantity"])
   },
   methods: {
-    ...mapMutations("product", ["updatePrice", "removeProductFromShoppingCart"])
+    ...mapMutations("product", ["updatePrice", "removeProductFromShoppingCart", "removeProductsFromShoppingCart"]),
+    ...mapActions("product", ["previousPurchase"]),
+    async swapPurchase(id) {
+      await this.previousPurchase(id);
+      $(document).ready(function() {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+      });
+    }
   }
 };
 </script>
 
-<style scoped>
-@import url("https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap");
+<style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
+.container {
+  margin-top: 7rem;
+  margin-bottom: 2rem;
 }
-.box {
-  margin-top: 5rem;
-}
-.content-right {
-  font-family: "Lexend Deca", sans-serif;
-  text-align: center;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
-}
-body,
-html {
-  height: 100%;
-  font-family: sans-serif;
-}
-a {
-  margin: 0px;
-  transition: all 0.4s;
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-}
-a:focus {
-  outline: none !important;
-}
-a:hover {
-  text-decoration: none;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0px;
-}
-p {
-  margin: 0px;
-}
-ul,
-li {
-  margin: 0px;
-  list-style-type: none;
-}
-input {
-  display: block;
-  outline: none;
-  border: none !important;
-}
-textarea {
-  display: block;
-  outline: none;
-}
-textarea:focus,
-input:focus {
-  border-color: transparent !important;
-}
-button {
-  outline: none !important;
-  border: none;
-  background: transparent;
-}
-button:hover {
-  cursor: pointer;
-}
-iframe {
-  border: none !important;
-}
-.limiter {
-  width: 100%;
-  margin: 0 auto;
-}
-.container-table100 {
-  width: 100%;
-  min-height: 100vh;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
+.shopping-cart{
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 33px 30px;
+  box-sizing: border-box;
+  &__checkout{
+    flex: 2;
+    .text-secondary{
+      font-size: 16px;
+    }
+    .delete-items{
+      cursor: pointer;
+    }
+  }
+  &__resume{
+    flex: 1;
+  }
 }
-.wrap-table100 {
-  width: 1170px;
+.items__wrapper{
+  display: flex;
+  flex-direction: column;
+  padding-inline-start: 0;
+  width: 90%;
+  margin-bottom: 1rem;
+  .item__cart {
+    display: flex;
+    border-top: 1px solid #ccc;
+    padding-top: 1rem;
+  }
 }
-table {
-  border-spacing: 1;
-  border-collapse: collapse;
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
+
+.item-container{
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  margin: 0 auto;
-  position: relative;
-  text-align: center;
+  margin-left: .5rem;
+  .item-information__container{
+    display: flex;
+    justify-content: space-between;
+    .item-information{
+      display: flex;
+      flex-direction: column;
+      font-size: 13px;
+      margin-top: .5rem;
+    }
+    .item__actions{
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
-table * {
-  position: relative;
+.resume-card{
+  background-color: rgb(231, 231, 231);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 4px;
+  &__title{
+    margin-bottom: .5rem;
+    width: 100%;
+    margin-left: 2rem;
+    margin-top: 1rem;
+  }
+  &__body{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .resume-card__list {
+      width: 90%;
+      background-color: #fff;
+      padding-inline-start: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .resume-card__item-information {
+      list-style: none;
+      border-bottom: 1px solid #ccc;
+      width: 95%;
+    }
+  }
 }
-table td,
-table th {
-  padding-left: 8px;
-}
-table thead tr {
-  height: 60px;
-  background: #333;
-}
-table tbody tr {
-  height: 50px;
-}
-table tbody tr:last-child {
-  border: 0;
-}
-.table100-head th {
-  font-family: OpenSans-Regular;
-  font-size: 18px;
-  color: #fff;
-  line-height: 1.2;
-  font-weight: unset;
-}
-tbody tr:nth-child(even) {
-  background-color: #f5f5f5;
-}
-tbody tr {
-  font-family: OpenSans-Regular;
-  font-size: 15px;
-  color: #808080;
-  line-height: 1.2;
-  font-weight: unset;
-}
-tbody tr:hover {
-  color: #555555;
-  background-color: #f5f5f5;
-  cursor: pointer;
-}
-.column1 {
-  width: 260px;
-  padding-left: 40px;
-}
-.column2 {
-  width: 160px;
-}
-.column3 {
-  width: 245px;
-}
-.column4 {
-  width: 110px;
-  text-align: right;
-}
-.column5 {
-  width: 170px;
-  text-align: right;
-}
-.column6 {
-  width: 222px;
-  text-align: right;
-  padding-right: 62px;
-}
-.btn-pay {
-  background-color: #fff;
-  border: 2px solid #333;
-  border-radius: .25rem;
+.checkout-continue{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  &__button{
+    background-color: #111;
+    color: #fff;
+    padding: .75rem 1.2rem;
+  }
 }
 .no-products-title{
   font-family: 'Titan One', cursive;
   margin-top: 1rem;
 }
-@media screen and (max-width: 992px) {
-  table {
-    display: block;
-  }
-  table > *,
-  table tr,
-  table td,
-  table th {
-    display: block;
-  }
-  table thead {
-    display: none;
-  }
-  table tbody tr {
-    height: auto;
-    padding: 37px 0;
-  }
-  table tbody tr td {
-    padding-left: 40% !important;
-    margin-bottom: 24px;
-  }
-  table tbody tr td:last-child {
-    margin-bottom: 0;
-  }
-  table tbody tr td:before {
-    font-family: OpenSans-Regular;
-    font-size: 14px;
-    color: #999999;
-    line-height: 1.2;
-    font-weight: unset;
-    position: absolute;
-    width: 40%;
-    left: 30px;
-    top: 0;
-  }
-  table tbody tr td:nth-child(1):before {
-    content: "Nombre";
-  }
-  table tbody tr td:nth-child(2):before {
-    content: "Talla";
-  }
-  table tbody tr td:nth-child(3):before {
-    content: "Color";
-  }
-  table tbody tr td:nth-child(4):before {
-    content: "Cantidad";
-  }
-  table tbody tr td:nth-child(5):before {
-    content: "Subtotal";
-  }
-  table tbody tr td:nth-child(6):before {
-    content: "Eliminar";
-  }
 
-  .column4,
-  .column5,
-  .column6 {
-    text-align: left;
+@media screen and (max-width: 450px){
+  .shopping-cart{
+    flex-direction: column;
   }
-
-  .column4,
-  .column5,
-  .column6,
-  .column1,
-  .column2,
-  .column3 {
-    width: 100%;
-  }
-
-  tbody tr {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 576px) {
-  .container-table100 {
-    padding-left: 15px;
-    padding-right: 15px;
+  .shopping-cart__checkout, .shopping-cart__resume{
+    flex: 1;
   }
 }
 </style>

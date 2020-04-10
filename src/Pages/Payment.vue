@@ -141,6 +141,9 @@ export default {
     }
     this.payment.totalPrice = this.shoppingCartTotalPrice;
   },
+  mounted(){
+    window.scroll(0, 0);
+  },
   beforeDestroy() {
     if (this.errorMessagePurchase) {
       this.removeErrorMessagePurchase();

@@ -26,7 +26,7 @@
                     </li>
                     <li
                       class="item-page"
-                      :class="n==currentPage ? 'enable no-click' : '' "
+                      :class="n==numPage ? 'enable no-click' : '' "
                       v-for="n in numPages"
                       :key="n"
                     >
@@ -86,19 +86,22 @@ export default {
     onHideLoading(show) {
       this.showLoading = show;
     },
-    goTo(page) {
-      this.$router.push({ name: "Products", params: { numPage: page } });
-      location.reload();
+    async goTo(page) {
+      await this.getProducts(page);
+      $(document).ready(function() {
+        $("html, body").animate({ scrollTop: 800 }, "slow");
+        return false;
+      });
     }
   },
   created() {
     this.checkLogin();
-    this.getProducts(this.numPage);
   },
   beforeMount() {
     this.showLoading = true;
   },
   mounted() {
+    this.getProducts(this.numPage);
     if (this.successMessageUpdateProfile) {
       this.displayNotification(
         this.successMessageUpdateProfile.body,
@@ -186,6 +189,7 @@ export default {
 .enable {
   background-color: #333;
   color: #fff;
+  z-index: 5;
 }
 .pages {
   display: flex;
