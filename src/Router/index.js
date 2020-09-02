@@ -1,31 +1,31 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../Store'
 
-import App from  '../Pages/App.vue'
 import Oauth from '../Pages/Oauth.vue'
-import Login from '../Pages/Login.vue'
-import Register from '../Pages/Register.vue'
-import Profile from '../Pages/Profile.vue'
-import AboutUs from '../Pages/AboutUs.vue'
-import Products from '../Pages/Products.vue'
-import Product from '../Pages/Product.vue'
+import LoginPage from '../Pages/LoginPage.vue'
+import RegisterPage from '../Pages/RegisterPage.vue'
+import AccountPage from '../Pages/AccountPage.vue'
+import AboutUsPage from '../Pages/AboutUsPage.vue'
+import HomePage from '../Pages/HomePage.vue'
+import ProductPage from '../Pages/ProductPage.vue'
 import ProductDescription from '../Components/ProductDescription.vue'
 import ProductDetails from '../Components/ProductDetails.vue'
 import ProductTips from '../Components/ProductTips.vue'
-import Payment from '../Pages/Payment.vue'
-import ShoppingCart from '../Pages/ShoppingCart.vue'
+import PaymentPage from '../Pages/PaymentPage.vue'
+import ShoppingCartPage from '../Pages/ShoppingCartPage.vue'
 
 Vue.use(Router)
 
 export const router = new Router({
     mode: 'history',
     routes: [
-        {
-            path: '/',
+        /* {
+            path: '/login',
             name: 'App',
             component: App,
             redirect: { name: 'Login' }
-        },
+        }, */
         {
             path: '/oauth',
             name: 'Oauth',
@@ -33,27 +33,27 @@ export const router = new Router({
         },
         {
             path: '/login',
-            name: 'Login',
-            component: Login
+            name: 'LoginPage',
+            component: LoginPage
         },
         {
             path: '/register',
-            name: 'Register',
-            component: Register
+            name: 'RegisterPage',
+            component: RegisterPage
         },
         {
-            path: '/products/:numPage',
-            name: 'Products',
-            component: Products,
+            path: '/',
+            name: 'HomePage',
+            component: HomePage,
             props: true,
             meta: {
               auth: true
             }
         },
         {
-            path: '/product/:id',
-            name: 'Product',
-            component: Product,
+            path: '/product/:category/:productName',
+            name: 'ProductPage',
+            component: ProductPage,
             props: true,
             meta: {
               auth: true
@@ -78,32 +78,32 @@ export const router = new Router({
         },
         {
             path: '/profile',
-            name: 'Profile',
-            component: Profile,
+            name: 'AccountPage',
+            component: AccountPage,
             meta: {
               auth: true
             }
         },
         {
             path: '/about',
-            name: 'AboutUs',
-            component: AboutUs,
+            name: 'AboutUsPage',
+            component: AboutUsPage,
             meta: {
               auth: true
             }
         },
         {
             path: '/shoppingcart',
-            name: 'ShoppingCart',
-            component: ShoppingCart,
+            name: 'ShoppingCartPage',
+            component: ShoppingCartPage,
             meta: {
               auth: true
             }
         },
         {
             path: '/checkout',
-            name: 'Payment',
-            component: Payment,
+            name: 'PaymentPage',
+            component: PaymentPage,
             meta: {
               auth: true
             }
@@ -112,7 +112,8 @@ export const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    const loggedIn = localStorage.getItem('userFullName');
+    const loggedIn = store.state.user.userAuth;
+    console.log('loggedIn: ', loggedIn);
     const publicPages = ['/', '/login', '/register', '/oauth'];
     if (to.matched.some(record => record.meta.auth)) {
         if (!loggedIn) {
@@ -129,7 +130,7 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         if(publicPages.includes(to.path) && loggedIn){
-            next('/products/1')
+            next('/')
         } else {
             next()
         }

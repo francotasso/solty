@@ -13,12 +13,12 @@ app.use(history({
 }));
 app.use(staticFileMiddleware);
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     console.log(__dirname);
     res.render(path.join(__dirname + '/dist/index.html'));
 });
 
-var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
+const server = app.listen(process.env.PORT || 8080, () => {
+    const port = server.address().port;
     console.log("App now running on port", port);
 });

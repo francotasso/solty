@@ -1,8 +1,8 @@
 <template>
   <div class="fast-container">
     <div v-if="shoppingCart.length">
-      <div class="fast-cart__title">
-        <h5 class="text-center text-white">Carrito S/. {{shoppingCartTotalPrice}}</h5>
+      <div class="fast-cart__title border-bottom">
+        <h4 class="text-center">Carrito S/. {{shoppingCartTotalPrice}}</h4>
       </div>
       <div class="fast-cart__container">
         <ul class="items__wrapper">
@@ -37,11 +37,11 @@
       </div>
     </div>
     <div v-else>
-      <div class="fast-cart__title">
-        <h4 class="text-center text-white">Carrito vacío</h4>
+      <div class="fast-cart__title border-bottom">
+        <h4 class="text-center">Carrito vacío</h4>
       </div>
       <div class="fast-cart__container">
-        <img src="https://d3ieicw58ybon5.cloudfront.net/bypass/static/cart/cart_empty.png" alt="No products" width="250">
+        <img src="../assets/empty-cart.png" alt="No products" width="250">
       </div>
     </div>
   </div>
@@ -80,10 +80,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$main-color: #f5f6fa;
 .fast-container {
   width: 300px;
   height: 390px;
-  background-color: #111;
+  background-color: $main-color;
   border-radius: .5rem;
   position: relative;
   z-index: 100;
@@ -95,7 +96,7 @@ export default {
     width: 30px;
     height: 30px;
     transform: rotateZ(45deg);
-    background-color: #111;
+    background-color: $main-color;
   }
   &:after {
     content: "";
@@ -109,13 +110,16 @@ export default {
 }
 
 .fast-cart__title{
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+  color: #426cb4;
 }
 .fast-cart__container{
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  align-items: center;
   box-sizing: border-box;
+  height: 300px;
+  margin-top: 1.5rem;
 }
 
 .items__wrapper{
@@ -129,14 +133,14 @@ export default {
   .item__cart {
     height: 80px;
     border-radius: 4px;
-    background-color: #222;
+    background-color: #355b9c;
     display: flex;
   }
   &::-webkit-scrollbar {
     width: 6px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: rgb(29, 29, 29);
+    background-color: rgb(255, 186, 83);
     border-radius: 4px;
   }
   &::-webkit-scrollbar-track {
@@ -144,7 +148,7 @@ export default {
   }
   &::-webkit-scrollbar-track:hover,
   &::-webkit-scrollbar-track:active {
-    background-color: rgb(44, 43, 43);
+    background-color: rgb(214, 214, 214);
   }
 }
 

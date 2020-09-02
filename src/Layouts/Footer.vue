@@ -1,60 +1,71 @@
 <template>
-  <div>
-    <!-- Footer -->
-    <footer class="page-footer font-small dark darken-3" id="footer">
-      <div class="d-flex justify-content-center">
-        <h1 class="mt-5 text-center d-none d-md-block">Contáctanos en nuestra redes sociales</h1>
-      </div>
-      <!-- Footer Elements -->
-      <div class="container">
-        <!-- Grid row-->
-        <div class="row">
-          <!-- Grid column -->
-          <div class="col-md-12 py-5">
-            <div class="mb-5 flex-center">
-              <!-- Facebook -->
-              <a class="fb-ic">
-                <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-              </a>
-              <!-- Twitter -->
-              <a class="tw-ic">
-                <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-              </a>
-              <!-- Google +-->
-              <a class="gplus-ic">
-                <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-              </a>
-              <!--Linkedin -->
-              <a class="li-ic">
-                <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-              </a>
-              <!--Instagram-->
-              <a class="ins-ic">
-                <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-              </a>
-              <!--Pinterest-->
-              <a class="pin-ic">
-                <i class="fab fa-pinterest fa-lg white-text fa-2x"></i>
-              </a>
-            </div>
+  <div class="footer border-top">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-4">
+          <h3>Servicio al cliente</h3>
+          <div class="mt-4">
+            <p class="my-3">
+              <router-link to="/">
+                Envíos y Devoluciones
+              </router-link>
+            </p>
+            <p class="my-3">
+              <router-link to="/">
+                Libro de reclamaciones
+              </router-link>
+            </p>
           </div>
-          <!-- Grid column -->
         </div>
-        <!-- Grid row-->
+        <div class="col-md-4">
+          <h3>Acerca de</h3>
+          <div class="mt-4">
+            <p class="my-3">
+              <router-link to="/about">
+                Nosotros
+              </router-link>
+            </p>
+            <p class="my-3">
+              <router-link to="/designers">
+                Diseñadores
+              </router-link>
+            </p>
+            <p class="my-3">
+              <router-link to="/workingwithus">
+                Vender en Solty
+              </router-link>
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h3>Términos y condiciones</h3>
+          <div class="mt-4">
+            <h4 class="mt-5 mb-3">Registra tu email</h4>
+            <div>
+              <input type="text" placeholder="email" class="email-contact">
+            </div>
+            <button class="btn btn-sm btn-primary mt-2">Suscríbete</button>
+          </div>
+        </div>
       </div>
-      <!-- Footer Elements -->
-
-      <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">
-        © 2020 Copyright:
-        <a
-          target="_blank"
-          href="https://www.facebook.com/francotassop"
-        >Franco Tasso</a>
+    </div>
+    <div class="container-fluid contact-us pt-3">
+      <div class="text-center h4">
+        <span>Síguenos en: </span>
       </div>
-      <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+      <div class="text-center">
+        <a href="#" class="mr-3">
+          <i class="fab fa-facebook-f fa-3x"></i>
+        </a>
+        <a href="#" class="ml-3">
+          <i class="fab fa-instagram fa-3x"></i>
+        </a>
+      </div>
+      <div class="container"><hr class="my-3"></div>
+      <div class="container">
+        <p class="text-center text-uppercase font-weight-bold">2020 Solty. All rights reserved</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -67,11 +78,39 @@ export default {
 };
 </script>
 
-<style scoped>
-* {
-  box-sizing: border-box;
-}
-.dark {
-  background-color: #181919;
+<style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap');
+$main-color: #222;
+.footer {
+  font-family: 'Ropa Sans', sans-serif;
+  color: $main-color;
+  .contact-us {
+    background-color: rgb(245, 245, 245);
+  }
+  .email-contact {
+    box-sizing: border-box;
+    outline: none;
+    padding: 5px 10px;
+  }
+  .btn-primary {
+    background-color: #888;
+    border-color: #888;
+    transition: all .2s;
+    &:hover {
+      background-color: #666;
+      color: white;
+    }
+  }
+  a {
+    color: #444;
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+      color: #888;
+    }
+  }
+  i {
+    color: $main-color;
+  }
 }
 </style>

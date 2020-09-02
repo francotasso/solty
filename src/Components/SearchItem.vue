@@ -1,6 +1,29 @@
 <template>
-  <div>
-    <div class="row content">
+  <div class="searching-container">
+    <div class="row">
+      <div class="col-md-6">
+        <strong>{{productsFiltered.length}}</strong>
+        <span>Productos encontrados</span>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-8">
+            <input
+              class="form-control form-control-sm ml-1 w-75"
+              type="text"
+              placeholder="Busque aquí"
+              aria-label="Search"
+              v-model="query"
+              @keyup="setFilter(query)"
+            />
+          </div>
+          <div class="col-md-4">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row content">
       <div class="form-inline md-form form-sm col-md-6 search-content">
         <input
           class="form-control form-control-sm ml-1 w-75"
@@ -11,11 +34,6 @@
           @keyup="setFilter(query)"
         />
         <i class="fas fa-search" aria-hidden="true"></i>
-      </div>
-      <div class="available-products">
-        <span class="mr-1">{{productsFiltered.length}}</span>
-        <span v-if="productsFiltered.length == 1">producto disponible</span>
-        <span v-else>productos disponibles</span>
       </div>
       <div class="dropdown filter-content">
         <button
@@ -64,7 +82,12 @@
           </button>
         </div>
       </div>
-    </div>
+      <div class="available-products">
+        <span class="mr-1">{{productsFiltered.length}}</span>
+        <span v-if="productsFiltered.length == 1">producto disponible</span>
+        <span v-else>productos disponibles</span>
+      </div>
+    </div> -->
   </div>
 </template>
 
@@ -102,13 +125,11 @@ export default {
 };
 </script>
 
-<style scoped>
-* {
-  box-sizing: border-box;
-}
-.bg-black {
-  background-color: #333;
-  color: #fff;
+<style lang="scss" scoped>
+.searching-container {
+  background-color: #f5f5f5;
+  padding: 12px 15px;
+  border-radius: 4px;
 }
 .btn:focus {
   box-shadow: none;
@@ -116,7 +137,9 @@ export default {
 .content {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  @media screen and (min-width: 768px) {
+    width: 100%;
+  }
 }
 .search-content {
   margin-left: 1rem;
@@ -134,10 +157,10 @@ export default {
     margin-left: 2rem;
   }
   .available-products {
-    margin-left: 3rem;
+    margin-right: 1.5rem;
   }
   .filter-content {
-    margin-right: 1.5rem;
+    margin-left: 1.5rem;
   }
 }
 </style>

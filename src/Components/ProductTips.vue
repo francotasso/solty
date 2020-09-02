@@ -9,7 +9,7 @@
           :key="index"
         >
           <i class="fas fa-check" style="font-size: 1.5rem;"></i>
-          <p class="ml-3">{{product.content}}</p>
+          <p class="ml-3 text-secondary">{{product.content}}</p>
         </div>
       </div>
     </div>

@@ -9,9 +9,14 @@ export default {
   name: "App",
   data() {
     return {};
-  }
+  },
+  watch: {
+    $route() {
+      window.scroll(0, 0);
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style>
 </style>

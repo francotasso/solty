@@ -1,17 +1,17 @@
 <template>
-  <wrapper-section>
+  <wrapper-section :no-footer="true">
     <div class="body">
       <div class="container-fluid m-auto">
-        <div class="row">
+        <div class="row px-0">
           <div class="box d-flex justify-content-center">
             <img
-              src="https://images.pexels.com/photos/1755385/pexels-photo-1755385.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt="Coreana a la moda"
-              class="img-fluid d-none d-md-block"
+              :src="$getAsset('fashion-girl.png')"
+              alt="Fashion girl"
+              class="img-fluid mt-3 "
             />
           </div>
-          <div class="content-right col-md-6 my-auto">
-            <h1>Solty tu tienda Online</h1>
+          <div class="content-right col-md-6 my-auto container">
+            <h1 class="title text-dark">Solty tu tienda Online</h1>
             <p
               class="mt-3"
             >Solty es una empresa de venta de ropa online con presencia en todo el Perú y gran parte de Latinoamérica.</p>
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: "aboutus",
+  name: "AboutUsPage",
   data() {
     return {};
   },
@@ -42,13 +42,12 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@600&display=swap');
 .body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 .box {
-  margin-top: -13em;
   width: 50%;
 }
 .content-right {
@@ -56,5 +55,13 @@ export default {
   text-align: center;
   margin-top: 3rem;
   margin-bottom: 3rem;
+  color: rgb(135, 135, 135);
+}
+.title {
+  font-family: 'Baloo Bhaina 2', cursive;
+  color: #355b9c;
+}
+img {
+  width: 50%;
 }
 </style>

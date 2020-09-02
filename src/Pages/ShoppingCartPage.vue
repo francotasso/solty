@@ -1,6 +1,6 @@
 <template>
-  <wrapper-section>
-    <div class="container">
+  <wrapper-section :custom-color="true">
+    <div class="container my-5">
       <div v-if="shoppingCart.length" class="shopping-cart">
         <div class="shopping-cart__checkout">
           <div class="title mb-4">
@@ -16,10 +16,10 @@
           </div>
           <ul class="items__wrapper">
             <li v-for="(item,index) in shoppingCart" :key="index" class="item__cart" :class="{'mb-3': index!==shoppingCart.length-1}">
-              <div class="item-image__container">
-                <img :src="item.image" :alt="item.productName" width="120px" @click="swapPurchase(item.id)">
+              <div class="item-image__container col-md-3">
+                <img :src="item.image" :alt="item.productName" class="img-fluid" @click="swapPurchase(item)">
               </div>
-              <div class="item-container">
+              <div class="item-container col-md-9">
                 <div class="item-title__container mt-1">
                   <h6 class="text-uppercase d-flex justify-content-between">
                     <span class="font-weight-bold">{{item.productName}}</span>
@@ -86,7 +86,7 @@
 import ShoppingCartItem from "../Components/ShoppingCartItem";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
-  name: "aboutus",
+  name: "ShoppingCartPage",
   components: {
     ShoppingCartItem
   },
@@ -103,11 +103,12 @@ export default {
   methods: {
     ...mapMutations("product", ["updatePrice", "removeProductFromShoppingCart", "removeProductsFromShoppingCart"]),
     ...mapActions("product", ["previousPurchase"]),
-    async swapPurchase(id) {
-      await this.previousPurchase(id);
-      $(document).ready(function() {
-        $("html, body").animate({ scrollTop: 0 }, "slow");
-        return false;
+    async swapPurchase(item) {
+      await this.previousPurchase(item);
+      window.scrollBy({ 
+        top: 0,
+        left: 0, 
+        behavior: 'smooth' 
       });
     }
   }
@@ -116,10 +117,6 @@ export default {
 
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
-.container {
-  margin-top: 7rem;
-  margin-bottom: 2rem;
-}
 .shopping-cart{
   display: flex;
   box-sizing: border-box;
@@ -178,8 +175,8 @@ export default {
   border-radius: 4px;
   &__title{
     margin-bottom: .5rem;
-    width: 100%;
-    margin-left: 2rem;
+    width: 95%;
+    margin-left: 1rem;
     margin-top: 1rem;
   }
   &__body{
@@ -196,8 +193,10 @@ export default {
     }
     .resume-card__item-information {
       list-style: none;
-      border-bottom: 1px solid #ccc;
       width: 95%;
+      &:not(:last-child){
+        border-bottom: 1px solid #ccc;
+      }
     }
   }
 }
@@ -208,6 +207,7 @@ export default {
     background-color: #111;
     color: #fff;
     padding: .75rem 1.2rem;
+    text-decoration: none;
   }
 }
 .no-products-title{
@@ -215,12 +215,12 @@ export default {
   margin-top: 1rem;
 }
 
-@media screen and (max-width: 450px){
+@media screen and (max-width: 768px){
   .shopping-cart{
     flex-direction: column;
-  }
-  .shopping-cart__checkout, .shopping-cart__resume{
-    flex: 1;
+    &__checkout, &__resume {
+      flex: 1;
+    }
   }
 }
 </style>

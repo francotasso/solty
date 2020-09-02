@@ -1,78 +1,89 @@
 <template>
-  <div class>
-    <div class="category-title">
-      <span>Categorias</span>
+  <div class="categories-container">
+    <div class="main-title">
+      <span>Categorías</span>
     </div>
-    <div class="category-container">
-      <div
+    <ul class="category-items">
+      <li
         v-for="category in categories"
         :key="category.id"
-        class="category category__box"
-        :class="isSelected(category.active)"
-        @click="selectCategory(category.id)"
+        class="category-item"
+        :class="isSelected(category.cid)"
+        @click="setCategory(category.cid)"
       >
         <span>{{category.title}}</span>
-        <img v-if="!category.active" :src="category.icon" :alt="category.title" />
-        <img v-else :src="category.iconSelected" :alt="category.title" />
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex';
+import { categories } from '../utils/categories';
 export default {
   name: "ProductsCategories",
   data() {
-    return {};
+    return {
+      categories
+    };
   },
   computed: {
-    ...mapState("product", ["categories"])
+    ...mapState("product", ["filter"])
   },
   methods: {
-    ...mapActions("product", [
-      "setProductsFilter",
-      "desactiveSearchFilter",
-      "activeCategoryFilter"
-    ]),
-    isSelected(active) {
-      return active ? "category__box-selected" : "";
+    ...mapActions("product", ["setProductsFilter", "setStatusCategoryFilter"]),
+    setCategory(cid) {
+      if (this.filter.range !== cid) {
+        this.setStatusCategoryFilter(true);
+        this.setProductsFilter(cid);
+      } else {
+        this.setStatusCategoryFilter(false);
+        this.setProductsFilter('all');
+      }
     },
-    selectCategory(id) {
-      this.desactiveSearchFilter();
-      this.activeCategoryFilter();
-      this.categories.map(category => {
-        if (category.active) {
-          category.active = false;
-          if (category.id == id) this.setProductsFilter("all");
-        } else if (category.id == id) {
-          if (category.active) {
-            category.active = false;
-          } else {
-            category.active = true;
-            this.setProductsFilter(
-              category.title
-                .substring(0, category.title.length - 1)
-                .toLowerCase()
-            );
-          }
-        }
-      });
+    isSelected(cid) {
+      if (this.filter.range === cid) return "category__box-selected";
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css?family=Sigmar+One&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Cabin&display=swap");
-* {
-  box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Ropa+Sans&display=swap');
+$main-color: #222;
+$hover-category: #fcb800;
+.categories-container {
+  font-family: 'Ropa Sans', sans-serif;
+  background-color: #f5f5f5;
+  padding: 25px 20px;
+  border-radius: 4px;
+  .main-title {
+    margin-bottom: 25px;
+    span {
+      font-size: 18px;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+  }
+  .category-items {
+    list-style: none;
+    padding-inline-start: 0px;
+    .category-item {
+      padding: 5px 0px;
+      &:hover {
+        color: $hover-category;
+        cursor: pointer;
+      }
+    }
+  }
 }
 .category-title {
   display: flex;
   justify-content: center;
-  font-family: "Sigmar One", cursive;
+  font-family: 'Autour One', cursive;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bolder;
   color: rgb(83, 83, 83);
   margin-bottom: 1rem;
 }
@@ -84,7 +95,9 @@ export default {
   justify-content: space-around;
   align-items: center;
   color: rgb(139, 138, 138);
-  font-family: "Cabin", sans-serif;
+  font-family: 'Baloo Paaji 2', cursive;
+  text-transform: uppercase;
+  margin-bottom: .3rem;
   padding: 0 .5rem;
   &:after{
     content: '';
@@ -93,7 +106,7 @@ export default {
     left: 0;
     width: 0;
     height: 3px;
-    background-color: rgb(32, 32, 32);
+    background-color: $main-color;
     transition: width .5s;
   }
   &:hover{
@@ -104,14 +117,7 @@ export default {
     }
   }
   &-selected{
-    background-color: rgb(32, 32, 32);
-    border: 3px solid rgb(32, 32, 32);
-    color: #fff;
-    &:hover{
-      background-color: rgb(32, 32, 32);
-      border: 3px solid rgb(32, 32, 32);
-      color: #fff;
-    }
+    color: $hover-category;
   }
 }
 

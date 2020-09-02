@@ -1,15 +1,13 @@
 import axios from "axios";
-import URL from '../API/API';
 
 export const productService = {
     getProducts,
     getProduct
 }
 
-function getProducts(numPage) {
-    let url = URL.url.concat(`/products/${numPage}`);
+function getProducts(payload) {
     return new Promise((resolve, reject) => {
-        axios.get(url, { withCredentials: true })
+        axios.get(`products/${payload.numPage}?perPage=${payload.perPage}`)
         .then(res => {
             resolve(res.data)
         })
@@ -20,9 +18,8 @@ function getProducts(numPage) {
 };
 
 function getProduct(productId) {
-    let url = URL.url.concat(`/product/${productId}`);
     return new Promise((resolve, reject) => {
-        axios.get(url, {withCredentials: true})
+        axios.get(`product/${productId}`)
         .then(res => {
             resolve(res.data)
         })

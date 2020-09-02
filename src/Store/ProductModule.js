@@ -104,17 +104,11 @@ const mutations = {
     setProductsFilter(state, range) {
         state.filter.range = range
     },
-    activeSearchFilter(state) {
-        state.filter.isSearchActive = true;
+    setStatusSearchFilter(state, status) {
+        state.filter.isSearchActive = status;
     },
-    desactiveSearchFilter(state) {
-        state.filter.isSearchActive = false;
-    },
-    activeCategoryFilter(state) {
-        state.filter.isCategoryActive = true;
-    },
-    desactiveCategoryFilter(state) {
-        state.filter.isCategoryActive = false;
+    setStatusCategoryFilter(state, status) {
+        state.filter.isCategoryActive = status;
     },
     addProductToShoppingCart(state, product) {
         let currentProduct = state.shoppingCart.find(item => item.id === product.id && item.size === product.size && item.color === product.color)
@@ -158,10 +152,10 @@ const mutations = {
 }
 
 const actions = {
-    async getProducts({ commit }, numPage) {
-        let products = await productService.getProducts(numPage)
-        commit('setProducts', products)
-        router.push({ name: 'Products', params: { numPage: numPage } })
+    async getProducts({ commit }, payload) {
+        let data = await productService.getProducts(payload)
+        commit('setProducts', data)
+        router.push({ name: 'HomePage' })
     },
     async getProduct({ commit }, productId) {
         try {
@@ -172,29 +166,24 @@ const actions = {
             router.push({ name: 'Login' })
         }
     },
-    async previousPurchase({ commit }, productId) {
+    async previousPurchase({ commit }, cProduct) {
         try {
-            let product = await productService.getProduct(productId)
+            let product = await productService.getProduct(cProduct._id)
             commit('setCurrentProductToBuy', product)
-            router.push({ name: 'ProductDescription', params: { id: productId } })
+            const formattedName = cProduct.productName.toLowerCase().replace(/ /g, "-")
+            router.push({ name: 'ProductDescription', params: { category: cProduct.category, productName: formattedName } })
         } catch (e) {
-            router.push({ name: 'Login' })
+            router.push({ name: 'LoginPage' })
         }
     },
     setProductsFilter({ commit }, range) {
         commit('setProductsFilter', range);
     },
-    activeSearchFilter({ commit }) {
-        commit('activeSearchFilter')
+    setStatusSearchFilter({ commit }, status) {
+        commit('setStatusSearchFilter', status)
     },
-    desactiveSearchFilter({ commit }) {
-        commit('desactiveSearchFilter')
-    },
-    activeCategoryFilter({ commit }) {
-        commit('activeCategoryFilter')
-    },
-    desactiveCategoryFilter({ commit }) {
-        commit('desactiveCategoryFilter')
+    setStatusCategoryFilter({ commit }, status) {
+        commit('setStatusCategoryFilter', status)
     }
 };
 

@@ -1,20 +1,20 @@
 <template>
   <wrapper-section>
-    <div class="container" id="box">
+    <div class="container">
       <div class="row">
-        <div class="col-md-5 mt-3">
-          <img :src="currentProductToBuy.image" :alt="currentProductToBuy.productName" class="img-fluid">
+        <div class="col-md-5 mt-5">
+          <ZoomOnHover :img-normal="currentProductToBuy.image" :scale="2"></ZoomOnHover>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-7 mt-5">
           <ul class="nav nav-tabs">
             <li class="nav-item">
-              <router-link class="nav-link" :to="'/product/' + id + '/description'">Descripción</router-link>
+              <router-link class="nav-link" :to="'/product/' + category + '/' + productName + '/description'">Descripción</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="'/product/' + id + '/details'">Detalles</router-link>
+              <router-link class="nav-link" :to="'/product/' + category + '/' + productName + '/details'">Detalles</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="'/product/' + id + '/tips'">Recomendaciones</router-link>
+              <router-link class="nav-link" :to="'/product/' + category + '/' + productName + '/tips'">Recomendaciones</router-link>
             </li>
           </ul>
           <router-view></router-view>
@@ -28,12 +28,14 @@
 
 <script>
 import ProductRelated from "../Components/ProductRelated";
+import ZoomOnHover from "../Components/external/ZoomOnHover.vue";
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
-  name: "product",
-  props: ["id"],
+  name: "ProductPage",
+  props: ["category", "productName"],
   components: {
-    ProductRelated
+    ProductRelated,
+    ZoomOnHover
   },
   computed: {
     ...mapState("product", ["currentProductToBuy", "shoppingCart"])
@@ -42,11 +44,7 @@ export default {
     return {};
   },
   methods: {
-    ...mapActions("product", ["getProduct"]),
-    ...mapActions("user", ["checkLogin","getProfile"])
-  },
-  created(){
-    this.checkLogin();
+    ...mapActions("product", ["getProduct"])
   },
   mounted() {
     /* $(document).ready(function() {
@@ -59,12 +57,6 @@ export default {
 </script>
 
 <style scoped>
-#box {
-  margin-top: 6rem;
-}
-a {
-  color: #224994;
-}
 </style>
 
 

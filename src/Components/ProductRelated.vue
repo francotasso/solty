@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container mt-3">
+    <div class="mt-3">
       <h1>PRODUCTOS RELACIONADOS</h1>
       <div class="d-flex flex-column">
         <div class="row-md-3 d-flex justify-content-around flex-wrap mb-3">
@@ -9,7 +9,7 @@
               :src="product.image"
               :alt="product.productName"
               class="my-2 img-fluid"
-              @click="swapPurchase(product._id)"
+              @click="swapPurchase(product)"
             />
             <div>
               <p style="font-size: 12px;">{{product.brand}}</p>
@@ -25,7 +25,6 @@
 
 <script>
 import axios from "axios";
-import API from "../API/API";
 import { mapState, mapActions } from "vuex";
 export default {
   name: "ProductRelated",
@@ -41,20 +40,16 @@ export default {
     ...mapActions("product", ["previousPurchase"]),
     async getRelatedProducts() {
       this.products = [];
-      let url = `${API.url}/products/related/${this.currentProductToBuy.category}`;
-      let relatedProducts = await axios.get(url, { withCredentials: true });
+      let relatedProducts = await axios.get(`products/related/${this.currentProductToBuy.category}`);
       for (let product of relatedProducts.data) {
         if (product._id !== this.currentProductToBuy._id)
           this.products.push(product);
       }
     },
-    async swapPurchase(id) {
-      await this.previousPurchase(id);
+    async swapPurchase(product) {
+      await this.previousPurchase(product);
       this.getRelatedProducts();
-      $(document).ready(function() {
-        $("html, body").animate({ scrollTop: 0 }, "slow");
-        return false;
-      });
+      window.scroll(0, 137);
     }
   },
   beforeMount() {
@@ -66,6 +61,7 @@ export default {
 <style scoped>
 img {
   transition: all 2s cubic-bezier(0.175, 0.885, 0, 1);
+  border-radius: 4px;
 }
 img:hover {
   box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.7);

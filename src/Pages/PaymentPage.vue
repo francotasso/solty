@@ -1,5 +1,5 @@
 <template>
-  <wrapper-section>
+  <wrapper-section :custom-color="true">
     <div class="container">
       <div class="content">
         <div
@@ -89,7 +89,7 @@
                   v-model="payment.securityCode"
                 />
               </div>
-              <button class="btn bg-darkblack btn-block text-white">Confirmar compra</button>
+              <button class="btn bg-darkblack btn-block text-white" :disabled="emptyFields">Confirmar compra</button>
             </form>
           </div>
         </div>
@@ -101,36 +101,41 @@
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
-  name: "productPayment",
+  name: "PaymentPage",
   data() {
     return {
       payment: {
-        ownerName: "",
-        cardNumber: "",
+        ownerName: null,
+        cardNumber: null,
         expirationMonth: null,
         expirationYear: null,
         securityCode: null,
-        userId: null,
         products: [],
-        totalPrice: 0
+        amount: 0,
+        currency: "pen",
+        userId: null,
       }
     };
   },
   computed: {
+    ...mapState("user", ["userAuth"]),
     ...mapState("product", ["shoppingCart"]),
     ...mapState("payment", ["errorMessagePurchase"]),
     ...mapGetters("product", ["shoppingCartTotalPrice"]),
+    emptyFields() {
+      const { ownerName, cardNumber, expirationMonth, expirationYear, securityCode, products, amount, userId } = this.payment;
+      return ownerName && cardNumber && expirationMonth && expirationYear && securityCode && products.length && amount && userId ? false : true;
+    },
     errorMargin() {
       return this.errorMessagePurchase ? "mt-1" : "mt-5";
     }
   },
   methods: {
-    ...mapActions("user", ["getProfile"]),
     ...mapActions("payment", ["executePurchase", "removeErrorMessagePurchase"])
   },
   beforeMount() {
-    this.payment.userId = localStorage.getItem("userId");
-    for (let item of this.shoppingCart) {
+    this.payment.customer = localStorage.getItem("userId");
+    this.shoppingCart.forEach(item => {
       let product = {
         id: item.id,
         size: item.size,
@@ -138,10 +143,12 @@ export default {
         quantity: item.quantity
       };
       this.payment.products.push(product);
-    }
-    this.payment.totalPrice = this.shoppingCartTotalPrice;
+    })
+    this.payment.amount = this.shoppingCartTotalPrice;
+    this.payment.userId = this.userAuth._id;
   },
   mounted(){
+    cardCvc.mount("#card-cvc");
     window.scroll(0, 0);
   },
   beforeDestroy() {

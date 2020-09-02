@@ -1,0 +1,169 @@
+$main-color: map-get($theme-colors, "primary");
+.background {
+  color: #5a5656;
+  font: 100%/1.5em "Open Sans", sans-serif;
+  margin: 0;
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-card {
+  width: 425px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(250, 250, 250);
+  border-radius: .5rem;
+}
+.login-card__title {
+  font-family: "Pacifico", cursive;
+  color: $main-color;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.login-card__alert {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0.75rem 1.25rem;
+  color: #856405;
+  background-color: #fff3ce;
+  margin-bottom: 0.75rem;
+}
+.form-input {
+  background: #f5f0ef;
+  border: .5px solid #CBE3E1;
+  border-radius: .5rem;
+  color: #423d3d;
+  font-family: inherit;
+  font-size: 14px;
+  height: 60px;
+  outline: none;
+  padding: 0px 10px;
+  width: 300px;
+  -webkit-appearance: none;
+}
+.form-container {
+  width: 300px;
+}
+input:focus{
+  & ~ label {
+    font-size: 10px;
+    top: 0px;
+  }
+}
+.input-focus{
+  font-size: 10px !important;
+  top: 0px !important;
+}
+.username-container, .password-container {
+  width: 300px;
+  position: relative;
+  label {
+    color: #999;
+    font-size: 14px;
+    position: absolute;
+    top: 18px;
+    left: 10px;
+    transition: all .1s ease;
+  }
+}
+.password-container {
+  .show-password {
+    position: absolute;
+    top: 18px;
+    right: 13px;
+    cursor: pointer;
+    .fa-eye {
+      margin-right: 0.065rem;
+    }
+    .fas {
+      color: $main-color;
+    }
+  }
+}
+.login-card__button {
+  background-color: $main-color;
+  border: none;
+  border-radius: .5rem;
+  color: #f4f4f4;
+  cursor: pointer;
+  font-family: inherit;
+  height: 50px;
+  text-transform: uppercase;
+  width: 300px;
+  -webkit-appearance: none;
+  font-family: "Nanum Pen Script";
+}
+.disabled {
+  background-color: #c3c2c2 !important;
+}
+.third-party-login{
+  width: 100%;
+  background-color: $main-color;
+  border-bottom-left-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+  .not-registered__message {
+    color: #f5f0ef;
+    &:hover {
+      color: #f5f0ef;
+    }
+  }
+}
+.not-registered {
+  text-align: center;
+}
+.not-registered__message {
+  font-size: 13px;
+  color: #555;
+  text-align: center;
+  margin-top: 1rem;
+}
+.not-registered__message:hover {
+  text-decoration: none;
+  color: #333;
+}
+.social {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.social__logo {
+  background-color: #f5f0ef;
+  border-radius: 50%;
+  padding: 1rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  -webkit-transition: transform 0.3s ease-in-out;
+  -moz-transition: transform 0.3s ease-in-out;
+  -ms-transition: transform 0.3s ease-in-out;
+}
+.social__logo:hover {
+  background-color: #f9f6f5;
+  transform: scale(1.05);
+}
+.facebook {
+  background: #0079ce;
+  border: none;
+  border-radius: 0px 3px 3px 0px;
+  color: #f4f4f4;
+  cursor: pointer;
+  height: 50px;
+  text-transform: uppercase;
+  width: 250px;
+}
+@media (max-width: 425px) {
+  .login-card {
+    width: 350px;
+  }
+}

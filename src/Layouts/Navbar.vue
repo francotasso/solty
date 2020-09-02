@@ -1,106 +1,153 @@
 <template>
-  <div>
-    <div class="d-none d-md-block">
-      <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top vw-100" id="menu">
-        <div class="container">
-          <div>
-            <router-link to="/products/1" class="navbar-brand">
-              <img
-                src="../assets/SoltyLogo7.png"
-                width="178"
-                height="40"
-                alt="Solty Logo"
-                title="Inicio"
-              />
-            </router-link>
-          </div>
-          <div class="d-flex justify-content-between" style="width: 100%;">
-            <ul class="navbar-nav pointer">
-              <div class="d-flex justify-contents-between">
-                <div class="d-flex links">
-                  <li class="nav-item">
-                    <router-link to="/about" class="nav-link">Nosotros</router-link>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#footer">Contáctanos</a>
-                  </li>
+  <div class="header" :class="{ 'fixed-header': fixedHeader}">
+    <!-- <div class="header__announcement d-md-block d-none">
+      <span>Envíos desde el 12 de mayo. Cambios y Devoluciones GRATIS!</span>
+    </div> -->
+    <div class="header__main">
+      <div class="container header__main-content">
+        <div class="col-md-4 d-none d-md-block">
+          <div class="row">
+            <div class="col-md-6 search-box">
+              <input type="text" placeholder="Buscar productos" class="search-input" v-model="searchQuery">
+              <div class="btn-input">
+                <button class="search-btn">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div style="font-size: 12px;">
+                <div class="help-item">
+                  <span class="text-uppercase">¿Necesitas ayuda?</span>
+                  <div class="dropdown">
+                    <ul>
+                      <li class="dropdown-item">
+                        <router-link to="/chat-talk">¡Hablemos por Chat!</router-link>
+                      </li>
+                      <li class="dropdown-item">
+                        <router-link to="/contact">
+                          Teléfono: +51 987 109 967
+                        </router-link>
+                      </li>
+                      <li class="dropdown-item">
+                        <router-link to="/faq">
+                          Preguntas frecuentes:
+                          <strong>Ver aquí</strong>
+                        </router-link>
+                      </li>
+                      <li class="dropdown-item">
+                        <router-link to="/email-talk">
+                          ¡Hablemos por mail!
+                        </router-link>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </ul>
-            <ul class="navbar-nav pointer">
-              <li class="nav-item shopping-cart" @mouseenter="showFastCart = true" @mouseleave="showFastCart = false">
-                <a class="nav-link" href="/shoppingcart">
-                  <i class="fas fa-shopping-cart"></i> 
-                  <span class="badge badge-danger">{{shoppingCartQuantity}}</span>
-                </a>
-                <ShoppingCartFast v-if="showFastCart" class="fast-cart"/>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  id="navbarDropdownMenuLink-333"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-user"></i>
-                </a>
-                <div
-                  class="dropdown-menu dropdown-menu-right dropdown-default"
-                  aria-labelledby="navbarDropdownMenuLink-333"
-                >
-                  <a class="dropdown-item" href="/profile">Mi perfil</a>
-                  <a class="dropdown-item" @click="logout">Cerrar sesión</a>
-                </div>
-              </li>
-            </ul>
+            </div>
           </div>
         </div>
-      </nav>
-    </div>
-    <div class="d-md-none border-box">
-      <nav class="navbar navbar-light bg-black fixed-top d-flex flex-row justify-content-center vw-100">
-        <span class="brand-new mb-0 h1 col-8">
-          <router-link to="/products/1" class="navbar-brand" style="margin-left: 5rem;">
-            <img
-              src="../assets/SoltyLogo7.png"
-              width="178"
-              height="40"
-              alt="Solty Logo"
-              title="Inicio"
-            />
+        <div class="col-xs-9 col-md-4">
+          <router-link to="/" class="brand-title">
+            <span class="text-uppercase">Solty</span>
           </router-link>
-        </span>
-        <a class="nav-link d-flex justify-content-end ml-4" href="/shoppingcart">
-          <i class="fas fa-shopping-cart text-white"></i>
-          <span class="ml-2 badge badge-danger">{{shoppingCartQuantity}}</span>
-        </a>
-      </nav>
-      <div class="button_container" id="toggle">
-        <span class="top"></span>
-        <span class="middle"></span>
-        <span class="bottom"></span>
+        </div>
+        <div class="col-xs-3 col-md-4 text-right" style="font-size: 12px;">
+          <div class="row justify-content-end">
+            <router-link class="col-xs-6 col-md-4 header-right-item" to="/shoppingcart">
+              <span class="mr-2">
+                <i class="fas fa-shopping-bag"></i>
+              </span>
+              <span class="header-link d-none d-md-block">Carrito</span>
+              <span class="items-count">({{shoppingCartQuantity}})</span>
+            </router-link>
+            <div class="col-xs-6 col-md-5 header-right-item">
+              <span class="mr-2">
+                <i class="fas fa-user"></i>
+              </span>
+              <span class="header-link d-none d-md-block">Mi cuenta</span>
+              <div class="dropdown-account">
+                <ul>
+                  <li @click="$router.push({ name: 'AccountPage', params: { option: 'profile' } })">
+                    <span class="mr-2">
+                      <i class="fas fa-user-edit"></i>
+                    </span>
+                    <span>
+                      Editar Perfil
+                    </span>
+                  </li>
+                  <li @click="$router.push({ name: 'AccountPage', params: { option: 'password' } })">
+                    <span class="mr-2">
+                      <i class="fas fa-key"></i>
+                    </span>
+                    <span>
+                      Contraseña
+                    </span>
+                  </li>
+                  <li @click="$router.push({ name: 'AccountPage', params: { option: 'privacy' } })">
+                    <span class="mr-2">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                    <span>
+                      Privacidad
+                    </span>
+                  </li>
+                  <li @click="logout">
+                    <span class="mr-2">
+                      <i class="fa fa-power-off"></i>
+                    </span>
+                    <span>
+                      Cerrar Sesión
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="overlay" id="overlay">
-        <nav class="overlay-menu">
-          <ul>
-            <li>
-              <a href="/products/1">Inicio</a>
+    </div>
+    <nav class="header__navbar navbar navbar-expand-lg navbar-light">
+      <div class="search-box d-md-none d-flex col-8">
+        <input type="text" placeholder="Buscar productos" class="search-input" autocomplete="on" v-model="searchQuery">
+        <div class="btn-input">
+          <button class="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      <div class="text-right d-md-none col-4">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="nav-list container text-center">
+            <li class="nav-item flex-grow-1">
+              <router-link to="/new-releases" class="nav-link">Nuevos lanzamientos</router-link>
+            </li>   
+            <li class="nav-item flex-grow-1">
+              <router-link to="/man" class="nav-link">Hombres</router-link>
             </li>
-            <li>
-              <a href="/about">Nosotros</a>
+            <li class="nav-item flex-grow-1">
+              <router-link to="/woman" class="nav-link">Mujeres</router-link>
             </li>
-            <li>
-              <a href="/profile">Mi perfil</a>
+            <li class="nav-item flex-grow-1">
+              <router-link to="/kids" class="nav-link">Niños</router-link>
             </li>
-            <li class="nav-item" @click="logout">
-              <a class="nav-link">Cerrar sesión</a>
+            <li class="nav-item flex-grow-1">
+              <router-link to="/liquidation" class="nav-link">Liquidación</router-link>
+            </li>
+            <li class="nav-item flex-grow-1">
+              <router-link to="/about" class="nav-link">Nosotros</router-link>
             </li>
           </ul>
-        </nav>
+        </div>
       </div>
-    </div>
+    </nav>
   </div>
 </template>
 
@@ -109,10 +156,16 @@ import ShoppingCartFast from "../Components/ShoppingCartFast"
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "navbar",
+  props: {
+    fixedHeader: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
-      fullNameLoggedUser: "",
-      showFastCart: false
+      showFastCart: false,
+      searchQuery: null
     };
   },
   components: {
@@ -123,317 +176,231 @@ export default {
   },
   methods: {
     ...mapActions("user", ["logout"])
-  },
-  beforeMount() {
-    this.fullNameLoggedUser = localStorage.getItem("userFullName");
-  },
-  mounted() {
-    $("#toggle").click(function() {
-      $(this).toggleClass("active");
-      $("#overlay").toggleClass("open");
-    });
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener("click", function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute("href")).scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      });
-    });
-    $(window).scroll(function() {
-      if ($("#menu").offset().top > 56) {
-        $("#menu").addClass("bg-light-black");
-      } else {
-        $("#menu").removeClass("bg-light-black");
-      }
-    });
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.vw-100 {
-  width: 100vw;
-}
-.pointer {
-  cursor: pointer;
-}
-.bg-black {
-  background-color: #000;
-  transition: all 1s ease;
-}
-.bg-light-black {
-  background-color: rgba(0, 0, 0, 0.6);
-}
-@media screen and (max-width: 767px) {
-  @import url(https://fonts.googleapis.com/css?family=Vollkorn|Roboto);
-
-  $color-background: #f5f5f5;
-  $color-main: #060303;
-  $color-active: #cea11c;
-  $color-link: #fff;
-  $color-link-underline: #cea11c;
-
-  $button-height: 27px;
-  $button-width: 35px;
-
-  body {
-    background: $color-background;
-  }
-
-  .container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    top: 40%;
-    left: 0;
-    margin: 0 auto;
-    font-family: "Roboto", sans-serif;
-
-    p {
-      font-size: 20px;
-    }
-
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+$main-color: #222;
+.header {
+  z-index: 999;
+  .navbar {
+    border-radius: 0;
+    padding: 5px 0px;
+    margin-bottom: 0;
+    min-height: 39px;
     a {
-      display: inline-block;
-      position: relative;
-      text-align: center;
-      color: $color-main;
-      text-decoration: none;
-      font-size: 20px;
-      overflow: hidden;
-      top: 5px;
-
-      &:after {
-        content: "";
-        position: absolute;
-        background: $color-main;
-        height: 2px;
-        width: 0%;
-        transform: translateX(-50%);
-        left: 50%;
-        bottom: 0;
-        transition: 0.35s ease;
-      }
-      &:hover:after,
-      &:focus:after,
-      &:active:after {
-        width: 100%;
+      color: white;
+      &:hover {
+        color: $main-color;
       }
     }
-  }
-
-  h1 {
-    position: relative;
-    text-align: center;
-    font-family: "Vollkorn", serif;
-  }
-
-  .button_container {
-    position: fixed;
-    top: 3%;
-    left: 4%;
-    height: $button-height;
-    width: $button-width;
-    cursor: pointer;
-    z-index: 1050;
-    transition: opacity 0.25s ease;
-
-    &:hover {
-      opacity: 0.7;
+    .router-link-active {
+      background-color: white;
+      color: $main-color;
     }
-
-    &.active {
-      .top {
-        transform: translateY(11px) translateX(0) rotate(45deg);
-        background: $color-active;
+    .nav-item {
+      &:hover {
+        background-color: white;
       }
-      .middle {
-        opacity: 0;
-        background: $color-active;
-      }
-
-      .bottom {
-        transform: translateY(-11px) translateX(0) rotate(-45deg);
-        background: $color-active;
-      }
-    }
-
-    span {
-      background: #cea11c;
-      border: none;
-      height: 5px;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: all 0.35s ease;
-      cursor: pointer;
-
-      &:nth-of-type(2) {
-        top: 11px;
-      }
-
-      &:nth-of-type(3) {
-        top: 22px;
-      }
-    }
-  }
-
-  .overlay {
-    position: fixed;
-    background: $color-main;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0%;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.35s, visibility 0.35s, height 0.35s;
-    overflow: hidden;
-
-    &.open {
-      opacity: 0.9;
-      visibility: visible;
-      height: 100%;
-      z-index: 50;
-      li {
-        animation: fadeInRight 0.5s ease forwards;
-        animation-delay: 0.35s;
-
-        &:nth-of-type(2) {
-          animation-delay: 0.4s;
-        }
-        &:nth-of-type(3) {
-          animation-delay: 0.45s;
-        }
-        &:nth-of-type(4) {
-          animation-delay: 0.5s;
-        }
-      }
-    }
-    nav {
-      position: relative;
-      height: 70%;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 40px;
-      font-family: "Vollkorn", serif;
-      font-weight: 400;
-      text-align: center;
     }
     ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 auto;
-      display: inline-block;
-      position: relative;
-      height: 100%;
-
-      li {
+      @media screen and (max-width: 768px){
+        flex-direction: column;
+      }
+    }
+    .navbar-toggler {
+      border-color: #ddd;
+      &:focus {
+        outline: none;
+      }
+      .icon-bar {
         display: block;
-        height: 25%;
-        height: calc(100% / 4);
-        min-height: 50px;
-        position: relative;
-        opacity: 0;
-
-        a {
-          display: block;
-          position: relative;
-          color: $color-link;
-          text-decoration: none;
-          overflow: hidden;
-
-          &:hover:after,
-          &:focus:after,
-          &:active:after {
-            width: 100%;
+        width: 22px;
+        height: 2px;
+        border-radius: 1px;
+        background-color: #888;
+        margin-top: .25rem;
+        margin-bottom: .25rem;
+      }
+    }
+  }
+  .header-right-item {
+    position: relative;
+    cursor: pointer;
+    text-transform: uppercase;
+    display: flex;
+    text-decoration: none;
+    color: $main-color;
+    padding: {
+      top: .5rem;
+      bottom: .5rem;
+    }
+    &:hover {
+      .header-link, .items-count {
+        color: #fcb800;
+      }
+      .dropdown-account {
+        display: block;
+      }
+    }
+    .dropdown-account {
+      position: absolute;
+      top: 35px;
+      left: 10px;
+      display: none;
+      background-color: #fbfbfb;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      padding: .5rem 0px;
+      z-index: 100;
+      ul {
+        list-style: none;
+        padding-inline-start: 0px;
+        li {
+          padding: .7rem 2rem .7rem 1rem;
+          text-align: left;
+          &:hover {
+            background-color: #eee;
           }
-
-          &:after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0%;
-            transform: translateX(-50%);
-            height: 3px;
-            background: $color-link-underline;
-            transition: 0.35s;
+          &:last-child {
+            color: red;
           }
         }
       }
     }
   }
-
-  @keyframes fadeInRight {
-    0% {
-      opacity: 0;
-      left: 20%;
+  .search-box {
+    position: relative;
+    .search-input {
+      height: 40px;
+      outline: none;
+      background-color: white;
+      width: 100%;
+      box-sizing: border-box;
+      padding-left: 7px;
+      transition: all .5s ease;
+      &:placeholder-shown {
+        font-size: 16px;
+      }
+      @media screen and (min-width: 1200px){
+        &:focus {
+          width: 220px;
+          & + .btn-input {
+            right: -32px;
+          }
+        }
+      }
     }
-    100% {
-      opacity: 1;
-      left: 0;
+    .btn-input {
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: all .5s ease;
+      .search-btn {
+        background-color: $main-color;
+        text-decoration: none;
+        border-width: 0px;
+        width: 40px;
+        height: 40px;
+        i {
+          color: white;
+        }
+      }
+    }
+  }
+  &__announcement{
+    text-align: center;
+    background-color: $main-color;
+    color: white;
+    padding: {
+      top: .4rem;
+      bottom: .4rem;
+    }
+  }
+  &__main{
+    background-color: white;
+    color: $main-color;
+    &-content {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      .brand-title {
+        font-family: 'Anton', sans-serif;
+        color: $main-color;
+        letter-spacing: 5px;
+        font-size: 45px;
+        text-decoration: none;
+        text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
+      }
+    }
+    .help-item {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 40px;
+        left: 0px;
+        &-item {
+          display: flex;
+          padding: 12px 16px;
+          &:hover {
+            background: #f1f1f1;
+          }
+          a {
+            text-decoration: none;
+            color: $main-color;
+          }
+        }
+      }
+      &:hover {
+        .dropdown {
+          display: block;
+          background-color: #f9f9f9;
+          min-width: 460px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+      }
+    }
+  }
+  &__navbar{
+    font-family: 'Anton', sans-serif;
+    background-color: $main-color;
+    text-transform: uppercase;
+    .navbar__list {
+      display: flex;
+      justify-content: space-between;
+      padding: {
+        top: .3rem;
+        bottom: .3rem;
+      }
     }
   }
 }
 
-.links .nav-item {
-  position: relative;
-  display: flex;
-  flex-direction: row-reverse;
-  &::before , &::after{
-    content: "";
-    position: absolute;
-    bottom: 0;
-    width: 0px;
-    height: 2px;
-    background-color: #234b96;
-    transition: all .6s ease-out;
-  }
-  &::before{
-    left: 50%;
-  }
-  &::after{
-    right: 50%;
-  }
-  &:hover {
-    &::before , &::after{
-      width: 50%;
-    }
-  }
-  .nav-link {
-    &:hover {
-      color: #fff !important;
-    }
-  }
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
-.shopping-cart {
-  position: relative;
-  .fast-cart{
-    position: absolute;
-    bottom: -415px;
-    left: -125px;
-  }
-}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 
-.brand-new {
-  font-size: 1.25rem;
-  line-height: inherit;
-}
-
-@media screen and (max-width: 360px) {
-  .brand-new {
-    margin-left: 0px !important;
-  }
-  img {
-    width: 150px;
-    height: 33px;
-  }
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 </style>
 

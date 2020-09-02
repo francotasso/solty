@@ -29,7 +29,7 @@ const actions = {
             let checkout = await paymentService.executePurchase(payment)
             commit('purchaseSuccess', checkout)
             rootState.product.shoppingCart = []
-            router.push({ name: 'Products', params: { numPage: 1 } })
+            router.push({ name: 'HomePage' })
         } catch (error) {
             commit('purchaseError', error);
         }

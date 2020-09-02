@@ -2,16 +2,26 @@ import Vue from 'vue'
 import App from './Pages/App.vue'
 import { router } from './Router'
 import store from './Store'
-import Snotify from 'vue-snotify';
+import axios from './helpers/interceptors'
 import "bootstrap/dist/css/bootstrap.min.css"
 import { BootstrapVue } from 'bootstrap-vue'
-import 'vue-snotify/styles/material.css';
-import wrapperSection from './Layouts/Default.vue';
+import Vuelidate from 'vuelidate'
+import mixins from './globals/mixins'
+import _ from 'lodash'
+import wrapperSection from './Layouts/Default.vue'
 
-Vue.component('wrapperSection', wrapperSection);
+import './scss/_main.scss'
 
-Vue.use(Snotify);
+Vue.component('wrapperSection', wrapperSection)
+
 Vue.use(BootstrapVue)
+Vue.use(Vuelidate)
+
+// mixin
+Vue.mixin(mixins)
+
+Vue.prototype.axios = axios
+Vue.prototype._ = _
 
 new Vue({
   el: '#app',

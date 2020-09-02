@@ -7,7 +7,7 @@ const state = {
     errorMessageLogin: null,
     errorMessageUpdateProfile: null,
     successMessageUpdateProfile: null,
-    profileLoggedUser: null
+    userAuth: null
 };
 
 const mutations = {
@@ -32,8 +32,8 @@ const mutations = {
     removeErrorMessageLogin() {
         state.errorMessageLogin = null
     },
-    setProfileLoggedUser(state, profile) {
-        state.profileLoggedUser = profile
+    setUserAuth(state, profile) {
+        state.userAuth = profile
     },
     updateProfileError(state, error) {
         state.errorMessageUpdateProfile = error
@@ -58,9 +58,9 @@ const actions = {
                     "userFullName",
                     `${user.firstName} ${user.lastName}`
                 );
-                commit('setProfileLoggedUser', user)
+                commit('setUserAuth', user)
                 localStorage.setItem("userId", user._id)
-                router.push({ name: 'Products', params: { numPage: 1 } });
+                router.push({ name: 'HomePage' });
             }
         } catch (e) {
             commit('loginError', 'Error al iniciar sesión con terceros, vuelva a intentarlo en unos minutos')
@@ -86,8 +86,8 @@ const actions = {
             localStorage.setItem('userFullName', `${user.firstName} ${user.lastName}`);
             localStorage.setItem('userId', user._id);
             commit('loginSuccess');
-            commit('setProfileLoggedUser', user);
-            router.push({ name: 'Products', params: { numPage: 1 } });
+            commit('setUserAuth', user);
+            router.push({ name: 'HomePage' });
         } catch (e) {
             commit('loginError', 'Email o contraseña inválido')
             router.push({ name: 'Login' })
@@ -96,11 +96,11 @@ const actions = {
     removeErrorMessageLogin({ commit }) {
         commit('removeErrorMessageLogin');
     },
-    async logout() {
+    async logout({ commit }) {
         let session = await userService.logout()
         console.log(session.text)
-        window.localStorage.clear()
-        router.push({ name: 'Login' })
+        commit('setUserAuth', null)
+        router.push({ name: 'LoginPage' })
     },
     async register({ commit }, user) {
         try {
@@ -120,17 +120,17 @@ const actions = {
     },
     async getProfile({ commit }, id) {
         let user = await userService.getProfile(id)
-        commit('setProfileLoggedUser', user)
+        commit('setUserAuth', user)
     },
     async updateProfile({ state, commit, dispatch }, userLogged) {
         try {
             let user = await userService.updateProfile(userLogged)
             if (user) {
                 commit('updateProfileSuccess', "Actualizado correctamente")
-                commit('setProfileLoggedUser', user);
-                localStorage.userFullName = state.profileLoggedUser.firstName + " " + state.profileLoggedUser.lastName
+                commit('setUserAuth', user);
+                localStorage.userFullName = state.userAuth.firstName + " " + state.userAuth.lastName
             }
-            router.push({ name: 'Products', params: { numPage: 1 } });
+            router.push({ name: 'HomePage' });
         } catch (error) {
             commit('updateProfileError', error);
         }

@@ -3,7 +3,7 @@
     <div class="container mt-4">
       <h4>{{currentProductToBuy.productName}}</h4>
       <div>
-        <p class="text-justify">{{currentProductToBuy.description}}</p>
+        <p class="text-justify text-secondary">{{currentProductToBuy.description}}</p>
       </div>
       <hr />
       <div class="mt-4">
@@ -18,11 +18,11 @@
                 v-if="currentProductToBuy.discount.status"
                 :class="discountCodeObject ? 'discount' : ''"
                 class="ml-4"
-              >S/. {{currentProductToBuy.price * (1 - (currentProductToBuy.discount.percentage/100))}}</p>
+              >S/. {{Math.round(currentProductToBuy.price * (1 - (currentProductToBuy.discount.percentage/100))*100)/100}}</p>
               <p
                 v-if="validCode && submitCode && currentProductToBuy.discount.status"
                 class="ml-4"
-              >S/. {{currentProductToBuy.price * (1 - (currentProductToBuy.discount.percentage/100))*(1-(discountCodeObject.percentage/100))}}</p>
+              >S/. {{Math.round(currentProductToBuy.price * (1 - (currentProductToBuy.discount.percentage/100))*(1-(discountCodeObject.percentage/100))*100)/100}}</p>
               <p
                 v-if="validCode && submitCode && !currentProductToBuy.discount.status"
                 class="ml-4"
@@ -69,13 +69,13 @@
         </div>
         <hr />
         <div class="row mt-4">
-          <div class="col-md-4 p-0">
+          <div class="col-md-4 p-0 mt-auto">
             <p
               v-if="currentProductToBuy.discount.status"
               style="font-size: 10px;"
             >* Incluye promoción por tiempo limitado</p>
             <button
-              class="btn btn-block btn-elegant text-white"
+              class="btn btn-primary text-white"
               type="button"
               data-toggle="modal"
               data-target="#cartModal"
@@ -86,21 +86,23 @@
             <ShoppingCartModal />
           </div>
           <div
-            class="col-md-5 pl-5 pt-3 d-flex justify-content-center align-items-center stars"
+            class="col-md-5 pl-5 pt-3 d-flex justify-content-center align-items-end stars"
             style="font-size: 2rem;"
           >
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="far fa-star"></i>
+            <div class="row">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
           </div>
           <div
-            class="col-md-3 d-flex flex-column align-content-between pt-3"
+            class="col-md-3 d-flex flex-column align-content-between justify-content-end pt-3"
             style="font-size: 12px;"
           >
-            <p class="text-right">Envío gratis</p>
-            <p class="text-right">Devolución gratis</p>
+            <span class="text-right">Envío gratis</span>
+            <span class="text-right">Devolución gratis</span>
           </div>
         </div>
       </div>
@@ -163,7 +165,7 @@ export default {
         productName: this.currentProductToBuy.productName,
         size: this.size,
         color: this.color,
-        price: this.currentProductToBuy.price * multiplier * multiplier2,
+        price: Math.round((this.currentProductToBuy.price * multiplier * multiplier2)*100)/100,
         image: this.currentProductToBuy.image,
         available: this.currentProductToBuy.available
       };
@@ -188,13 +190,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Anton&display=swap");
-.product-title {
-  font-family: "Anton", sans-serif;
-}
-.bg-darkblue {
-  background-color: #224994;
-}
 textarea {
   resize: none;
   min-height: 5rem;
@@ -213,6 +208,12 @@ textarea {
 }
 .discount-code {
   width: 100%;
+}
+.btn-primary, .btn-primary:active, .btn-primary:focus {
+  background-color: #222;
+  outline: none;
+  box-shadow: none;
+  border-color: #222;
 }
 @media (max-width: 768px) {
   .stars {
