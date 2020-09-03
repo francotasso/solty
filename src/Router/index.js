@@ -113,7 +113,6 @@ export const router = new Router({
 
 router.beforeEach((to, from, next) => {
     const loggedIn = store.state.user.userAuth;
-    console.log('loggedIn: ', loggedIn);
     const publicPages = ['/', '/login', '/register', '/oauth'];
     if (to.matched.some(record => record.meta.auth)) {
         if (!loggedIn) {

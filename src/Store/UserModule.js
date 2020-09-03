@@ -54,12 +54,7 @@ const actions = {
         try {
             let user = await userService.checkLogin()
             if (user.hasOwnProperty('googleId') || user.hasOwnProperty('facebookId')) {
-                localStorage.setItem(
-                    "userFullName",
-                    `${user.firstName} ${user.lastName}`
-                );
                 commit('setUserAuth', user)
-                localStorage.setItem("userId", user._id)
                 router.push({ name: 'HomePage' });
             }
         } catch (e) {
@@ -83,8 +78,6 @@ const actions = {
     async login({ state, commit, dispatch }, { email, password }) {
         try {
             let user = await userService.login(email, password)
-            localStorage.setItem('userFullName', `${user.firstName} ${user.lastName}`);
-            localStorage.setItem('userId', user._id);
             commit('loginSuccess');
             commit('setUserAuth', user);
             router.push({ name: 'HomePage' });
@@ -128,7 +121,6 @@ const actions = {
             if (user) {
                 commit('updateProfileSuccess', "Actualizado correctamente")
                 commit('setUserAuth', user);
-                localStorage.userFullName = state.userAuth.firstName + " " + state.userAuth.lastName
             }
             router.push({ name: 'HomePage' });
         } catch (error) {
