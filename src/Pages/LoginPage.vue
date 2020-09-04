@@ -9,8 +9,14 @@
       >{{errorMessageLogin.message}}</div>
       <form @submit.prevent="handleSubmit" method="GET" class="form-container" autocomplete="off">
         <fieldset>
-          <p class="username-container"> 
-            <input id="username" v-model="email" class="form-input" type="email" autocomplete="false"/>
+          <p class="username-container">
+            <input
+              id="username"
+              v-model="email"
+              class="form-input"
+              type="email"
+              autocomplete="false"
+            />
             <label for="username" :class="checkEmptyEmail">Ingrese su email</label>
           </p>
           <p class="password-container">
@@ -59,7 +65,7 @@
             <i class="fab fa-google" style="color: #ef5350;"></i>
           </a>
         </div>
-      </div> -->
+      </div>-->
     </div>
   </div>
 </template>
@@ -76,7 +82,7 @@ export default {
       submitted: false,
       /* linkGoogleAuth: `${API.url}/auth/google`,
       linkFacebookAuth: `${API.url}/auth/facebook`, */
-      showPassword: false
+      showPassword: false,
     };
   },
   computed: {
@@ -84,34 +90,31 @@ export default {
     isLoading() {
       return this.submitted ? "disabled" : "";
     },
-    checkEmptyEmail(){
+    checkEmptyEmail() {
       return {
-        'input-focus': this.email.trim()
-      }
+        "input-focus": this.email.trim(),
+      };
     },
-    checkEmptyPassword(){
+    checkEmptyPassword() {
       return {
-        'input-focus': this.password.trim()
-      }
-    }
+        "input-focus": this.password.trim(),
+      };
+    },
   },
   methods: {
-    ...mapActions("user", [
-      "login",
-      "removeSuccessMessageRegister"
-    ]),
+    ...mapActions("user", ["login", "removeSuccessMessageRegister"]),
     async handleSubmit() {
       this.submitted = true;
       const { email, password } = this;
       await this.login({ email, password });
       this.submitted = false;
-      const redirect = this.$route.query.redirect || '';
+      const redirect = this.$route.query.redirect || "";
       if (redirect) this.$router.push({ path: `${redirect}` });
-      else this.$router.push({ name: 'HomePage' });   
+      else this.$router.push({ name: "HomePage" });
     },
     displayNotification(body, title) {
       this.$snotify.success(body, title);
-    }
+    },
   },
   mounted() {
     if (this.successMessageRegister) {
@@ -125,6 +128,6 @@ export default {
     if (this.successMessageRegister) {
       this.removeSuccessMessageRegister();
     }
-  }
+  },
 };
 </script>

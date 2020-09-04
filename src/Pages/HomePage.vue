@@ -11,17 +11,24 @@
             <div class="col-md-9">
               <div>
                 <div>
-                  <search-item/>
+                  <search-item />
                 </div>
                 <div class="row mt-5">
                   <template v-if="productsFiltered.length">
-                    <div v-for="product in productsFiltered" :key="product.id" class="col-sm-6 col-md-6 col-lg-4">
-                      <ProductItem :product="product"/>
+                    <div
+                      v-for="product in productsFiltered"
+                      :key="product.id"
+                      class="col-sm-6 col-md-6 col-lg-4"
+                    >
+                      <ProductItem :product="product" />
                     </div>
                   </template>
                   <template v-else>
                     <div class="col text-center mb-5">
-                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSPx2LjGdljLAEzJArAZyPmnygF9KKQaLHluhvapirmIZzt791r&usqp=CAU" alt="">
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSPx2LjGdljLAEzJArAZyPmnygF9KKQaLHluhvapirmIZzt791r&usqp=CAU"
+                        alt
+                      />
                     </div>
                   </template>
                   <nav class="container-pagination">
@@ -64,12 +71,12 @@ export default {
     carousel,
     SearchItem,
     ProductItem,
-    ProductsCategories
+    ProductsCategories,
   },
   data() {
     return {
       showLoading: true,
-      numPage: 1
+      numPage: 1,
     };
   },
   computed: {
@@ -79,21 +86,21 @@ export default {
   methods: {
     ...mapActions("product", ["getProducts", "setProductsFilter"]),
     async goTo(page) {
-      await this.getProducts({numPage: page, perPage: 9});
+      await this.getProducts({ numPage: page, perPage: 9 });
       this.numPage = page;
-      $(document).ready(function() {
+      $(document).ready(function () {
         $("html, body").animate({ scrollTop: 507 }, "slow");
         return false;
       });
-    }
+    },
   },
   created() {
     window.scroll(0, 0);
-    this.getProducts({ numPage: this.numPage, perPage: 9});
+    this.getProducts({ numPage: this.numPage, perPage: 9 });
   },
   beforeMount() {
     this.showLoading = true;
-  }
+  },
 };
 </script>
 
@@ -101,7 +108,7 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700");
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i");
 @import url("https://fonts.googleapis.com/css?family=Cabin&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap");
 * {
   box-sizing: border-box;
 }
@@ -114,7 +121,7 @@ export default {
   align-items: center;
   width: 100%;
   margin-top: 150px;
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
 }
 @media screen and (max-width: 576px) {
   .body {
@@ -125,7 +132,8 @@ export default {
   font-family: "Bree Serif", serif;
   font-size: 18px;
 }
-.no-click, .disabled {
+.no-click,
+.disabled {
   pointer-events: none;
 }
 .container-box {
