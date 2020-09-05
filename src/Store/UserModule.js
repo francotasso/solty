@@ -1,5 +1,6 @@
 import { userService } from '../Services'
 import { router } from "../Router"
+const jwt = require("jsonwebtoken");
 
 const state = {
     errorMessageRegister: null,
@@ -7,10 +8,14 @@ const state = {
     errorMessageLogin: null,
     errorMessageUpdateProfile: null,
     successMessageUpdateProfile: null,
+    token: null,
     userAuth: null
 };
 
 const mutations = {
+    setToken(state, token) {
+        state.token = token
+    },
     registerError(state, error) {
         state.errorMessageRegister = error
     },
@@ -55,7 +60,7 @@ const actions = {
             let user = await userService.checkLogin()
             if (user.hasOwnProperty('googleId') || user.hasOwnProperty('facebookId')) {
                 commit('setUserAuth', user)
-                router.push({ name: 'HomePage' });
+                router.push({ name: 'HomePage' })
             }
         } catch (e) {
             commit('loginError', 'Error al iniciar sesión con terceros, vuelva a intentarlo en unos minutos')
@@ -77,17 +82,19 @@ const actions = {
     },
     async login({ state, commit, dispatch }, { email, password }) {
         try {
-            let user = await userService.login(email, password)
-            commit('loginSuccess');
-            commit('setUserAuth', user);
-            router.push({ name: 'HomePage' });
+            let { data } = await userService.login(email, password)
+            commit('setToken', data.token)
+            const user = jwt.decode(data.token)
+            commit('setUserAuth', user)
+            commit('loginSuccess')
+            router.push({ name: 'HomePage' })
         } catch (e) {
             commit('loginError', 'Email o contraseña inválido')
             router.push({ name: 'Login' })
         }
     },
     removeErrorMessageLogin({ commit }) {
-        commit('removeErrorMessageLogin');
+        commit('removeErrorMessageLogin')
     },
     async logout({ commit }) {
         let session = await userService.logout()
@@ -106,10 +113,10 @@ const actions = {
         }
     },
     removeErrorMessageRegister({ commit }) {
-        commit('removeErrorMessageRegister');
+        commit('removeErrorMessageRegister')
     },
     removeSuccessMessageRegister({ commit }) {
-        commit('removeSuccessMessageRegister');
+        commit('removeSuccessMessageRegister')
     },
     async getProfile({ commit }, id) {
         let user = await userService.getProfile(id)
@@ -120,18 +127,18 @@ const actions = {
             let user = await userService.updateProfile(userLogged)
             if (user) {
                 commit('updateProfileSuccess', "Actualizado correctamente")
-                commit('setUserAuth', user);
+                commit('setUserAuth', user)
             }
-            router.push({ name: 'HomePage' });
+            router.push({ name: 'HomePage' })
         } catch (error) {
-            commit('updateProfileError', error);
+            commit('updateProfileError', error)
         }
     },
     removeErrorMessageUpdateProfile({ commit }) {
-        commit('removeErrorMessageUpdateProfile');
+        commit('removeErrorMessageUpdateProfile')
     },
     removeSuccessMessageUpdateProfile({ commit }) {
-        commit('removeSuccessMessageUpdateProfile');
+        commit('removeSuccessMessageUpdateProfile')
     }
 };
 
