@@ -7,7 +7,7 @@
       </div>
       <div class="col-md-6">
         <div class="row">
-          <div class="col-md-8">
+          <!-- <div class="col-md-8">
             <input
               class="form-control form-control-sm ml-1 w-75"
               type="text"
@@ -19,7 +19,7 @@
           </div>
           <div class="col-md-4">
 
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

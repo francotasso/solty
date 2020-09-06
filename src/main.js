@@ -9,10 +9,12 @@ import Vuelidate from 'vuelidate'
 import mixins from './globals/mixins'
 import _ from 'lodash'
 import wrapperSection from './Layouts/Default.vue'
+import { ContentLoader } from 'vue-content-loader'
 
 import './scss/_main.scss'
 
 Vue.component('wrapperSection', wrapperSection)
+Vue.component('ContentLoader', ContentLoader)
 
 Vue.use(BootstrapVue)
 Vue.use(Vuelidate)

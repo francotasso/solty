@@ -32,7 +32,7 @@
             </p>
             <p class="my-3">
               <router-link to="/workingwithus">
-                Vender en Solty
+                Vender en GamaApp
               </router-link>
             </p>
           </div>
@@ -63,7 +63,7 @@
       </div>
       <div class="container"><hr class="my-3"></div>
       <div class="container">
-        <p class="text-center text-uppercase font-weight-bold">2020 Solty. All rights reserved</p>
+        <p class="text-center text-uppercase font-weight-bold">2020 GamaApp. All rights reserved</p>
       </div>
     </div>
   </div>

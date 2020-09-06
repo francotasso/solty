@@ -55,7 +55,8 @@ const state = {
             iconSelected:
                 "https://img.icons8.com/cotton/64/000000/sneakers--v2.png"
         }
-    ]
+    ],
+    productsByCategory: null
 }
 
 const getters = {
@@ -142,6 +143,9 @@ const mutations = {
             }
         }
     },
+    setProductsByCategory(state, products) {
+        state.productsByCategory = products
+    },
     removeProductFromShoppingCart(state, product) {
         let i = state.shoppingCart.indexOf(product)
         if (i !== -1) state.shoppingCart.splice(i, 1)
@@ -172,6 +176,14 @@ const actions = {
             commit('setCurrentProductToBuy', product)
             const formattedName = cProduct.productName.toLowerCase().replace(/ /g, "-")
             router.push({ name: 'ProductDescription', params: { category: cProduct.category, productName: formattedName } })
+        } catch (e) {
+            router.push({ name: 'LoginPage' })
+        }
+    },
+    async getProductsByCategory({ commit }, category) {
+        try {
+            let products = await productService.getProductsByCategory(category)
+            commit('setProductsByCategory', products)
         } catch (e) {
             router.push({ name: 'LoginPage' })
         }

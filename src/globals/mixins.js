@@ -21,6 +21,9 @@ export default {
     formatYMD(date) {
       const newDate = new Date(date);
       return newDate.getFullYear()+'-' + (newDate.getMonth()+1) + '-'+ newDate.getDate();
+    },
+    $getAsset(url) {
+      return `https://solty.s3-sa-east-1.amazonaws.com/${url}`;
     }
   }
 }

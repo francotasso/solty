@@ -8,6 +8,9 @@ import RegisterPage from '../Pages/RegisterPage.vue'
 import AccountPage from '../Pages/AccountPage.vue'
 import AboutUsPage from '../Pages/AboutUsPage.vue'
 import HomePage from '../Pages/HomePage.vue'
+import CategoryMan from '../Pages/CategoryMan.vue'
+import CategoryWoman from '../Pages/CategoryWoman.vue'
+import CategoryKids from '../Pages/CategoryKids.vue'
 import ProductPage from '../Pages/ProductPage.vue'
 import ProductDescription from '../Components/ProductDescription.vue'
 import ProductDetails from '../Components/ProductDetails.vue'
@@ -46,6 +49,30 @@ export const router = new Router({
             name: 'HomePage',
             component: HomePage,
             props: true,
+            meta: {
+              auth: true
+            }
+        },
+        {
+            path: '/man',
+            name: 'CategoryMan',
+            component: CategoryMan,
+            meta: {
+              auth: true
+            }
+        },
+        {
+            path: '/woman',
+            name: 'CategoryWoman',
+            component: CategoryWoman,
+            meta: {
+              auth: true
+            }
+        },
+        {
+            path: '/kids',
+            name: 'CategoryKids',
+            component: CategoryKids,
             meta: {
               auth: true
             }

@@ -49,7 +49,7 @@
         </div>
         <div class="col-xs-9 col-md-4">
           <router-link to="/" class="brand-title">
-            <span class="text-uppercase">Solty</span>
+            <span class="text-uppercase">GamaApp</span>
           </router-link>
         </div>
         <div class="col-xs-3 col-md-4 text-right" style="font-size: 12px;">
