@@ -61,10 +61,10 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
-import carousel from "../Components/Carousel";
-import ProductItem from "../Components/ProductItem";
-import ProductsCategories from "../Components/ProductsCategories";
-import SearchItem from "../Components/SearchItem";
+import carousel from "../components/home/Carousel";
+import ProductItem from "../components/commons/product/ProductItem";
+import ProductsCategories from "../components/home/ProductsCategories";
+import SearchItem from "../components/home/SearchItem";
 export default {
   name: "Products",
   components: {

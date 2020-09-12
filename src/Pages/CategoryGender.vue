@@ -5,7 +5,7 @@
         <div class="container my-5">
           <div class="row">
             <div class="col-md-12">
-            <h2 class="category-title">HOMBRES</h2>
+            <h2 class="category-title">{{ categoryTitle }}</h2>
               <div>
                 <div class="row mt-5">
                   <template v-if="!loading && productsByCategory.length">
@@ -38,9 +38,15 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
-import ProductItem from "../Components/ProductItem";
+import ProductItem from "../components/commons/product/ProductItem";
 export default {
-  name: "CategoryMan",
+  name: "CategoryGender",
+  props: {
+    gender: {
+      type: String,
+      required: true
+    }
+  },
   components: {
     ProductItem
   },
@@ -50,15 +56,35 @@ export default {
     };
   },
   computed: {
-    ...mapState("product", ["productsByCategory"])
+    ...mapState("product", ["productsByCategory"]),
+    formattedGender() {
+        if (this.gender === 'woman') return 'Female';
+        else if (this.gender === 'man') return 'Male';
+        else return 'Kids';
+    },
+    categoryTitle() {
+        if (this.gender === 'woman') return 'Mujeres';
+        else if (this.gender === 'man') return 'Hombres';
+        else return 'Niños';
+    }
   },
   methods: {
-    ...mapActions("product", ["getProductsByCategory"])
+    ...mapActions("product", ["getProductsByGender"])
   },
   async mounted() {
     window.scroll(0, 0);
-    await this.getProductsByCategory('Male');
-    this.loading = false;
+    /* await this.getProductsByGender(this.formattedGender);
+    this.loading = false; */
+  },
+  watch: {
+      gender: {
+          immediate: true,
+          async handler(val) {
+            this.loading = true;
+            await this.getProductsByGender(this.formattedGender);
+            this.loading = false;
+          }
+      }
   }
 };
 </script>

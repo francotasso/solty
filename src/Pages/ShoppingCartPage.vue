@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import ShoppingCartItem from "../Components/ShoppingCartItem";
+import ShoppingCartItem from "../components/product/modal/ShoppingCartItem";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "ShoppingCartPage",

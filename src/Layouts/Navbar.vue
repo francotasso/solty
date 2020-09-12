@@ -130,13 +130,13 @@
               <router-link to="/new-releases" class="nav-link">Nuevos lanzamientos</router-link>
             </li>   
             <li class="nav-item flex-grow-1">
-              <router-link to="/man" class="nav-link">Hombres</router-link>
+              <router-link :to="{ name: 'CategoryGender', params: { gender: 'man' } }" class="nav-link">Hombres</router-link>
             </li>
             <li class="nav-item flex-grow-1">
-              <router-link to="/woman" class="nav-link">Mujeres</router-link>
+              <router-link :to="{ name: 'CategoryGender', params: { gender: 'woman' } }" class="nav-link">Mujeres</router-link>
             </li>
             <li class="nav-item flex-grow-1">
-              <router-link to="/kids" class="nav-link">Niños</router-link>
+              <router-link :to="{ name: 'CategoryGender', params: { gender: 'kids' } }" class="nav-link">Niños</router-link>
             </li>
             <li class="nav-item flex-grow-1">
               <router-link to="/liquidation" class="nav-link">Liquidación</router-link>
@@ -152,7 +152,7 @@
 </template>
 
 <script>
-import ShoppingCartFast from "../Components/ShoppingCartFast"
+import ShoppingCartFast from "../components/home/ShoppingCartFast"
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "navbar",

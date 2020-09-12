@@ -1,5 +1,5 @@
-import { userService } from '../Services'
-import { router } from "../Router"
+import { userService } from '../services'
+import { router } from "../router"
 const jwt = require("jsonwebtoken");
 
 const state = {

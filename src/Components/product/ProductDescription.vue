@@ -112,7 +112,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import ShoppingCartModal from "./ShoppingCartModal";
+import ShoppingCartModal from "./modal/ShoppingCartModal";
 export default {
   name: "productDescription",
   computed: {

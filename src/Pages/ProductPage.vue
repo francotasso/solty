@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import ProductRelated from "../Components/ProductRelated";
-import ZoomOnHover from "../Components/external/ZoomOnHover.vue";
+import ProductRelated from "../components/product/ProductRelated";
+import ZoomOnHover from "../components/external/ZoomOnHover.vue";
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   name: "ProductPage",

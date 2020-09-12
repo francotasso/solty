@@ -1,5 +1,5 @@
-import { paymentService } from '../Services'
-import { router } from "../Router"
+import { paymentService } from '../services'
+import { router } from "../router"
 
 const state = {
     payments: [],

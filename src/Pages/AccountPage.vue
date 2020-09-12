@@ -48,8 +48,8 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import ProfileSection from '../Components/account/ProfileSection';
-import PasswordSection from '../Components/account/PasswordSection';
+import ProfileSection from '../components/account/ProfileSection';
+import PasswordSection from '../components/account/PasswordSection';
 export default {
   name: "AccountPage",
   components: {

@@ -41,7 +41,7 @@
         <h4 class="text-center">Carrito vacío</h4>
       </div>
       <div class="fast-cart__container">
-        <img src="../assets/empty-cart.png" alt="No products" width="250">
+        <img src="../../assets/empty-cart.png" alt="No products" width="250">
       </div>
     </div>
   </div>

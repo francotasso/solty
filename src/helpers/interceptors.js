@@ -1,5 +1,5 @@
 import axios from 'axios'
-import store from '../Store'
+import store from '../store'
 import { BASE_URL as baseURL } from './constants'
 axios.defaults.baseURL = baseURL
 

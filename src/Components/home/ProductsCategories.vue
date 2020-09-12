@@ -19,7 +19,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { categories } from '../utils/categories';
+import { categories } from '../../utils/categories';
 export default {
   name: "ProductsCategories",
   data() {

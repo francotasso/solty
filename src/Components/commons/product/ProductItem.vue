@@ -35,8 +35,8 @@
 
 <script>
 import { mapActions } from "vuex";
-import FastBuyModal from './product/FastBuyModal';
-import FastViewModal from './product/FastViewModal';
+import FastBuyModal from './FastBuyModal';
+import FastViewModal from './FastViewModal';
 export default {
   name: "ProductItem",
   props: ["product"],

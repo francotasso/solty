@@ -1,5 +1,5 @@
-import { productService } from '../Services'
-import { router } from "../Router"
+import { productService } from '../services'
+import { router } from "../router"
 
 const state = {
     products: [],
@@ -180,9 +180,9 @@ const actions = {
             router.push({ name: 'LoginPage' })
         }
     },
-    async getProductsByCategory({ commit }, category) {
+    async getProductsByGender({ commit }, gender) {
         try {
-            let products = await productService.getProductsByCategory(category)
+            const products = await productService.getProductsByGender(gender)
             commit('setProductsByCategory', products)
         } catch (e) {
             router.push({ name: 'LoginPage' })

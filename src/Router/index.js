@@ -1,39 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from '../Store'
+import store from '../store'
 
-import Oauth from '../Pages/Oauth.vue'
-import LoginPage from '../Pages/LoginPage.vue'
-import RegisterPage from '../Pages/RegisterPage.vue'
-import AccountPage from '../Pages/AccountPage.vue'
-import AboutUsPage from '../Pages/AboutUsPage.vue'
-import HomePage from '../Pages/HomePage.vue'
-import CategoryMan from '../Pages/CategoryMan.vue'
-import CategoryWoman from '../Pages/CategoryWoman.vue'
-import CategoryKids from '../Pages/CategoryKids.vue'
-import ProductPage from '../Pages/ProductPage.vue'
-import ProductDescription from '../Components/ProductDescription.vue'
-import ProductDetails from '../Components/ProductDetails.vue'
-import ProductTips from '../Components/ProductTips.vue'
-import PaymentPage from '../Pages/PaymentPage.vue'
-import ShoppingCartPage from '../Pages/ShoppingCartPage.vue'
+import LoginPage from '../pages/LoginPage.vue'
+import RegisterPage from '../pages/RegisterPage.vue'
+import AccountPage from '../pages/AccountPage.vue'
+import AboutUsPage from '../pages/AboutUsPage.vue'
+import HomePage from '../pages/HomePage.vue'
+import CategoryGender from '../pages/CategoryGender.vue'
+import ProductPage from '../pages/ProductPage.vue'
+import ProductDescription from '../components/product/ProductDescription.vue'
+import ProductDetails from '../components/product/ProductDetails.vue'
+import ProductTips from '../components/product/ProductTips.vue'
+import PaymentPage from '../pages/PaymentPage.vue'
+import ShoppingCartPage from '../pages/ShoppingCartPage.vue'
 
 Vue.use(Router)
 
 export const router = new Router({
     mode: 'history',
     routes: [
-        /* {
-            path: '/login',
-            name: 'App',
-            component: App,
-            redirect: { name: 'Login' }
-        }, */
-        {
-            path: '/oauth',
-            name: 'Oauth',
-            component: Oauth
-        },
         {
             path: '/login',
             name: 'LoginPage',
@@ -54,25 +40,10 @@ export const router = new Router({
             }
         },
         {
-            path: '/man',
-            name: 'CategoryMan',
-            component: CategoryMan,
-            meta: {
-              auth: true
-            }
-        },
-        {
-            path: '/woman',
-            name: 'CategoryWoman',
-            component: CategoryWoman,
-            meta: {
-              auth: true
-            }
-        },
-        {
-            path: '/kids',
-            name: 'CategoryKids',
-            component: CategoryKids,
+            path: '/category/:gender',
+            name: 'CategoryGender',
+            component: CategoryGender,
+            props: true,
             meta: {
               auth: true
             }

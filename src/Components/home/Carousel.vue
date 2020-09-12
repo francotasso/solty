@@ -12,13 +12,13 @@
         class="carousel"
       >
         <b-carousel-slide
-          :img-src="require('../assets/slider/slider1.jpg')"
+          :img-src="require('../../assets/slider/slider1.jpg')"
         ></b-carousel-slide>
         <b-carousel-slide
-          :img-src="require('../assets/slider/slider2.jpg')"
+          :img-src="require('../../assets/slider/slider2.jpg')"
         ></b-carousel-slide>
         <b-carousel-slide
-          :img-src="require('../assets/slider/slider3.jpg')"
+          :img-src="require('../../assets/slider/slider3.jpg')"
         ></b-carousel-slide>
       </b-carousel>
     </div>

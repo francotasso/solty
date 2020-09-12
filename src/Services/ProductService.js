@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const productService = {
     getProducts,
-    getProductsByCategory,
+    getProductsByGender,
     getProduct
 }
 
@@ -18,9 +18,9 @@ function getProducts(payload) {
     })
 };
 
-function getProductsByCategory(category) {
+function getProductsByGender(gender) {
     return new Promise((resolve, reject) => {
-        axios.get(`products/category/${category}`)
+        axios.get(`products/gender/${gender}`)
         .then(res => {
             resolve(res.data)
         })
