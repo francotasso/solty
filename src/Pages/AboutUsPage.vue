@@ -11,10 +11,10 @@
             />
           </div>
           <div class="content-right col-md-6 my-auto container">
-            <h1 class="title text-dark">GamaApp tu tienda Online</h1>
+            <h1 class="title text-dark">Solty tu tienda Online</h1>
             <p
               class="mt-3"
-            >GamaApp es una empresa de venta de ropa online con presencia en todo el Perú y gran parte de Latinoamérica.</p>
+            >Solty es una empresa de venta de ropa online con presencia en todo el Perú y gran parte de Latinoamérica.</p>
             <p
               class="mt-3"
             >Desde nuestros inicios hemos optado siempre por la calidad de la ropa que vendemos a nuestros clientes haciéndolos sentir seguros con su produtos y generando una buena imagen tanto para ellos, como para nosotros mismos.</p>
